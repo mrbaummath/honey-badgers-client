@@ -25,4 +25,4 @@ The two main objects the app tracks are users and tasks. Users create tasks with
 #### Tasks
 Tasks will be defined using the schema outlined in the ERD. In addition, we will implement virtuals which process completeness levels and activity types. These methods wiil assist the front-end client in displaying a UI which allows users to quickly see their progress. 
 
-![ERD](https://drawsql.app/teams/honey-badgers/diagrams/erd/embed)
+![ERD](https://drawsql.app/teams/honey-badgers/diagrams/erd)
