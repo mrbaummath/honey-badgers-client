@@ -4,6 +4,7 @@ import axios from 'axios'
 
 
 //create note
+//data returned: res.data.activity is the activity to which the note has been appended
 export const createNote = (user, activityId, newNote) => {
     return axios({
         method: 'POST',
@@ -18,6 +19,7 @@ export const createNote = (user, activityId, newNote) => {
 }
 
 //update a note
+//nothing returned
 export const updateActivity = (user, updatesToNote, activityId, noteId) => {
 	return axios({
 		method: 'PATCH',
@@ -32,6 +34,7 @@ export const updateActivity = (user, updatesToNote, activityId, noteId) => {
 }
 
 //delete an activity
+//nothing returned 
 export const deleteActivity = (user, activityId, noteId) => {
 	return axios({
 		method: 'DELETE',
