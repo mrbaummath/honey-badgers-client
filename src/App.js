@@ -11,6 +11,8 @@ import Home from './components/Home'
 import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
+import SignPage from './components/shared/SignPage'
+import UserPage from './components/user/UserPage'
 import ChangePassword from './components/auth/ChangePassword'
 
 const App = () => {
@@ -49,25 +51,31 @@ const App = () => {
 						path='/sign-up'
 						element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
 					/>
+					<Route path='/user-page' element={<UserPage msgAlert={msgAlert} user={user} />} />
 					<Route
 						path='/sign-in'
 						element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
 					/>
-          <Route
-            path='/sign-out'
-            element={
-              <RequireAuth user={user}>
-                <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='/change-password'
-            element={
-              <RequireAuth user={user}>
-                <ChangePassword msgAlert={msgAlert} user={user} />
-              </RequireAuth>}
-          />
+					<Route
+						path='/sign-out'
+						element={
+						//<RequireAuth user={user}>
+							<SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
+						//</RequireAuth> 
+						}
+					/>
+					<Route
+						path='/sign-page'
+						element={<SignPage msgAlert={msgAlert} setUser={setUser} />}
+					/>
+					<Route
+						path='/change-password'
+						element={
+						//<RequireAuth user={user}>
+							<ChangePassword msgAlert={msgAlert} user={user} />
+						//</RequireAuth>
+					}
+					/>
 				</Routes>
 				{msgAlerts.map((msgAlert) => (
 					<AutoDismissAlert

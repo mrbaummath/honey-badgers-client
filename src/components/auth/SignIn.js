@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import { signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
+import {  Segment, Form, Container, Input } from 'semantic-ui-react'
 
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+
 
 const SignIn = (props) => {
 	// constructor(props) {
@@ -35,14 +34,14 @@ const SignIn = (props) => {
 
 		signIn(credentials)
 			.then((res) => setUser(res.data.user))
-			.then(() =>
-				msgAlert({
-					heading: 'Sign In Success',
-					message: messages.signInSuccess,
-					variant: 'success',
-				})
-			)
-			.then(() => navigate('/'))
+			// .then(() =>
+			// 	msgAlert({
+			// 		heading: 'Sign In Success',
+			// 		message: messages.signInSuccess,
+			// 		variant: 'success',
+			// 	})
+			// )
+			.then(() => navigate('/user-page'))
 			.catch((error) => {
                 setEmail('')
                 setPassword('')
@@ -55,13 +54,23 @@ const SignIn = (props) => {
 	}
 
     return (
-        <div className='row'>
-            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3>Sign In</h3>
-                <Form onSubmit={onSignIn}>
-                    <Form.Group controlId='email'>
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
+        <div >
+        <Container 
+            id="container"
+        >
+            <Segment  
+                padded='very'  
+                inverted color='yellow' 
+                verticalAlign='middle' 
+                id="segment"
+            >
+                <h3 id="signOutText">Sign In</h3>
+                <Form  onSubmit={onSignIn}>
+                    <Form.Field>
+                        <Form.Input 
+                            fluid
+                            icon='users' 
+                            iconPosition='left' 
                             required
                             type='email'
                             name='email'
@@ -69,10 +78,13 @@ const SignIn = (props) => {
                             placeholder='Enter email'
                             onChange={e => setEmail(e.target.value)}
                         />
-                    </Form.Group>
-                    <Form.Group controlId='password'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
+                    </Form.Field>
+                    <br />
+                    <Form.Field>
+                        <Form.Input 
+                            fluid
+                            icon='lock'
+                            iconPosition='left'
                             required
                             name='password'
                             value={password}
@@ -80,13 +92,21 @@ const SignIn = (props) => {
                             placeholder='Password'
                             onChange={e => setPassword(e.target.value)}
                         />
-                    </Form.Group>
-                    <Button variant='primary' type='submit'>
+                    </Form.Field>
+                    <br />
+                    <Form.Button 
+                        secondary 
+                        inverted 
+                        color='yellow' 
+                        class="signButton" 
+                        type='submit'
+                    >
                         Submit
-                    </Button>
+                    </Form.Button>
                 </Form>
-            </div>
-        </div>
+            </Segment>
+        </Container>
+    </div>
     )
 }
 

@@ -1,8 +1,12 @@
 import ActivityPage from "./ActivityPage/ActivityPage"
+
+
 import HomeFeed from "./HomeFeed/HomeFeed"
 import LoginPage from "./LoginPage/LoginPage"
 
-const Home = (props) => {
+
+const Home = ( user, props) => {
+
 	// const { msgAlert, user } = props
 	console.log('props in home', props)
 

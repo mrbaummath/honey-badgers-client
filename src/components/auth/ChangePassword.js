@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import { changePassword } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
-
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+// import Form from 'react-bootstrap/Form'
+// import Button from 'react-bootstrap/Button'
+import {  Button, Segment, Form, Container, Input } from 'semantic-ui-react'
 
 const ChangePassword = (props) => {
 	// constructor(props) {
@@ -18,6 +17,7 @@ const ChangePassword = (props) => {
 	// }
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
+    const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
     const navigate = useNavigate()
 
@@ -25,8 +25,6 @@ const ChangePassword = (props) => {
 		event.preventDefault()
 
 		const { msgAlert, user } = props
-        console.log('the user', user)
-        
 
         const passwords = {oldPassword, newPassword}
 
@@ -42,6 +40,7 @@ const ChangePassword = (props) => {
 			.catch((error) => {
 				setOldPassword('')
                 setNewPassword('')
+                setPasswordConfirmation('')
 				msgAlert({
 					heading: 'Change Password Failed with error: ' + error.message,
 					message: messages.changePasswordFailure,
@@ -53,24 +52,69 @@ const ChangePassword = (props) => {
 
 
     return (
-        <div className='row'>
-            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3>Change Password</h3>
-                <Form onSubmit={onChangePassword}>
-                    <Form.Group controlId='oldPassword'>
-                        <Form.Label>Old password</Form.Label>
-                        <Form.Control
+        // <div className='row'>
+        //     <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+        //         <h3>Change Password</h3>
+        //         <Form onSubmit={onChangePassword}>
+        //             <Form.Group controlId='oldPassword'>
+        //                 <Form.Label>Old password</Form.Label>
+        //                 <Form.Control
+        //                     required
+        //                     name='oldPassword'
+        //                     value={oldPassword}
+        //                     type='password'
+        //                     placeholder='Old Password'
+        //                     onChange={e => setOldPassword(e.target.value)}
+        //                 />
+        //             </Form.Group>
+        //             <Form.Group controlId='newPassword'>
+        //                 <Form.Label>New Password</Form.Label>
+        //                 <Form.Control
+        //                     required
+        //                     name='newPassword'
+        //                     value={newPassword}
+        //                     type='password'
+        //                     placeholder='New Password'
+        //                     onChange={e => setNewPassword(e.target.value)}
+        //                 />
+        //             </Form.Group>
+        //             <Button variant='primary' type='submit'>
+        //                 Submit
+        //             </Button>
+        //         </Form>
+        //     </div>
+        // </div>
+        <div >
+        <Container 
+            id="container"
+        >
+            <Segment  
+                padded='very'  
+                inverted color='yellow' 
+                verticalAlign='middle' 
+                id="segment"
+            >
+                <h3 id="signOutText">Change Password</h3>
+                <Form  onSubmit={onChangePassword}>
+                    <Form.Field>
+                        <Form.Input 
+                            fluid
+                            icon='lock' 
+                            iconPosition='left' 
                             required
+                            type='password'
                             name='oldPassword'
                             value={oldPassword}
-                            type='password'
-                            placeholder='Old Password'
+                            placeholder='Current Password'
                             onChange={e => setOldPassword(e.target.value)}
                         />
-                    </Form.Group>
-                    <Form.Group controlId='newPassword'>
-                        <Form.Label>New Password</Form.Label>
-                        <Form.Control
+                    </Form.Field>
+                    <br />
+                    <Form.Field>
+                        <Form.Input 
+                            fluid
+                            icon='lock'
+                            iconPosition='left'
                             required
                             name='newPassword'
                             value={newPassword}
@@ -78,13 +122,35 @@ const ChangePassword = (props) => {
                             placeholder='New Password'
                             onChange={e => setNewPassword(e.target.value)}
                         />
-                    </Form.Group>
-                    <Button variant='primary' type='submit'>
+                    </Form.Field>
+                    <br />
+                    <Form.Field>
+                        <Form.Input 
+                            fluid
+                            icon='check'
+                            iconPosition='left'
+                            required
+                            name='passwordConfirmation'
+                            value={passwordConfirmation}
+                            type='password'
+                            placeholder='Confirm New Password'
+                            onChange={e => setPasswordConfirmation(e.target.value)}
+                        />
+                    </Form.Field>
+                    <br />
+                    <Form.Button 
+                        secondary 
+                        inverted 
+                        color='yellow'
+                        class="signButton" 
+                        type='submit'
+                    >
                         Submit
-                    </Button>
+                    </Form.Button>
                 </Form>
-            </div>
-        </div>
+            </Segment>
+        </Container>
+    </div>
     )
 }
 
