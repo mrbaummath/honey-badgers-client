@@ -2,10 +2,18 @@ import { useNavigate } from 'react-router-dom'
 import {  Button, Segment, Grid, Feed, Icon, Image, Progress } from 'semantic-ui-react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
+import React, { useState } from 'react'
 
 
 const UserPage = () => {
 
+    const [percent, setPercent] = useState(0)
+
+    const increment = () => {
+        setPercent((prevPercent) => {
+           return prevPercent += 20
+        })
+   }
     //const [allBadges, setAllBadges] = useState([])
     // const badgeImages = allBadges.map(badge => (
     //     <Image src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' size='small' circular 
@@ -17,11 +25,11 @@ const UserPage = () => {
     //     return <LoadingScreen />
     // }
 
-    let percent = 90 
+    // let percent = 90 
 
-    const increment = (percent) => {
-         percent =+ 20
-    }
+    // const increment = (percent) => {
+    //      percent =+ 20
+    // }
 
     // state = { percent: 33 }
 
