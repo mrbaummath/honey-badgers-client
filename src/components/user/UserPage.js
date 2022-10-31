@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import {  Button, Segment, Grid, Feed, Icon, Image, Progress } from 'semantic-ui-react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
-import MyActivity from './MyActivity'
+import ActivitySegment from './ActivitySegment'
 import { getMyActivities } from '../../api/activity'
 
 
@@ -40,7 +40,7 @@ const UserPage = ({ user, msgAlert }) => {
 
     //set JSX for activities w/ MyActivity component 
     const activitiesJSX = allMyActivities.map((activity) => (
-        <MyActivity key={activity.id} activity={activity} user={user} msgAlert={msgAlert} />
+        <ActivitySegment key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={true} />
     ))
    
     

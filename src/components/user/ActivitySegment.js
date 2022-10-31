@@ -5,10 +5,9 @@ import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import { updateActivity } from '../../api/activity'
 
-const MyActivity = (props) => {
+const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
     const imgSrc = 'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg'
 
-    const { activity, msgAlert, user } = props
     //declare pieces of state --> grab current progress from activity object and set it as initial state. Set state variables to track when progress is being saved and whether to show the save button
     const [percent, setPercent] = useState(activity.progress)
     const [percentChangeSaving, setPercentChangeSaving] = useState(false)
@@ -90,6 +89,8 @@ const MyActivity = (props) => {
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <Progress percent={percent} indicating />
+                    { mine ? 
+                    <>
                     <Button onClick={decreaseProgress}  negative circular icon='minus'/>
                     <Button onClick={increaseProgress} positive circular icon='plus'/>
                     {
@@ -102,10 +103,10 @@ const MyActivity = (props) => {
                         :
                         null
                     }
-                    
-                 
-                    
-                    
+                    </>
+                    :
+                    null
+                    } 
                 </Grid.Column>
             </Grid>
             </Container>
@@ -113,4 +114,4 @@ const MyActivity = (props) => {
     )
 }
 
-export default MyActivity
+export default ActivitySegment
