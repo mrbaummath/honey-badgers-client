@@ -17,29 +17,34 @@ const MyActivity = (props) => {
 
     //function to increment progress when user clicks --> this only changes the progress bar. Nothing is changed on the backend until "save" is hit
 
-    const handleProgressChange = (e) => {
-        console.log(activity.progress)
-        console.log(percent)
-        const change = e.target.dataset.change === 'increase' ? 20 : -20
-        //do not allow user to increment beyond 100 or below 0
-        if (percent === 100 && change === 20) {
-            msgAlert({
-                heading: 'Already Done!',
-                message: 'You already finished this task!!',
-                variant: 'success'
-            })
-        //
-        } else if (percent === 0 && e.target.dataset.change === 'decrease') {
-            msgAlert({
-                heading: 'NO!!!',
-                message: "Don't be so negative",
-                variant: 'success'
-            })
-        } else {
-            //set the new percent in state
-            setPercent((prevPercent) => (prevPercent += change))
-        }
-        
+    const increaseProgress = (e) => {
+        setPercent(prevPercent => {
+            if (prevPercent >= 100) {
+                msgAlert({
+                    heading:'Whoa There!',
+                    message: "You're already done!",
+                    variant: 'success'
+                })
+                return prevPercent
+            } else {
+                return Math.min(100, (prevPercent + 20))
+            }
+        })  
+    }
+
+    const decreaseProgress = (e) => {
+        setPercent(prevPercent => {
+            if (prevPercent <= 0) {
+                msgAlert({
+                    heading:'Hey now',
+                    message: "You can't do less than nothing! ",
+                    variant: 'success'
+                })
+                return prevPercent
+            } else {
+                return Math.max(0, (prevPercent - 20))
+            }
+        })  
     }
 
     const handleSaveProgress = (e) => {
@@ -85,8 +90,8 @@ const MyActivity = (props) => {
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <Progress percent={percent} indicating />
-                    <Button onClick={handleProgressChange} data-change='decrease' tiny negative circular icon='minus'/>
-                    <Button onClick={handleProgressChange} data-change='increase' tiny positive circular icon='plus'/>
+                    <Button onClick={decreaseProgress}  negative circular icon='minus'/>
+                    <Button onClick={increaseProgress} positive circular icon='plus'/>
                     {
                         showSaveButton ?
                         <>
