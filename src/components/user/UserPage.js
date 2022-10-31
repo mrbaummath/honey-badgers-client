@@ -40,7 +40,7 @@ const UserPage = ({ user, msgAlert }) => {
 
     //set JSX for activities w/ MyActivity component 
     const activitiesJSX = allMyActivities.map((activity) => (
-        <MyActivity activity={activity} user={user} msgAlert={msgAlert} />
+        <MyActivity key={activity.id} activity={activity} user={user} msgAlert={msgAlert} />
     ))
    
     
