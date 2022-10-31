@@ -11,8 +11,8 @@ const Home = ( user, props) => {
 	return (
 		<>
 
-			<h2>Community Feed Hub</h2>
-			< HomeFeed />
+			<h2>Welcome to HoneyBadges</h2>
+			{/* < HomeFeed /> */}
 			< LoginPage />
 		</>
 	)
