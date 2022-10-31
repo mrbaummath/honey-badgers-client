@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-
-import {Button, ButtonGroup} from 'react-bootstrap'
-
+import {  Segment, Form, Container, Button} from 'semantic-ui-react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 
@@ -30,20 +28,22 @@ const SignOut = (props) => {
 
 	return (
 		<>
-            <div className='row'>
-                <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                    <h2>Are you sure you want to sign out?</h2>
-                    <small>We hate to see you go...</small><br/>
-                    <ButtonGroup>
-                        <Button variant='danger' onClick={onSignOut}>
-                            Sign Out
-                        </Button>
-                        <Button variant='warning' onClick={onCancel}>
-                            Cancel
-                        </Button>
-                    </ButtonGroup>
-                </div>
-            </div>
+        <div >
+            <Container 
+                id="container"
+            >
+                <Segment  
+                    padded='very'  
+                    inverted color='yellow' 
+                    verticalAlign='middle' 
+                    id="segment"
+                >
+                    <h3 id="signOutText">Are you sure you want to sign out?</h3>
+                    <Button secondary inverted color='yellow' onClick={onSignOut}>Sign Out</Button>
+                    <Button secondary inverted color='yellow' onClick={onCancel}>Stay</Button>
+                </Segment>
+            </Container>
+        </div>
 		</>
 	)
 }

@@ -1,65 +1,84 @@
-import React, { Fragment } from 'react'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import { Link } from 'react-router-dom'
-const linkStyle = {
-    color: 'white',
-    textDecoration: 'none'
-}
-const authenticatedOptions = (
-	<>
-		<Nav.Item>
-			<Link to='change-password' style={linkStyle}>
-				Change Password
-			</Link>
-		</Nav.Item>
-		<Nav.Item>
-			<Link to='sign-out' style={linkStyle}>
-				Sign Out
-			</Link>
-		</Nav.Item>
-	</>
-)
+import React, { Component } from 'react'
+import { Menu, Segment, Sticky } from 'semantic-ui-react'
 
-const unauthenticatedOptions = (
-	<>
-        <Nav.Item>
-		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
-        </Nav.Item>
-        <Nav.Item>
-		    <Link to='sign-in' style={linkStyle}>Sign In</Link>
-        </Nav.Item>
-	</>
-)
 
-const alwaysOptions = (
-	<>
-		<Nav.Link>
-			<Link to='/' style={linkStyle}>
-				Home
-			</Link>
-		</Nav.Link>
-	</>
-)
+export default class Header extends Component {
+	state = { activeItem: 'home' }
+  
+	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  
+	render() {
+	  const { activeItem } = this.state
+	  const linkStyle = {
+		color: 'black',
+		textDecoration: 'none'
+	  }
+  
+	  return (
+		<div>
+		<Sticky>
+		  <Menu inverted pointing secondary  size='massive' id='header'>
+ 			{/* {this.props.user && (
+				<span>Welcome, {this.props.user.email}</span>
+			)} */}
+			{			
+				<Menu.Item
+					name='honey badges'
+					active={activeItem === 'honey badges'}
+					onClick={this.handleItemClick}
+					href='/'
+				/>
+			}
+			{this.props.user ? 
+			
+			// AUTHINTICATED OPTIONS 
+			<Menu.Menu position='right'>
+				<Menu.Item
+					name='my activities'
+					active={activeItem === 'my activities'}
+					onClick={this.handleItemClick}
+				></Menu.Item>
+				<Menu.Item
+					name='new activities'
+					active={activeItem === 'new activities'}
+					onClick={this.handleItemClick}
+				></Menu.Item>
+				<Menu.Item
+					name='my profile'
+					active={activeItem === 'my profile'}
+					onClick={this.handleItemClick}
+					href='user-page'
+				></Menu.Item>
+				<Menu.Item
+					name='sign out'
+					active={activeItem === 'sign out'}
+					onClick={this.handleItemClick}
+					href='sign-out'
+				></Menu.Item>
+				<Menu.Item
+					name='change password'
+					active={activeItem === 'change password'}
+					onClick={this.handleItemClick}
+					href='change-password'
+				></Menu.Item>
+			</Menu.Menu>
 
-const Header = ({ user }) => (
-	<Navbar bg='primary' variant='dark' expand='md'>
-		<Navbar.Brand>
-            <Link to='/' style={linkStyle}>
-                react-auth-template
-            </Link>
-        </Navbar.Brand>
-		<Navbar.Toggle aria-controls='basic-navbar-nav' />
-		<Navbar.Collapse id='basic-navbar-nav'>
-			<Nav className='ml-auto'>
-				{user && (
-					<span className='navbar-text mr-2'>Welcome, {user.email}</span>
-				)}
-				{alwaysOptions}
-				{user ? authenticatedOptions : unauthenticatedOptions}
-			</Nav>
-		</Navbar.Collapse>
-	</Navbar>
-)
-
-export default Header
+			: 
+			// UNAUTHINTICATED OPTIONS
+			<Menu.Menu position='right'>	
+				<>
+					<Menu.Item
+						name='user access'
+						active={activeItem === 'user access'}
+						onClick={this.handleItemClick}
+						href='sign-page'
+					></Menu.Item>
+				</>
+			</Menu.Menu>
+			}
+		  </Menu>
+		  </Sticky>
+		</div>
+	  )
+	}
+  }

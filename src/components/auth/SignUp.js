@@ -1,23 +1,11 @@
-// import React, { Component } from 'react'
-import React, { useState } from 'react'
+import React, { useState, Component } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
-
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import {  Button, Segment, Form, Container, Input } from 'semantic-ui-react'
 
 const SignUp = (props) => {
-	// constructor(props) {
-	// 	super(props)
 
-	// 	this.state = {
-	// 		email: '',
-	// 		password: '',
-	// 		passwordConfirmation: '',
-	// 	}
-	// }    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -56,49 +44,73 @@ const SignUp = (props) => {
 
 
     return (
-        <div className='row'>
-            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3>Sign Up</h3>
-                <Form onSubmit={onSignUp}>
-                    <Form.Group controlId='email'>
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                            required
-                            type='email'
-                            name='email'
-                            value={email}
-                            placeholder='Enter email'
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='password'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            required
-                            name='password'
-                            value={password}
-                            type='password'
-                            placeholder='Password'
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='passwordConfirmation'>
-                        <Form.Label>Password Confirmation</Form.Label>
-                        <Form.Control
-                            required
-                            name='passwordConfirmation'
-                            value={passwordConfirmation}
-                            type='password'
-                            placeholder='Confirm Password'
-                            onChange={e => setPasswordConfirmation(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Button variant='primary' type='submit'>
-                        Submit
-                    </Button>
-                </Form>
+        <div >
+                <Container 
+                    id="container"
+                >
+                    <Segment  
+                        padded='very'  
+                        inverted color='yellow' 
+                        verticalAlign='middle' 
+                        id="segment"
+                    >
+                        <h3>Sign Up</h3>
+                        <Form  onSubmit={onSignUp}>
+                            <Form.Field>
+                                <Form.Input 
+                                    fluid
+                                    icon='users' 
+                                    iconPosition='left' 
+                                    required
+                                    type='email'
+                                    name='email'
+                                    value={email}
+                                    placeholder='Enter email'
+                                    onChange={e => setEmail(e.target.value)}
+                                />
+                            </Form.Field>
+                            <br />
+                            <Form.Field>
+                                <Form.Input 
+                                    fluid
+                                    icon='lock'
+                                    iconPosition='left'
+                                    required
+                                    name='password'
+                                    value={password}
+                                    type='password'
+                                    placeholder='Password'
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                            </Form.Field>
+                            <br />
+                            <Form.Field>
+                                <Form.Input
+                                    fluid 
+                                    icon='check' 
+                                    iconPosition='left' 
+                                    placeholder='Confim Password'
+                                    required
+                                    name='passwordConfirmation'
+                                    value={passwordConfirmation}
+                                    type='password'
+                                    onChange={e => setPasswordConfirmation(e.target.value)}
+                                />
+                            </Form.Field>
+                            <br />
+                            <Form.Button 
+                                 secondary 
+                                 inverted 
+                                 color='yellow'
+                                class="signButton" 
+                                type='submit'
+                            >
+                                Submit
+                            </Form.Button>
+                        </Form>
+                    </Segment>
+                </Container>
             </div>
-        </div>
     )
 
 }
