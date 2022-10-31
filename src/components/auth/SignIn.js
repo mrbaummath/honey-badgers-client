@@ -34,13 +34,13 @@ const SignIn = (props) => {
 
 		signIn(credentials)
 			.then((res) => setUser(res.data.user))
-			.then(() =>
-				msgAlert({
-					heading: 'Sign In Success',
-					message: messages.signInSuccess,
-					variant: 'success',
-				})
-			)
+			// .then(() =>
+			// 	msgAlert({
+			// 		heading: 'Sign In Success',
+			// 		message: messages.signInSuccess,
+			// 		variant: 'success',
+			// 	})
+			// )
 			.then(() => navigate('/user-page'))
 			.catch((error) => {
                 setEmail('')

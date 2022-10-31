@@ -49,13 +49,15 @@ const UserPage = () => {
 	return (
 		<>
         <div >
-		<div >
+		
         
 		    <Segment 
                 raised
                 inverted 
                 color='yellow' 
                 // verticalAlign='middle' 
+                fluid
+                
             >
                 <Grid columns={3} verticalAlign='center'>
                     <Grid.Column width={3}>
@@ -67,7 +69,6 @@ const UserPage = () => {
                                             src={(src)} 
                                             size='big' 
                                             circular 
-                                            
                                             alt='A picture of a badge'
                                         /> 
                                         (Badge Name)
@@ -100,7 +101,7 @@ const UserPage = () => {
 
                                                 {/* <Progress percent={this.state.percent} indicating />
                                                 <Button onClick={this.increment}>Increment</Button> */}
-                                                
+
                                             </Grid.Column>
                                         </Grid>
                                     </Segment>
@@ -182,14 +183,16 @@ const UserPage = () => {
                                             <a>Joe Henderson</a> completed the activity "Solve a Rubix Cube"
                                             <Feed.Date>3 days ago</Feed.Date>
                                         </Feed.Summary>
+                                        <Feed.Extra images>
+                                            <Image 
+                                                src='https://i.etsystatic.com/34145471/r/il/101581/4076317209/il_794xN.4076317209_jld1.jpg' 
+                                                size='small' 
+                                                circular 
+                                                alt='A picture of a badge'
+                                            /> 
+                                        </Feed.Extra>
                                         <Feed.Extra text>
                                             Finally solved that dang Rubix Cude! That was a hard one!
-                                        <Image 
-                                            src='https://i.etsystatic.com/34145471/r/il/101581/4076317209/il_794xN.4076317209_jld1.jpg' 
-                                            size='small' 
-                                            circular 
-                                            alt='A picture of a badge'
-                                        /> 
                                         </Feed.Extra>
                                         <Feed.Meta>
                                             <Feed.Like>
@@ -208,6 +211,13 @@ const UserPage = () => {
                                             <a>Justen Kitsune</a> added <a>2 new photos</a> of "Explore a park you have never been to before"
                                             <Feed.Date>4 days ago</Feed.Date>
                                         </Feed.Summary>
+                                        <Feed.Extra images>
+                                            <Image 
+                                                src='http://www.discovernw.org/mm5/graphics/00000001/PLU02813b.jpg'
+                                                size='small'
+                                                circular 
+                                            />
+                                        </Feed.Extra>
                                         <Feed.Extra images>
                                             <a>
                                                 <img src='https://www.exploregeorgia.org/sites/default/files/listing_images/profile/2584/MPPIMG_0347.jpg' />
@@ -230,7 +240,7 @@ const UserPage = () => {
                 </Grid>
 		    </Segment>
          
-		</div>
+		
         </div>
 		</>
 	)
