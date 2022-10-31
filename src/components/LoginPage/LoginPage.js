@@ -14,7 +14,9 @@ const LoginPage = () => (
   inverted
   color='yellow'
   verticalAlign='middle'>
-<h2>Recent Activity</h2>
+<Segment >
+<h2>List of User Activities</h2>
+  </Segment>
 <Feed>
     <Feed.Event>
       <Feed.Label>
@@ -107,7 +109,8 @@ const LoginPage = () => (
     raised
   inverted
   color='yellow'
-  verticalAlign='middle'>info about page</Segment>
+  verticalAlign='middle'
+  centered>Honey Badges is an application where users can keep a running list of activites to complete and earn "badges" for completing multiple activites of the same type. Together, users form a community of badge-earners who can opt to share their accomplishments and use eachother's activities for inspiration. We hope the social aspect of creating and sharing activities will motivate users in a positive way. At the same time, users will have the option to make specific activities on their tasklist private. Users who need some help getting started can also choose to randomly generate an activity within specified parameters.</Segment>
       </Grid.Column>
       <Grid.Column>
         <Segment 
@@ -174,13 +177,28 @@ const LoginPage = () => (
                    color='yellow'
                   class="signButton" 
                   type='submit'
+                  centered
               >
                   Submit
               </Form.Button>
           </Form>
+          
+
       </Segment>
   </Container>
 </div>
+<Divider horizontal>Or</Divider>
+<div >
+        <Container id="container">
+		  <Segment raised  padded='very'  inverted color='yellow' verticalAlign='middle' id="segment">
+            <Grid columns={2} stackable textAlign='center'>
+                <Grid.Column centered>
+                    <Button secondary inverted color='yellow' class="signButton" href='sign-in'>Sign in</Button>
+                </Grid.Column>
+            </Grid>
+		  </Segment>
+          </Container>
+		</div>
 </Segment>
       </Grid.Column>
     </Grid.Row>
