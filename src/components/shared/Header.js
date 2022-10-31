@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Segment } from 'semantic-ui-react'
+import { Menu, Segment, Sticky } from 'semantic-ui-react'
 
 
 export default class Header extends Component {
@@ -16,16 +16,17 @@ export default class Header extends Component {
   
 	  return (
 		<div>
-		  <Menu pointing secondary>
+		<Sticky>
+		  <Menu inverted pointing secondary  size='massive' id='header'>
  			{/* {this.props.user && (
 				<span>Welcome, {this.props.user.email}</span>
 			)} */}
 			{			
 				<Menu.Item
-				name='home'
-				active={activeItem === 'home'}
-				onClick={this.handleItemClick}
-				href='/'
+					name='honey badges'
+					active={activeItem === 'honey badges'}
+					onClick={this.handleItemClick}
+					href='/'
 				/>
 			}
 			{this.props.user ? 
@@ -33,14 +34,20 @@ export default class Header extends Component {
 			// AUTHINTICATED OPTIONS 
 			<Menu.Menu position='right'>
 				<Menu.Item
-				name='my activities'
-				active={activeItem === 'my activities'}
-				onClick={this.handleItemClick}
+					name='my activities'
+					active={activeItem === 'my activities'}
+					onClick={this.handleItemClick}
 				></Menu.Item>
 				<Menu.Item
-				name='new activities'
-				active={activeItem === 'new activities'}
-				onClick={this.handleItemClick}
+					name='new activities'
+					active={activeItem === 'new activities'}
+					onClick={this.handleItemClick}
+				></Menu.Item>
+				<Menu.Item
+					name='my profile'
+					active={activeItem === 'my profile'}
+					onClick={this.handleItemClick}
+					href='user-page'
 				></Menu.Item>
 				<Menu.Item
 					name='sign out'
@@ -48,33 +55,29 @@ export default class Header extends Component {
 					onClick={this.handleItemClick}
 					href='sign-out'
 				></Menu.Item>
+				<Menu.Item
+					name='change password'
+					active={activeItem === 'change password'}
+					onClick={this.handleItemClick}
+					href='change-password'
+				></Menu.Item>
 			</Menu.Menu>
 
 			: 
 			// UNAUTHINTICATED OPTIONS
 			<Menu.Menu position='right'>	
 				<>
-				<Menu.Item
-					name='sign in'
-					active={activeItem === 'sign in'}
-					onClick={this.handleItemClick}
-					href='sign-in'
-				></Menu.Item>
-				<Menu.Item
-					name='sign up'
-					active={activeItem === 'sign up'}
-					onClick={this.handleItemClick}
-					href='sign-up'
-				></Menu.Item>
+					<Menu.Item
+						name='user access'
+						active={activeItem === 'user access'}
+						onClick={this.handleItemClick}
+						href='sign-page'
+					></Menu.Item>
 				</>
-	
 			</Menu.Menu>
 			}
 		  </Menu>
-  
-		  <Segment>
-			<img src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-		  </Segment>
+		  </Sticky>
 		</div>
 	  )
 	}
