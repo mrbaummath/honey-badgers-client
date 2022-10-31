@@ -9,7 +9,7 @@ const LoginPage = () => (
   <Grid columns={2} divided>
     <Grid.Row stretched>
       <Grid.Column>
-        <Segment 
+        <Segment
     raised
   inverted
   color='yellow'
