@@ -11,3 +11,44 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.signButton {
+  color: black;
+}
+
+.signSeg {
+  justify-content: center;
+  align-items: center;
+  border: 2rem black solid;
+}
+
+#container {
+  margin-top: 10rem;
+}
+
+#segment {
+  padding: 10rem;
+}
+
+#signOutText {
+  color: black;
+}
+
+/* #userPageSegment {
+  width: 30rem;
+} */
+
+
+#header {
+  background-color: black;
+}
+
+#actList {
+  height: 10rem;
+  background-color: white;
+  color: black;
+}
+
+#actListItems {
+  justify-content: left;
+}
