@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input } from 'semantic-ui-react'
+import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input, Message } from 'semantic-ui-react'
 
 
 
@@ -139,7 +139,7 @@ const LoginPage = () => (
                       name='email'
                       value= 'email'
                       placeholder='Enter email'
-                      
+
                   />
               </Form.Field>
               <br />
@@ -153,7 +153,7 @@ const LoginPage = () => (
                       value= 'password'
                       type='password'
                       placeholder='Password'
-                      
+
                   />
               </Form.Field>
               <br />
@@ -178,11 +178,13 @@ const LoginPage = () => (
                   class="signButton" 
                   type='submit'
                   centered
+                  textAlign='center'
+                  verticalAlign='middle'
               >
                   Submit
               </Form.Button>
           </Form>
-          
+
 
       </Segment>
   </Container>
@@ -193,8 +195,12 @@ const LoginPage = () => (
 		  <Segment raised  padded='very'  inverted color='yellow' verticalAlign='middle' id="segment">
             <Grid columns={2} stackable textAlign='center'>
                 <Grid.Column centered>
-                    <Button secondary inverted color='yellow' class="signButton" href='sign-in'>Sign in</Button>
-                </Grid.Column>
+                    {/* <Button secondary inverted color='yellow' class="signButton" href='sign-in'>Sign in</Button> */}
+                <Message attached='bottom' color='yellow'>
+      <Icon name='help' />
+      Already signed up?&nbsp;<a href='#'>Login here</a>&nbsp;instead.
+    </Message> 
+    </Grid.Column>
             </Grid>
 		  </Segment>
           </Container>
