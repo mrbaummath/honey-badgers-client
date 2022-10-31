@@ -12,6 +12,7 @@ code {
     monospace;
 }
 
+
 .signButton {
   color: black;
 }
@@ -52,3 +53,4 @@ code {
 #actListItems {
   justify-content: left;
 }
+
