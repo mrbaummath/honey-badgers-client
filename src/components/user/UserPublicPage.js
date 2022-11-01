@@ -46,10 +46,7 @@ const UserPublicPage = () => {
 	return (
         
 		<>
-       
         <div >
-		
-        
 		    <Segment 
                 raised
                 inverted 
@@ -57,25 +54,155 @@ const UserPublicPage = () => {
                 // verticalAlign='middle' 
                 fluid
             >
-                <Grid columns={3} verticalAlign='center'>
-                    <Grid.Row >
-                        <div>
-                            <Segment width={8} padded >
-                                <Grid columns={3} >
-                                    <Grid.Column width={2}>
-                                        <Image 
-                                            src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
-                                            size='small' 
-                                            circular 
-                                            alt='A picture of the user'
-                                        /> 
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        
-                                        <h1>Super Active Guy</h1> 
-                                        <h2>member since 10/31/2022</h2>
-                                    </Grid.Column>
-                                    <Grid.Column fluid width={11}>
+                <Grid columns={2} verticalAlign='center' padded>
+                    <Grid.Row>
+                        <Segment>
+                            <Grid columns={3}>
+                                <Grid.Column width={7}>
+                                    <Grid columns={2}>
+                                        <Grid.Column width={4}>
+                                            <Image 
+                                                src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
+                                                size='small' 
+                                                circular 
+                                                alt='A picture of the user'
+                                            /> 
+                                        </Grid.Column>
+                                        <Grid.Column>
+                                            <h1>Super Active Guy</h1> 
+                                            <h2>member since 10/31/2022</h2>
+                                        </Grid.Column>
+                                    </Grid>
+                                </Grid.Column>
+                                <Grid.Column width={1}>
+                                    
+                                </Grid.Column>
+                                <Grid.Column width={8}>
+                                    <Segment>
+                                    <Button>Button</Button>
+                                    <Button>Button</Button>
+                                    <Button>Button</Button> 
+                                    <Button>Button</Button>
+                                    <Button>Button</Button>
+                                    <Button>Button</Button>
+                                    </Segment>
+                                </Grid.Column>
+                            </Grid>
+                        </Segment>
+                    </Grid.Row>
+                    <br/>
+                    <Grid.Column width={8}>
+                        
+                        <Grid.Row>
+                            <Grid columns={2} padded width={5}>
+                                <Segment>
+                                    <Grid.Row>
+                                        <h1>(Username)'s earned badges</h1>
+                                    </Grid.Row>
+                                    <Grid columns={2}>
+                                        {images.map((src) => (
+                                            <Grid.Column verticalAlign='middle'  width={5}>
+                                                <Modal
+                                                    onClose={() => setOpen(false)}
+                                                    onOpen={() => setOpen(true)}
+                                                    open={open}
+                                                    dimmer='blurring'
+                                                    centered
+                                                    trigger={
+                                                        <Image 
+                                                            src={(src)} 
+                                                            size='small' 
+                                                            circular 
+                                                            centered
+                                                            alt='A picture of a badge'
+                                                        /> 
+                                                    }
+                                                >
+                                                    <Modal.Header>Completed Activities</Modal.Header>
+                                                    <Modal.Content image>
+                                                        <Image 
+                                                            src={(src)} 
+                                                            size='medium' 
+                                                            circular 
+                                                            alt='A picture of a badge'
+                                                        /> 
+                                                        <Modal.Description>
+                                                        <Header><h1>The Most Selfless</h1></Header>
+                                                        <List size='massive'>
+                                                            <List.Item>
+                                                                <List.Icon name='certificate' />
+                                                                <List.Content><a href='http://www.semantic-ui.com'>Catch up on world news</a></List.Content>
+                                                            </List.Item>
+                                                            <List.Item>
+                                                                <List.Icon name='certificate' />
+                                                                <List.Content><a href='http://www.semantic-ui.com'>Buy a new house decoration</a></List.Content>
+                                                            </List.Item>
+                                                            <List.Item>
+                                                                <List.Icon name='certificate' />
+                                                                <List.Content>
+                                                                <a href='http://www.semantic-ui.com'>Repaint a room in your house</a>
+                                                                </List.Content>
+                                                            </List.Item>
+                                                            <List.Item>
+                                                                <List.Icon name='certificate' />
+                                                                <List.Content>
+                                                                    <a href='http://www.semantic-ui.com'>Draw something interesting</a>
+                                                                </List.Content>
+                                                            </List.Item>
+                                                        </List>
+                                                        </Modal.Description>
+                                                    </Modal.Content>
+                                                    <Modal.Actions>
+                                                        <Button color='green' onClick={() => setOpen(false)}>
+                                                            Done
+                                                        </Button>
+                                                    </Modal.Actions>
+                                                </Modal>                                            
+                                                (Badge Name)
+                                            </Grid.Column>
+                                        ))}
+                                    </Grid>
+                                </Segment>
+                            </Grid>
+                        </Grid.Row>
+                    </Grid.Column>
+                    <Grid.Column >
+                        <Grid.Row>
+                            <Segment raised >
+                                <h2>Activity Timeline</h2>
+                                {images.map((src) => (
+                                    <Segment id='actListItems'>
+                                        <Grid>
+                                            <Grid.Column width={6}>
+                                            <Image 
+                                                src='https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg'
+                                                size='small'
+                                                circular />
+                                            </Grid.Column>
+                                            <Grid.Column width={9}>
+                                                <h1>Task info...</h1>
+                                                <p>details, details, details, details, details, details, details, </p>
+                                            </Grid.Column>
+                                            {/* <Grid.Column width={3}>
+
+                                            </Grid.Column> */}
+                                        </Grid>
+                                    </Segment>
+                                ))}    
+                            </Segment>
+                        </Grid.Row>
+                    </Grid.Column>
+                </Grid>
+            </Segment>
+        </div>
+	</>	
+	)
+}
+
+export default UserPublicPage 
+
+
+{/* <Grid.Column fluid width={11}>
                                         <Segment padded>
                                             <Grid columns={4}>
                                                 <Grid.Row>  
@@ -101,123 +228,4 @@ const UserPublicPage = () => {
                                                 </Grid.Row>
                                             </Grid>
                                         </Segment>
-                                    </Grid.Column>
-                                </Grid>
-                            </Segment>
-                        </div>
-                    </Grid.Row>
-                    <Grid.Column width={3}>
-                        <Segment raised>
-                            <Grid columns={2} padded>
-                                <Grid.Row>
-                                    <h1>(Username)'s earned badges</h1>
-                                </Grid.Row>
-                                {images.map((src) => (
-                                    <Grid.Column >
-                                        <Modal
-                                            onClose={() => setOpen(false)}
-                                            onOpen={() => setOpen(true)}
-                                            open={open}
-                                            dimmer='blurring'
-                                            centered
-                                            trigger={
-                                                <Image 
-                                                    src={(src)} 
-                                                    size='big' 
-                                                    circular 
-                                                    alt='A picture of a badge'
-                                                /> 
-                                            }
-                                            >
-                                            <Modal.Header>Completed Activities</Modal.Header>
-                                            <Modal.Content image>
-                                                <Image 
-                                                    src={(src)} 
-                                                    size='medium' 
-                                                    circular 
-                                                    alt='A picture of a badge'
-                                                /> 
-                                                <Modal.Description>
-                                                <Header><h1>The Most Selfless</h1></Header>
-                                                <List size='massive'>
-                                                    <List.Item>
-                                                        <List.Icon name='certificate' />
-                                                        <List.Content><a href='http://www.semantic-ui.com'>Catch up on world news</a></List.Content>
-                                                    </List.Item>
-                                                    <List.Item>
-                                                        <List.Icon name='certificate' />
-                                                        <List.Content><a href='http://www.semantic-ui.com'>Buy a new house decoration</a></List.Content>
-                                                    </List.Item>
-                                                    <List.Item>
-                                                        <List.Icon name='certificate' />
-                                                        <List.Content>
-                                                        <a href='http://www.semantic-ui.com'>Repaint a room in your house</a>
-                                                        </List.Content>
-                                                    </List.Item>
-                                                    <List.Item>
-                                                        <List.Icon name='certificate' />
-                                                        <List.Content>
-                                                            <a href='http://www.semantic-ui.com'>Draw something interesting</a>
-                                                        </List.Content>
-                                                    </List.Item>
-                                                </List>
-                                                </Modal.Description>
-                                            </Modal.Content>
-                                            <Modal.Actions>
-                                                <Button color='green' onClick={() => setOpen(false)}>
-                                                    Done
-                                                </Button>
-                                                
-                                            </Modal.Actions>
-                                        </Modal>                                            
-                                        (Badge Name)
-                                    </Grid.Column>
-                                ))}
-                                {/* { badgeImages } */}
-                            </Grid>
-                        </Segment>
-                    </Grid.Column>
-                    <Grid.Column width={9}>
-                        {/* <Sticky offset={65}> */}
-                            <Segment.Group id='actList' raised >
-                                <h2>Activity Timeline</h2>
-                                {images.map((src) => (
-                                    <Segment id='actListItems'>
-                                        <Grid>
-                                            <Grid.Column width={4}>
-                                            <Image 
-                                                src='https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg'
-                                                size='small'
-                                                circular />
-                                            </Grid.Column>
-                                            <Grid.Column width={9}>
-                                                <h1>Task info...</h1>
-                                                <p>details, details, details, details, details, details, details, </p>
-                                            </Grid.Column>
-                                            {/* <Grid.Column width={3}>
-
-                                            </Grid.Column> */}
-                                        </Grid>
-                                    </Segment>
-                                ))}
-                                
-                            </Segment.Group>
-                        {/* </Sticky> */}
-                    </Grid.Column>
-                    <Grid.Column width={3}>
-                        <Segment raised>
-                            <h2>Community Tasks</h2>
-                            {/* <Feed events={events} /> */}
-                        </Segment>
-                    </Grid.Column>
-                </Grid>
-		    </Segment>
-            
-         
-		
-        </div>
-		</>
-	)
-}
-
-export default UserPublicPage
+                                    </Grid.Column>  */}
