@@ -35,6 +35,12 @@ const ActivityPage = ({ notes, setNoteList, id, setId }) => {
 return (
 
 
+
+const ActivityPage = ({user, msAlert}) => (
+    
+    // [open, setOpen] = React.useState(false)
+    
+
     // Activity Section
    
    <div> 

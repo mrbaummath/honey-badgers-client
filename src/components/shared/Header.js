@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
-import { Menu, Segment, Sticky } from 'semantic-ui-react'
+import { Menu, Segment, Sticky, Modal } from 'semantic-ui-react'
+import CreateActivity from '../activities/CreateActivity'
 
 
 export default class Header extends Component {
-	state = { activeItem: 'home' }
-  
+	state = { 
+		activeItem: 'home',
+		setOpen: false 
+	}
+
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   
 	render() {
@@ -38,11 +42,21 @@ export default class Header extends Component {
 					active={activeItem === 'my activities'}
 					onClick={this.handleItemClick}
 				></Menu.Item>
-				<Menu.Item
-					name='new activities'
-					active={activeItem === 'new activities'}
-					onClick={this.handleItemClick}
-				></Menu.Item>
+				 <Modal
+					onClose={() => this.setState({setOpen: false})}
+					onOpen={() => this.setState({setOpen: true})}
+					// open={open}
+					trigger={
+						<Menu.Item 
+							name='New Activity'
+							active={activeItem === 'new activities'}
+							onClick={this.handleItemClick}
+						/>}
+       			 >
+					<Modal.Content>
+						<CreateActivity  />
+					</Modal.Content>
+        		</Modal>
 				<Menu.Item
 					name='my profile'
 					active={activeItem === 'my profile'}

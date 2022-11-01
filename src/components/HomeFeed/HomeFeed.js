@@ -2,7 +2,7 @@ import React from 'react'
 import { Feed, Icon, Card, Segment, Grid } from 'semantic-ui-react'
 
 
-const HomeFeed = () => (
+const HomeFeed = ({user, msgAlert}) => (
   <Segment
   raised
   inverted

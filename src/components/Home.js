@@ -7,7 +7,7 @@ import NotesApp from "./Notes/NoteApp"
 import IndexActivity from "./ActivityPage/IndexActivity"
 
 
-const Home = ( user, props) => {
+const Home = ( {user, ...props }) => {
 
 	// const { msgAlert, user } = props
 	console.log('props in home', props)
@@ -16,10 +16,10 @@ const Home = ( user, props) => {
 		<>
 
 			<h2>Welcome to HoneyBadges</h2> 
+
+			{/* < LoginPage /> */}
 			< LoginPage />
-			{/* < ActivityPage /> */}
-			{/* < IndexActivity /> */}
-			
+
 		</>
 	)
 }
