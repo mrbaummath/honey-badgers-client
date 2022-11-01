@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
-import { Menu, Segment, Sticky, Modal } from 'semantic-ui-react'
+import { Menu, Icon, Sticky, Modal } from 'semantic-ui-react'
 import CreateActivity from '../activities/CreateActivity'
+import UserPublicPage from '../user/UserPublicPage'
+import { Link } from 'react-router-dom'
 
+const linkStyle = {
+    color: 'black',
+    textDecoration: 'none'
+}
 
 export default class Header extends Component {
 	state = { 
@@ -21,27 +27,26 @@ export default class Header extends Component {
 	  return (
 		<div>
 		<Sticky>
-		  <Menu inverted pointing secondary  size='massive' id='header'>
- 			{/* {this.props.user && (
-				<span>Welcome, {this.props.user.email}</span>
-			)} */}
-			{			
+		  <Menu inverted pointing secondary  size='massive' id='header' >
+ 					
 				<Menu.Item
 					name='honey badges'
 					active={activeItem === 'honey badges'}
 					onClick={this.handleItemClick}
-					href='/'
-				/>
-			}
+				>
+					<Link 
+						to='/' 
+					>
+						<Icon name='certificate'/>
+						Honey badges
+					</Link>
+				</Menu.Item>
+			
 			{this.props.user ? 
 			
 			// AUTHINTICATED OPTIONS 
 			<Menu.Menu position='right'>
-				<Menu.Item
-					name='my activities'
-					active={activeItem === 'my activities'}
-					onClick={this.handleItemClick}
-				></Menu.Item>
+				
 				 <Modal
 					onClose={() => this.setState({setOpen: false})}
 					onOpen={() => this.setState({setOpen: true})}
@@ -51,44 +56,78 @@ export default class Header extends Component {
 							name='New Activity'
 							active={activeItem === 'new activities'}
 							onClick={this.handleItemClick}
-						/>}
+						>
+							<Link
+								to='user-page'>
+								New Activity
+							</Link>
+						</Menu.Item>}
        			 >
 					<Modal.Content>
 						<CreateActivity  />
 					</Modal.Content>
         		</Modal>
 				<Menu.Item
-					name='my profile'
-					active={activeItem === 'my profile'}
+					name='my public profile'
+					active={activeItem === 'my public profile'}
 					onClick={this.handleItemClick}
-					href='user-page'
-				></Menu.Item>
+				>
+					<Link 
+						to='user-public-page' 
+					>
+						Public Profile
+					</Link>
+				</Menu.Item>
+				<Menu.Item
+					name='private profile'
+					active={activeItem === 'private profile'}
+					onClick={this.handleItemClick}
+
+				>
+					<Link 
+						to='user-page' 
+					>
+						Private Profile
+					</Link>
+				</Menu.Item>
 				<Menu.Item
 					name='sign out'
 					active={activeItem === 'sign out'}
 					onClick={this.handleItemClick}
-					href='sign-out'
-				></Menu.Item>
+				>
+					<Link 
+						to='sign-out' 
+					>
+						Sign Out
+					</Link>
+				</Menu.Item>
 				<Menu.Item
 					name='change password'
 					active={activeItem === 'change password'}
 					onClick={this.handleItemClick}
-					href='change-password'
-				></Menu.Item>
+				>
+					<Link 
+						to='change-password' 
+					>
+						Change Password
+					</Link>
+				</Menu.Item>
 			</Menu.Menu>
 
 			: 
 			// UNAUTHINTICATED OPTIONS
-			<Menu.Menu position='right'>	
-				<>
-					<Menu.Item
-						name='user access'
-						active={activeItem === 'user access'}
-						onClick={this.handleItemClick}
-						href='sign-page'
-					></Menu.Item>
-				</>
-			</Menu.Menu>
+			null
+
+			// <Menu.Menu position='right'>	
+			// 	<>
+			// 		<Menu.Item
+			// 			name='user access'
+			// 			active={activeItem === 'user access'}
+			// 			onClick={this.handleItemClick}
+			// 			href='sign-page'
+			// 		></Menu.Item>
+			// 	</>
+			// </Menu.Menu>
 			}
 		  </Menu>
 		  </Sticky>
