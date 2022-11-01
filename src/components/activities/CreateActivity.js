@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
 import { createActivity } from '../../api/activity'
-import { useNavigate } from 'react-router-dom'
 
 import ActivityForm from '../shared/ActivityForm'
 
 
-const CreateActivity = ({ user,  msgAlert }) => {
-
-    console.log(msgAlert, user,  '<<<<')
-    const navigate = useNavigate()
+const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
 
     const defaultActivity = {
         activity: '',
@@ -21,6 +17,7 @@ const CreateActivity = ({ user,  msgAlert }) => {
     }
 
     const [activity, setActivity] = useState(defaultActivity)
+    const [activityModalShow, setActivityModalShow] = useState(false)
 
     const handleChange = (e , target) => {
         
@@ -50,7 +47,7 @@ const CreateActivity = ({ user,  msgAlert }) => {
         e.preventDefault()
 
         createActivity(user, activity)
-            .then(res => { navigate('/user-page')})
+            .then(() => handleClose())
             .then(() => {
                
                 msgAlert({
@@ -59,6 +56,7 @@ const CreateActivity = ({ user,  msgAlert }) => {
                     variant: 'success'
                 })
             })
+            .then(() => triggerRefresh())
             .catch((error) => {
                 msgAlert({
                     heading: 'Failure',
@@ -70,10 +68,12 @@ const CreateActivity = ({ user,  msgAlert }) => {
 
     return (
         <ActivityForm
+            show={activityModalShow}
             activity={ activity }
             handleChange={ handleChange }
             heading="Create a new Activity!"
             handleSubmit={ handleCreateActivity }
+            handleClose={() => setActivityModalShow(false)}
         />
     
     )
