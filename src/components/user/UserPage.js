@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {  Button, Segment, Grid, Feed, Icon, Image, Progress } from 'semantic-ui-react'
+import React, { useState } from 'react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import React, { useState } from 'react'
@@ -14,6 +15,7 @@ const UserPage = ({ user, msgAlert }) => {
 
     let percent = 20
 
+    
     //const [allBadges, setAllBadges] = useState([])
     // const badgeImages = allBadges.map(badge => (
     //     <Image src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' size='small' circular 
@@ -30,6 +32,7 @@ const UserPage = ({ user, msgAlert }) => {
     const [completedCounts, setCompletedCounts] = useState({})
 
 
+
     //after initial render, make axios call to grab activity/count data and set the state variables 
     useEffect(() => {
         getMyActivities(user)
@@ -40,6 +43,7 @@ const UserPage = ({ user, msgAlert }) => {
             })
             .catch(console.log('oops'))
     },[])
+
 
 
    
@@ -69,8 +73,6 @@ const UserPage = ({ user, msgAlert }) => {
 	return (
 		<>
         <div >
-		
-        
 		    <Segment 
                 raised
                 inverted 
