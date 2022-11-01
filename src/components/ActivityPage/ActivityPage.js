@@ -1,7 +1,7 @@
 import React from "react"
 import { Label, Icon, Item, Button, Segment, Grid, Comment, Form, Modal } from 'semantic-ui-react'
 
-const ActivityPage = () => (
+const ActivityPage = ({user, msAlert}) => (
     
     // [open, setOpen] = React.useState(false)
     

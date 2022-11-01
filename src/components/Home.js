@@ -5,7 +5,7 @@ import HomeFeed from "./HomeFeed/HomeFeed"
 import LoginPage from "./LoginPage/LoginPage"
 
 
-const Home = ( user, props) => {
+const Home = ( {user, ...props }) => {
 
 	// const { msgAlert, user } = props
 	console.log('props in home', props)
@@ -15,7 +15,7 @@ const Home = ( user, props) => {
 
 			<h2>Welcome to HoneyBadges</h2> 
 			{/* < LoginPage /> */}
-			< ActivityPage />
+			< LoginPage />
 		</>
 	)
 }
