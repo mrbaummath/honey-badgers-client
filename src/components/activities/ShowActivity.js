@@ -1,51 +1,100 @@
 import React, { useEffect, useState } from "react"
 import { Label, Icon, Item, Button, Segment, Grid, Comment, Form, Modal, Header } from 'semantic-ui-react'
-import { getActivity } from '../../api/activity'
-import messages from '../shared/AutoDismissAlert/messages'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { getActivity, updateActivity, deleteActivity } from '../../api/activity'
 
-const ShowActivity = ({ notes, setNoteList, id, setId }) => {
-    const [noteName, setNoteName] = useState("");
-    const [noteContent, setNoteContent] = useState("");
+
+
+const ShowActivity = ({ user, msgAlert, activityId }) => {
+    console.log(msgAlert)
+    // const [noteName, setNoteName] = useState("");
+    // const [noteContent, setNoteContent] = ("");
   
-    const addNote = (event) => {
-      event.preventDefault();
+    // const addNote = (event) => {
+    //   event.preventDefault();
   
-      if (!noteContent) {
-        alert("You must add note content");
-        return;
-      }
+    //   if (!noteContent) {
+    //     alert("You must add note content");
+    //     return;
+    //   }
   
-      const newNote = {
-        noteName,
-        noteContent,
-        editing: false,
-        addingComment: false,
-        viewingComments: false,
-        comments: []
-      };
+    //   const newNote = {
+    //     noteName,
+    //     noteContent,
+    //     editing: false,
+    //     addingComment: false,
+    //     viewingComments: false,
+    //     comments: []
+    //   };
   
-      setNoteList([...notes, newNote]);
-      setId(id + 1);
-      setNoteContent("");
-      setNoteName("");
-    };
-
-
-return (
-
-
+    //   setNoteList([...notes, newNote]);
+    //   setId(id + 1);
+    //   setNoteContent("");
+    //   setNoteName("");
+    // };
+    const [allActivities, setGetAllActivities] = useState([])
+    const [updated, setUpdated] = useState(false)
+    const [deleted, setDeleted] = useState(false)
     
-    // [open, setOpen] = React.useState(false)
-    
+    // const { activityId } = useParams()
+    const navigate = useNavigate()
 
-    // Activity Section
-   
-   <div> 
+    useEffect(() => {
+      getActivity(user, activityId)
+        .then((res) => {
+            setGetAllActivities(res.data.activity)
+        })
+        .catch((error) => {
+            msgAlert({
+                heading: 'Failure',
+                message: 'Index Activities failed' + error,
+                variant: 'danger'
+            })
+        })
+    },[updated])
+
+
+    const handleDeleteActivity = () => {
+      deleteActivity(user, activityId)
+      .then(() => {
+          setDeleted(true)
+          msgAlert({
+              heading: 'Success',
+              message: 'Deleting a Activity',
+              variant: 'success'
+          })
+          
+      })
+      .catch((error) => {
+          msgAlert({
+              heading: 'Failure',
+              message: 'Deleting a Activity Failure' + error,
+              variant: 'danger'
+          })
+      })
+  }
+  if (deleted) navigate('/activities')
+
+
+    const allActivitiesJSX = allActivities.map(activity => {
+        return (
+            <Link to={`/activities/${activity._id}`} key={activity._id}>
+                <li>
+                activity: {activity.name} accessibility: {activity.accessibility} 
+                type: {activity.type} participants: {activity.participants} 
+                price: {activity.price} progress: {activity.progress} 
+                </li>
+            </Link>
+        )
+    })
+    const show = allActivities.map(activities => (
+      <div> 
     <Segment    
           inverted color='yellow'
           verticalAlign='middle' 
           id="segment"
+          key={ activities.id }
       >
     <Grid centered stretched columns={4}>
         <Grid.Row padded>
@@ -72,10 +121,10 @@ return (
         {/* Notes Modal Button */}
         
 <Grid.Column>
-        <Button size='large'>Edit</Button>
+        <Button size='large' onClick={() => setUpdated(true)} variant="warning">Edit</Button>
 </Grid.Column>
 <Grid.Column>
-        <Button size='large'>Delete</Button>
+        <Button size='large' onClick={() => handleDeleteActivity()} >Delete</Button>
 </Grid.Column> 
 </Grid> 
     
@@ -87,19 +136,17 @@ return (
             inverted color='yellow' 
             verticalAlign='middle' 
             id="segment"
-            nSubmit={addNote}
              >
             <Comment.Actions active 
             type="text"
-            value={noteName}
-            onChange={(e) => setNoteName(e.target.value)}
+            value= 'noteName'
             placeholder="Note name"
             required>
             </Comment.Actions>
             <Form reply 
             placeholder="Note content"
-            value={noteContent}
-            onChange={(e) => setNoteContent(e.target.value)}>
+            value='noteContent'
+            >
             <Form.TextArea />
             <Button
                 content='Add Note'
@@ -107,7 +154,6 @@ return (
                 icon='edit'
                 primary
                 type="submit"
-                onClick
             />
             </Form>
             </Segment>
@@ -182,10 +228,16 @@ return (
     </Grid> 
     </Segment>
 </div>
+    ))
 
+return (
+      
+      <>
+      {show}
+      </>
 
-
-);
+ 
+)
 }
 
 
