@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import { Menu, Segment, Sticky, Modal } from 'semantic-ui-react'
 import CreateActivity from '../activities/CreateActivity'
 
@@ -54,7 +54,6 @@ export default class Header extends Component {
 						/>}
        			 >
 					<Modal.Content>
-					
 						<CreateActivity />
 					</Modal.Content>
         		</Modal>

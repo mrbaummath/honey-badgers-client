@@ -2,15 +2,15 @@ import React from 'react'
 import {Button, Checkbox, Form, Container} from 'semantic-ui-react'
 
 const options = [
-    {key: 'e', text: 'Education', value: 'education'},
-    {key: 's', text: 'Social', value: 'social'},
-    {key: 'd', text: 'DIY', value: 'diy'},
-    {key: 'ch', text: 'Charity', value: 'charity'},
-    {key: 'co', text: 'Cooking', value: 'cooking'},
-    {key: 'r', text: 'Relaxation', value: 'relaxtion'},
-    {key: 'm', text: 'Music', value: 'music'},
-    {key: 'b', text: 'Busywork', value: 'busywork'},
-    {key: 'r', text: 'Recreational', value: 'recreational'},
+    {text: 'Education', value: 'education'},
+    {text: 'Social', value: 'social'},
+    {text: 'DIY', value: 'diy'},
+    {text: 'Charity', value: 'charity'},
+    {text: 'Cooking', value: 'cooking'},
+    {text: 'Relaxation', value: 'relaxtion'},
+    {text: 'Music', value: 'music'},
+    {text: 'Busywork', value: 'busywork'},
+    {text: 'Recreational', value: 'recreational'},
 ]
 
 const ActivityForm = (props) => {
@@ -21,10 +21,9 @@ const ActivityForm = (props) => {
         <Container className="justify-content-center">
             <h3>{ heading }</h3>
             <Form onSubmit={ handleSubmit }>
-                <Form.Group inline>
+                <Form.Group widths='equal'>
                     <Form.Input 
                         required 
-                        fluid 
                         name='activity'
                         id='activity'
                         label='Activity' 
@@ -33,21 +32,20 @@ const ActivityForm = (props) => {
                         onChange= { handleChange }
                     />
                     <Form.Select
-                        fluid
                         required
                         name='type'
                         id='type'
                         label='Type'
+                        defaultValue={ activity.type }
                         options={options}
                         placeholder='Type'
-                        value= { activity.type }
                         onChange= { handleChange }
                     />
                 </Form.Group>
                 <Form.Group inline>
                     <Form.Input 
                         required
-                        width={3}
+                        width={6}
                         type='number'
                         name='accessibility'
                         id='accessibility'
@@ -57,7 +55,7 @@ const ActivityForm = (props) => {
                     />
                     <Form.Input 
                         required
-                        width={3}
+                        width={6}
                         type='number'
                         name='participants'
                         id='participants'
@@ -67,7 +65,7 @@ const ActivityForm = (props) => {
                     />
                     <Form.Input 
                         required
-                        width={3}
+                        width={6}
                         type='number'
                         name='price'
                         id='price'
@@ -76,7 +74,7 @@ const ActivityForm = (props) => {
                         onChange= { handleChange }
                     />
                     <Form.Input 
-                        width={3}
+                        width={6}
                         type='number'
                         name='progress'
                         id='progress'

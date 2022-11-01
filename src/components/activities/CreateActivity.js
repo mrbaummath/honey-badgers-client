@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import ActivityForm from '../shared/ActivityForm'
 
 
-const CreateActivity = ({ user, msgAlert }) => {
+const CreateActivity = ({ user,  msgAlert }) => {
+
+    console.log(msgAlert, user,  '<<<<')
     const navigate = useNavigate()
 
     const defaultActivity = {
