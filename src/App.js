@@ -14,6 +14,8 @@ import SignOut from './components/auth/SignOut'
 import SignPage from './components/shared/SignPage'
 import UserPage from './components/user/UserPage'
 import ChangePassword from './components/auth/ChangePassword'
+import ActivityPage from './components/ActivityPage/ActivityPage'
+
 
 const App = () => {
 
@@ -46,7 +48,7 @@ const App = () => {
 			<Fragment>
 				<Header user={user} />
 				<Routes>
-					<Route path='/' element={<Home msgAlert={msgAlert} user={user} />} />
+					<Route path='/' element={<Home msgAlert={msgAlert} setUser={setUser} />} />
 					<Route
 						path='/sign-up'
 						element={<SignUp msgAlert={msgAlert} setUser={setUser} />}

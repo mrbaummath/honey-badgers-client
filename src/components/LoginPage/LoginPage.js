@@ -1,10 +1,52 @@
-import React from 'react'
+import React, { useState, Component} from 'react'
 import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input, Message } from 'semantic-ui-react'
+import { signUp, signIn } from '../../api/auth'
+import messages from '../shared/AutoDismissAlert/messages'
+import { useNavigate } from 'react-router-dom'
 
 
 
 
-const LoginPage = () => (
+const LoginPage = (props) => {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
+
+  const navigate = useNavigate()
+
+  const onSignUp = (event) => {
+  event.preventDefault()
+
+  const { msgAlert, setUser } = props
+
+      const credentials = {email, password, passwordConfirmation}
+
+  signUp(credentials)
+    .then(() => signIn(credentials))
+    .then((res) => setUser(res.data.user))
+    .then(() =>
+      msgAlert({
+        heading: 'Sign Up Success',
+        message: messages.signUpSuccess,
+        variant: 'success',
+      })
+    )
+    .then(() => navigate('/user-page'))
+    .catch((error) => {
+              setEmail('')
+              setPassword('')
+              setPasswordConfirmation('')
+      msgAlert({
+        heading: 'Sign Up Failed with error: ' + error.message,
+        message: messages.signUpFailure,
+        variant: 'danger',
+      })
+    })
+}
+
+
+return (
 
   <Grid columns={2} divided>
     <Grid.Row stretched>
@@ -128,7 +170,7 @@ const LoginPage = () => (
           id="segment"
       >
           <h3>Sign Up</h3>
-          <Form  onSubmit= 'onSignUp'>
+          <Form  onSubmit= {onSignUp}>
               <Form.Field>
                   <Form.Input 
                       fluid
@@ -137,8 +179,9 @@ const LoginPage = () => (
                       required
                       type='email'
                       name='email'
-                      value= 'email'
+                      value={email}
                       placeholder='Enter email'
+                      onChange={e => setEmail(e.target.value)}
 
                   />
               </Form.Field>
@@ -150,9 +193,10 @@ const LoginPage = () => (
                       iconPosition='left'
                       required
                       name='password'
-                      value= 'password'
+                      value={password}
                       type='password'
                       placeholder='Password'
+                      onChange={e => setPassword(e.target.value)}
 
                   />
               </Form.Field>
@@ -165,8 +209,9 @@ const LoginPage = () => (
                       placeholder='Confirm Password'
                       required
                       name='passwordConfirmation'
-                      value= 'passwordConfirmation'
+                      value={passwordConfirmation}
                       type='password'
+                      onChange={e => setPasswordConfirmation(e.target.value)}
                       
                   />
               </Form.Field>
@@ -196,9 +241,9 @@ const LoginPage = () => (
             <Grid columns={2} stackable textAlign='center'>
                 <Grid.Column centered>
                     {/* <Button secondary inverted color='yellow' class="signButton" href='sign-in'>Sign in</Button> */}
-                <Message attached='bottom' color='yellow'>
+                <Message fluid attached='bottom' color='yellow' stretched>
       <Icon name='help' />
-      Already signed up?&nbsp;<a href='#'>Login here</a>&nbsp;instead.
+      Already signed up?&nbsp;<a href='sign-in'>Login here</a>&nbsp;instead.
     </Message> 
     </Grid.Column>
             </Grid>
@@ -209,6 +254,6 @@ const LoginPage = () => (
       </Grid.Column>
     </Grid.Row>
   </Grid>
-  )
+)}
 
 export default LoginPage

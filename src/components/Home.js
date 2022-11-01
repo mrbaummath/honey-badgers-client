@@ -3,6 +3,8 @@ import ActivityPage from "./ActivityPage/ActivityPage"
 
 import HomeFeed from "./HomeFeed/HomeFeed"
 import LoginPage from "./LoginPage/LoginPage"
+import NotesApp from "./Notes/NoteApp"
+import IndexActivity from "./ActivityPage/IndexActivity"
 
 
 const Home = ( user, props) => {
@@ -14,8 +16,10 @@ const Home = ( user, props) => {
 		<>
 
 			<h2>Welcome to HoneyBadges</h2> 
-			{/* < LoginPage /> */}
-			< ActivityPage />
+			< LoginPage />
+			{/* < ActivityPage /> */}
+			{/* < IndexActivity /> */}
+			
 		</>
 	)
 }
