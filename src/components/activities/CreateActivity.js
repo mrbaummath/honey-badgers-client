@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
 import { createActivity } from '../../api/activity'
-import { useNavigate } from 'react-router-dom'
 
 import ActivityForm from '../shared/ActivityForm'
 
 
-const CreateActivity = ({ user,  msgAlert }) => {
-
-    console.log(msgAlert, user,  '<<<<')
-    const navigate = useNavigate()
+const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
 
     const defaultActivity = {
         activity: '',
@@ -21,22 +17,24 @@ const CreateActivity = ({ user,  msgAlert }) => {
     }
 
     const [activity, setActivity] = useState(defaultActivity)
+    const [activityModalShow, setActivityModalShow] = useState(false)
 
-    const handleChange = (e) => {
-
+    const handleChange = (e , target) => {
+        
         setActivity(prevActivity => {
-            const updatedName = e.target.name
-            let updatedValue = e.target.updatedValue
+            const { name, value } = target
+            const updatedName = name
+            let updatedValue = value
             // handle number type
-            if(e.target.type === 'number') {
+            if(target.type === 'number') {
                 // change from string to actual number
                 updatedValue = parseInt(e.target.value)
             }
 
             //handle the checkbox
-            if (updatedName === 'private' && e.target.checked) {
+            if (updatedName === 'private' && target.checked) {
                 updatedValue = true
-            } else if (updatedName === 'private' && !e.target.checked) {
+            } else if (updatedName === 'private' && !target.checked) {
                 updatedValue = false
             }
 
@@ -45,19 +43,20 @@ const CreateActivity = ({ user,  msgAlert }) => {
             return { ...prevActivity, ...updatedActivity}
         })
     }
-
     const handleCreateActivity = (e) => {
         e.preventDefault()
 
         createActivity(user, activity)
-            .then(res => { navigate('/user-page')})
+            .then(() => handleClose())
             .then(() => {
+               
                 msgAlert({
                     heading: 'Success',
                     message: 'Created Activity',
                     variant: 'success'
                 })
             })
+            .then(() => triggerRefresh())
             .catch((error) => {
                 msgAlert({
                     heading: 'Failure',
@@ -69,10 +68,12 @@ const CreateActivity = ({ user,  msgAlert }) => {
 
     return (
         <ActivityForm
+            show={activityModalShow}
             activity={ activity }
             handleChange={ handleChange }
             heading="Create a new Activity!"
             handleSubmit={ handleCreateActivity }
+            handleClose={() => setActivityModalShow(false)}
         />
     
     )
