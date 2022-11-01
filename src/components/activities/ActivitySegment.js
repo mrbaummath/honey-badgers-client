@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import {  Button, Segment, Grid, Feed, Icon, Image, Progress, List, Divider, Container } from 'semantic-ui-react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
@@ -86,6 +86,7 @@ const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
                         <List.Item as='p'>Price Rating: {activity.price}</List.Item>
                         <List.Item as='p'>Accessibiity Rating: {activity.accessibility}</List.Item>
                     </List>
+                    <Link to={`/user-public-page/${activity.owner}`}>Test</Link>
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <Progress percent={percent} indicating />
