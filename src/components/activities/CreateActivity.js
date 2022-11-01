@@ -52,6 +52,7 @@ const CreateActivity = ({ user,  msgAlert }) => {
         createActivity(user, activity)
             .then(res => { navigate('/user-page')})
             .then(() => {
+               
                 msgAlert({
                     heading: 'Success',
                     message: 'Created Activity',

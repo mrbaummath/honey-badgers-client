@@ -54,7 +54,7 @@ export default class Header extends Component {
 						/>}
        			 >
 					<Modal.Content>
-						<CreateActivity  />
+						<CreateActivity user={this.props.user} msgAlert={this.props.msgAlert}  />
 					</Modal.Content>
         		</Modal>
 				<Menu.Item
