@@ -22,21 +22,22 @@ const CreateActivity = ({ user,  msgAlert }) => {
 
     const [activity, setActivity] = useState(defaultActivity)
 
-    const handleChange = (e) => {
-
+    const handleChange = (e , target) => {
+        
         setActivity(prevActivity => {
-            const updatedName = e.target.name
-            let updatedValue = e.target.updatedValue
+            const { name, value } = target
+            const updatedName = name
+            let updatedValue = value
             // handle number type
-            if(e.target.type === 'number') {
+            if(target.type === 'number') {
                 // change from string to actual number
                 updatedValue = parseInt(e.target.value)
             }
 
             //handle the checkbox
-            if (updatedName === 'private' && e.target.checked) {
+            if (updatedName === 'private' && target.checked) {
                 updatedValue = true
-            } else if (updatedName === 'private' && !e.target.checked) {
+            } else if (updatedName === 'private' && !target.checked) {
                 updatedValue = false
             }
 
@@ -45,7 +46,6 @@ const CreateActivity = ({ user,  msgAlert }) => {
             return { ...prevActivity, ...updatedActivity}
         })
     }
-
     const handleCreateActivity = (e) => {
         e.preventDefault()
 
