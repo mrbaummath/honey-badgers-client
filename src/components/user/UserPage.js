@@ -5,6 +5,7 @@ import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import ActivitySegment from '../activities/ActivitySegment'
 import { getMyActivities } from '../../api/activity'
+import LoadingScreen from '../shared/LoadingPage'
 
 
 
@@ -30,12 +31,13 @@ const UserPage = ({ user, msgAlert }) => {
 
 
 
-   
-
-    //set JSX for activities w/ MyActivity component 
-    const activitiesJSX = allMyActivities.map((activity) => (
-        <ActivitySegment key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={true} />
-    ))
+    //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
+    const activitiesJSX = allMyActivities ? 
+        allMyActivities.map((activity) => (
+            <ActivitySegment key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={true} />
+        ))
+        :
+        <LoadingScreen />
    
     
     const images = [

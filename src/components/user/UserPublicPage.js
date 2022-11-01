@@ -5,6 +5,7 @@ import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import { getTheirActivities } from '../../api/activity'
 import ActivitySegment from '../activities/ActivitySegment'
+import LoadingScreen from '../shared/LoadingPage'
 
 const UserPublicPage = ({currentUser, msgAlert}) => {
 
@@ -31,10 +32,15 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
             .catch(console.log('oops'))
     },[])
 
-     //set JSX for activities w/ MyActivity component 
-     const activitiesJSX = publicActivities.map((activity) => (
-        <ActivitySegment key={activity.id} activity={activity} user={currentUser} msgAlert={msgAlert} mine={false} />
-    ))
+
+     //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
+     const activitiesJSX = publicActivities ? 
+        publicActivities.map((activity) => (
+            <ActivitySegment key={activity.id} activity={activity} user={currentUser} msgAlert={msgAlert} mine={false} />
+        ))
+        :
+        <LoadingScreen />
+
     
     const images = [
         'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg',
