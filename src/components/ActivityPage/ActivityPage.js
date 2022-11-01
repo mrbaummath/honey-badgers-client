@@ -1,10 +1,46 @@
-import React from "react"
-import { Label, Icon, Item, Button, Segment, Grid, Comment, Form, Modal } from 'semantic-ui-react'
+import React, { useEffect, useState } from "react"
+import { Label, Icon, Item, Button, Segment, Grid, Comment, Form, Modal, Header } from 'semantic-ui-react'
+import { getActivity } from '../../api/activity'
+import messages from '../shared/AutoDismissAlert/messages'
+import { useNavigate } from 'react-router-dom'
+
+const ActivityPage = ({ notes, setNoteList, id, setId }) => {
+    const [noteName, setNoteName] = useState("");
+    const [noteContent, setNoteContent] = useState("");
+  
+    const addNote = (event) => {
+      event.preventDefault();
+  
+      if (!noteContent) {
+        alert("You must add note content");
+        return;
+      }
+  
+      const newNote = {
+        noteName,
+        noteContent,
+        editing: false,
+        addingComment: false,
+        viewingComments: false,
+        comments: []
+      };
+  
+      setNoteList([...notes, newNote]);
+      setId(id + 1);
+      setNoteContent("");
+      setNoteName("");
+    };
+
+// const ActivityPage = ({ user, msgAlert}) => (
+return (
+
+
 
 const ActivityPage = ({user, msAlert}) => (
     
     // [open, setOpen] = React.useState(false)
     
+
     // Activity Section
    
    <div> 
@@ -23,31 +59,8 @@ const ActivityPage = ({user, msAlert}) => (
         <h3>Participants:</h3>
         <h3>Price:</h3>
 
-
-    {/* <Item.Content columns={1} verticalAlign='center'>
-    <Item.Header as='a'>Activity Name</Item.Header>
-    <Item.Meta>
-      <span className='cinema'>Category: </span>
-    </Item.Meta>
-    <Item.Extra>
-      <Button primary floated='right'>
-        View Activity
-      </Button>
-      <Label>Hard/Medium/Easy</Label>
-    </Item.Extra>
-  </Item.Content> */}
   </Segment>
   </Grid.Row>
-  
-
-  
-  
-
-
-
-    
-    
-    
         <Grid.Row padded>
             <Segment     
           verticalAlign='middle' 
@@ -68,46 +81,114 @@ const ActivityPage = ({user, msAlert}) => (
 </Grid.Column> 
 </Grid> 
     
-{/* </div> */} </Segment>
+ </Segment>
         </Grid.Row>
-     
-      
-  
-
-
-
-
-
-    
-    
         <Grid.Row >
-     <Segment  
-          padded='very'  
-          inverted color='yellow' 
-          verticalAlign='middle' 
-          id="segment"
-      >
-     <Comment.Actions active>
+            <Segment  
+            padded='very'  
+            inverted color='yellow' 
+            verticalAlign='middle' 
+            id="segment"
+            nSubmit={addNote}
+             >
+            <Comment.Actions active 
+            type="text"
+            value={noteName}
+            onChange={(e) => setNoteName(e.target.value)}
+            placeholder="Note name"
+            required>
+            </Comment.Actions>
+            <Form reply 
+            placeholder="Note content"
+            value={noteContent}
+            onChange={(e) => setNoteContent(e.target.value)}>
+            <Form.TextArea />
+            <Button
+                content='Add Note'
+                labelPosition='center'
+                icon='edit'
+                primary
+                type="submit"
+                onClick
+            />
+            </Form>
+            </Segment>
+            <Segment>
+            <Comment.Group minimal>
+    <Header as='h3' dividing>
+      Comments
+    </Header>
+
+    <Comment>
+      <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+      <Comment.Content>
+        <Comment.Author as='a'>Matt</Comment.Author>
+        <Comment.Metadata>
+          <span>Today at 5:42PM</span>
+        </Comment.Metadata>
+        <Comment.Text>How artistic!</Comment.Text>
+        <Comment.Actions>
+          <a>Reply</a>
         </Comment.Actions>
-        <Form reply>
-          <Form.TextArea />
-          <Button
-            content='Add Note'
-            labelPosition='center'
-            icon='edit'
-            primary
-          />
-        </Form>
-        </Segment>
+      </Comment.Content>
+    </Comment>
+
+    <Comment>
+      <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+      <Comment.Content>
+        <Comment.Author as='a'>Elliot Fu</Comment.Author>
+        <Comment.Metadata>
+          <span>Yesterday at 12:30AM</span>
+        </Comment.Metadata>
+        <Comment.Text>
+          <p>This has been very useful for my research. Thanks as well!</p>
+        </Comment.Text>
+        <Comment.Actions>
+          <a>Reply</a>
+        </Comment.Actions>
+      </Comment.Content>
+
+      <Comment.Group>
+        <Comment>
+          <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
+          <Comment.Content>
+            <Comment.Author as='a'>Jenny Hess</Comment.Author>
+            <Comment.Metadata>
+              <span>Just now</span>
+            </Comment.Metadata>
+            <Comment.Text>Elliot you are always so right :)</Comment.Text>
+            <Comment.Actions>
+              <a>Reply</a>
+            </Comment.Actions>
+          </Comment.Content>
+        </Comment>
+      </Comment.Group>
+    </Comment>
+
+    <Comment>
+      <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
+      <Comment.Content>
+        <Comment.Author as='a'>Joe Henderson</Comment.Author>
+        <Comment.Metadata>
+          <span>5 days ago</span>
+        </Comment.Metadata>
+        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
+        <Comment.Actions>
+          <a>Reply</a>
+        </Comment.Actions>
+      </Comment.Content>
+    </Comment>
+  </Comment.Group>
+            </Segment>
        </Grid.Row>
-        
-    
     </Grid> 
     </Segment>
 </div>
 
 
 
-)
+);
+}
 
-export default ActivityPage
+
+export default ActivityPage;
