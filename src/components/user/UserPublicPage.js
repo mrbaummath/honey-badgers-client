@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import {  Button, Segment, Grid, Feed, Icon, Image, Modal, Header, List } from 'semantic-ui-react'
+import {  Button, Segment, Grid, Label, Icon, Image, Modal, Header, List } from 'semantic-ui-react'
 import React, { useState } from 'react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
@@ -57,8 +57,8 @@ const UserPublicPage = () => {
                 <Grid columns={2} verticalAlign='center' padded>
                     <Grid.Row>
                         <Segment>
-                            <Grid columns={3}>
-                                <Grid.Column width={7}>
+                            <Grid columns={2}>
+                                <Grid.Column width={8} verticalAlign='middle'>
                                     <Grid columns={2}>
                                         <Grid.Column width={4}>
                                             <Image 
@@ -74,17 +74,53 @@ const UserPublicPage = () => {
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Column>
-                                <Grid.Column width={1}>
-                                    
-                                </Grid.Column>
+                                
                                 <Grid.Column width={8}>
                                     <Segment>
-                                    <Button>Button</Button>
-                                    <Button>Button</Button>
-                                    <Button>Button</Button> 
-                                    <Button>Button</Button>
-                                    <Button>Button</Button>
-                                    <Button>Button</Button>
+                                        <Grid padded textAlign='center'>
+                                            <Grid.Row>
+                                                <h2 id="bestBuds">(USERNAME)'s Best Buds</h2>
+                                            </Grid.Row>
+
+                                            <Grid.Row >
+                                                <Grid columns={4}>
+                                                    <Grid.Column textAlign='center'>
+                                                        <Label as='a' image size='big'>
+                                                            <img src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
+                                                            Joe
+                                                        </Label>
+                                                    </Grid.Column>
+                                                    <Grid.Column textAlign='center'>
+                                                        <Label as='a' image size='big'>
+                                                            <img src='https://react.semantic-ui.com/images/avatar/small/christian.jpg' />
+                                                            Elliot
+                                                        </Label>
+                                                    </Grid.Column>
+                                                    <Grid.Column textAlign='center'>
+                                                        <Label as='a' image size='big'>
+                                                            <img src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
+                                                            Stevie
+                                                        </Label>
+                                                    </Grid.Column>
+                                                    <Grid.Column textAlign='center'>
+                                                        <Label as='a' image size='big'>
+                                                            <img src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
+                                                            Jenny
+                                                        </Label>
+                                                    </Grid.Column>
+                                                    
+                                                </Grid>
+                                            </Grid.Row>
+                                            <Grid.Row>
+                                                <div id='viewBudsButton'>
+                                                <Button verticalAlign='middle' size='medium'> 
+                                                        <Icon size='large'name='user' />
+                                                    View (USERNAME)'s Buddies
+                                                </Button>
+                                                </div>
+                                            </Grid.Row>
+                                        </Grid>
+                                        
                                     </Segment>
                                 </Grid.Column>
                             </Grid>
@@ -169,23 +205,23 @@ const UserPublicPage = () => {
                     <Grid.Column >
                         <Grid.Row>
                             <Segment raised >
-                                <h2>Activity Timeline</h2>
+                                <h1>Activity Timeline</h1>
                                 {images.map((src) => (
                                     <Segment id='actListItems'>
-                                        <Grid>
-                                            <Grid.Column width={6}>
-                                            <Image 
-                                                src='https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg'
-                                                size='small'
-                                                circular />
+                                        <Grid columns={3}>
+                                            <Grid.Column width={2} verticalAlign='middle'>
+                                                <Icon name='certificate' size='large'/>
                                             </Grid.Column>
-                                            <Grid.Column width={9}>
-                                                <h1>Task info...</h1>
-                                                <p>details, details, details, details, details, details, details, </p>
+                                            <Grid.Column width={10} fluid>
+                                                <h2>Activity Name</h2>
                                             </Grid.Column>
-                                            {/* <Grid.Column width={3}>
-
-                                            </Grid.Column> */}
+                                            <Grid.Column width={4}  verticalAlign='middle'>
+                                                <Grid textAlign='right'>
+                                                    <Button size='small'> 
+                                                        View This Activity
+                                                    </Button>
+                                                </Grid>
+                                            </Grid.Column>
                                         </Grid>
                                     </Segment>
                                 ))}    

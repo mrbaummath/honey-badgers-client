@@ -57,3 +57,16 @@ code {
   text-align: center;
 }
 
+#bestBuds {
+  text-align: center;
+}
+
+#viewBudsButton {
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+#viewButton {
+  align-items: right;
+}
