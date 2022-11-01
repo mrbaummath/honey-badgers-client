@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {  Button, Segment, Grid, Feed, Icon, Image, Progress } from 'semantic-ui-react'
-import React, { useState } from 'react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
-import React, { useState } from 'react'
-import ActivitySegment from './ActivitySegment'
+import ActivitySegment from '../activities/ActivitySegment'
 import { getMyActivities } from '../../api/activity'
 
 

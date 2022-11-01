@@ -1,10 +1,10 @@
-import ActivityPage from "./ActivityPage/ActivityPage"
+import ShowActivity from "./activities/ShowActivity"
 
 
 import HomeFeed from "./HomeFeed/HomeFeed"
 import LoginPage from "./LoginPage/LoginPage"
-import NotesApp from "./Notes/NoteApp"
-import IndexActivity from "./ActivityPage/IndexActivity"
+
+import IndexActivity from "./activities/IndexActivity"
 
 
 const Home = ( {user, ...props }) => {

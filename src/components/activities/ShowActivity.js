@@ -4,7 +4,7 @@ import { getActivity } from '../../api/activity'
 import messages from '../shared/AutoDismissAlert/messages'
 import { useNavigate } from 'react-router-dom'
 
-const ActivityPage = ({ notes, setNoteList, id, setId }) => {
+const ShowActivity = ({ notes, setNoteList, id, setId }) => {
     const [noteName, setNoteName] = useState("");
     const [noteContent, setNoteContent] = useState("");
   
@@ -31,12 +31,10 @@ const ActivityPage = ({ notes, setNoteList, id, setId }) => {
       setNoteName("");
     };
 
-// const ActivityPage = ({ user, msgAlert}) => (
+
 return (
 
 
-
-const ActivityPage = ({user, msAlert}) => (
     
     // [open, setOpen] = React.useState(false)
     
@@ -191,4 +189,4 @@ const ActivityPage = ({user, msAlert}) => (
 }
 
 
-export default ActivityPage;
+export default ShowActivity;

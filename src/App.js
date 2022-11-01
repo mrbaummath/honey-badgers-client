@@ -16,7 +16,7 @@ import UserPage from './components/user/UserPage'
 import UserPublicPage from './components/user/UserPublicPage'
 import ChangePassword from './components/auth/ChangePassword'
 
-import ActivityPage from './components/ActivityPage/ActivityPage'
+import ShowActivity from './components/activities/ShowActivity'
 
 
 // import CreateActivity from './components/activities/CreateActivity'
