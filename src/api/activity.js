@@ -67,7 +67,7 @@ export const createActivity = (user, newActivity) => {
         headers: {
             Authorization: `Token token=${user.token}`
         },
-        url: `${apiUrl}/activities`,
+        url: apiUrl + '/activities',
         data: {
             activity: newActivity
         }

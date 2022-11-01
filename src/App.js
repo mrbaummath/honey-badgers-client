@@ -14,6 +14,8 @@ import SignOut from './components/auth/SignOut'
 import SignPage from './components/shared/SignPage'
 import UserPage from './components/user/UserPage'
 import ChangePassword from './components/auth/ChangePassword'
+// import CreateActivity from './components/activities/CreateActivity'
+// import UpdateActivity from './components/activities/UpdateActivity'
 
 const App = () => {
 
@@ -44,7 +46,7 @@ const App = () => {
 
 		return (
 			<Fragment>
-				<Header user={user} />
+				<Header user={user} msgAlert={msgAlert} />
 				<Routes>
 					<Route path='/' element={<Home msgAlert={msgAlert} user={user} />} />
 					<Route
@@ -76,6 +78,14 @@ const App = () => {
 						//</RequireAuth>
 					}
 					/>
+					{/* <Route
+						path='/user-page'
+						element={
+						<RequireAuth user={user}>
+							<CreateActivity msgAlert={msgAlert} user={user} />
+						</RequireAuth>
+					}
+					/> */}
 				</Routes>
 				{msgAlerts.map((msgAlert) => (
 					<AutoDismissAlert
