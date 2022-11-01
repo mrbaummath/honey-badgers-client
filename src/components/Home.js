@@ -1,10 +1,21 @@
-const Home = ( user, props) => {
+import ActivityPage from "./ActivityPage/ActivityPage"
+
+
+import HomeFeed from "./HomeFeed/HomeFeed"
+import LoginPage from "./LoginPage/LoginPage"
+
+
+const Home = ( {user, ...props }) => {
+
 	// const { msgAlert, user } = props
 	console.log('props in home', props)
 
 	return (
 		<>
-			<h2>Home Page</h2>
+
+			<h2>Welcome to HoneyBadges</h2> 
+			{/* < LoginPage /> */}
+			< LoginPage />
 		</>
 	)
 }

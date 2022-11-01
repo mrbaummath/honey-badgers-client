@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+ buttonActivityPage {
+  justify-content: space-evenly;
+ }
+
+
+
 .signButton {
   color: black;
 }
@@ -53,6 +59,7 @@ code {
   justify-content: left;
 }
 
+
 #ranksHeader {
   text-align: center;
 }
@@ -70,3 +77,4 @@ code {
 #viewButton {
   align-items: right;
 }
+
