@@ -49,8 +49,8 @@ const CreateActivity = ({ user,  msgAlert }) => {
     const handleCreateActivity = (e) => {
         e.preventDefault()
 
-        createActivity(activity, user)
-            .then(res => { navigate('/activities')})
+        createActivity(user, activity)
+            .then(res => { navigate('/user-page')})
             .then(() => {
                 msgAlert({
                     heading: 'Success',

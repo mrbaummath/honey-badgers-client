@@ -54,7 +54,7 @@ export default class Header extends Component {
 						/>}
        			 >
 					<Modal.Content>
-						<CreateActivity />
+						<CreateActivity  />
 					</Modal.Content>
         		</Modal>
 				<Menu.Item
