@@ -14,7 +14,8 @@ import SignOut from './components/auth/SignOut'
 import SignPage from './components/shared/SignPage'
 import UserPage from './components/user/UserPage'
 import ChangePassword from './components/auth/ChangePassword'
-import CreateActivity from './components/activities/CreateActivity'
+// import CreateActivity from './components/activities/CreateActivity'
+// import UpdateActivity from './components/activities/UpdateActivity'
 
 const App = () => {
 
@@ -77,14 +78,14 @@ const App = () => {
 						//</RequireAuth>
 					}
 					/>
-					<Route
+					{/* <Route
 						path='/user-page'
 						element={
 						<RequireAuth user={user}>
 							<CreateActivity msgAlert={msgAlert} user={user} />
 						</RequireAuth>
 					}
-					/>
+					/> */}
 				</Routes>
 				{msgAlerts.map((msgAlert) => (
 					<AutoDismissAlert

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Modal } from 'semantic-ui-react'
 import ActivityForm from '../shared/ActivityForm'
 import { updateActivity } from '../../api/activity'
@@ -20,7 +20,7 @@ const UpdateActivity = (props) => {
                 updatedValue = parseInt(e.target.value)
             } 
 
-            if (updatedname === 'private' && e.target.checked) {
+            if (updatedName === 'private' && e.target.checked) {
                 updatedValue = true
             } else if (updatedName === 'private' && !e.target.checked) {
                 updatedValue = false
