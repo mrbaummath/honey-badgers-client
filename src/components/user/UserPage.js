@@ -1,19 +1,19 @@
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {  Button, Segment, Grid, Feed, Icon, Image, Progress } from 'semantic-ui-react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import React, { useState } from 'react'
+import ActivitySegment from './ActivitySegment'
+import { getMyActivities } from '../../api/activity'
 
 
-const UserPage = () => {
 
-    const [percent, setPercent] = useState(0)
+const UserPage = ({ user, msgAlert }) => {
 
-    const increment = () => {
-        setPercent((prevPercent) => {
-           return prevPercent += 20
-        })
-   }
+
+    let percent = 20
+
     //const [allBadges, setAllBadges] = useState([])
     // const badgeImages = allBadges.map(badge => (
     //     <Image src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' size='small' circular 
@@ -24,19 +24,31 @@ const UserPage = () => {
     // if (!allBadges) {
     //     return <LoadingScreen />
     // }
+    
+    //set state variables for all activities and user's count of completed activities
+    const [allMyActivities, setAllMyActivities] = useState([])
+    const [completedCounts, setCompletedCounts] = useState({})
 
-    // let percent = 90 
 
-    // const increment = (percent) => {
-    //      percent =+ 20
-    // }
+    //after initial render, make axios call to grab activity/count data and set the state variables 
+    useEffect(() => {
+        getMyActivities(user)
+            .then(res => {
+                console.log(res)
+                setAllMyActivities(res.data.activities)
+                setCompletedCounts(res.data.completedCounts)
+            })
+            .catch(console.log('oops'))
+    },[])
 
-    // state = { percent: 33 }
 
-    // const increment = () =>
-    // this.setState((prevState) => ({
-    //   percent: prevState.percent >= 100 ? 0 : prevState.percent + 20,
-    // }))
+   
+
+    //set JSX for activities w/ MyActivity component 
+    const activitiesJSX = allMyActivities.map((activity) => (
+        <ActivitySegment key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={true} />
+    ))
+   
     
     const images = [
         'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg',
@@ -89,31 +101,8 @@ const UserPage = () => {
                     <Grid.Column width={9}>
                         {/* <Sticky offset={65}> */}
                             <Segment.Group id='actList' raised >
-                                <h2>List of User Activities</h2>
-                                {images.map((src) => (
-                                    <Segment id='actListItems'>
-                                        <Grid>
-                                            <Grid.Column width={4}>
-                                            <Image 
-                                                src='https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg'
-                                                size='small'
-                                                circular />
-                                            </Grid.Column>
-                                            <Grid.Column width={9}>
-                                                <h1>Task info...</h1>
-                                                <p>details, details, details, details, details, details, details, </p>
-                                            </Grid.Column>
-                                            <Grid.Column width={3}>
-                                                <Progress percent={percent} indicating />
-                                                <Button onClick={increment}>Increment</Button>
-
-                                                {/* <Progress percent={this.state.percent} indicating />
-                                                <Button onClick={this.increment}>Increment</Button> */}
-
-                                            </Grid.Column>
-                                        </Grid>
-                                    </Segment>
-                                ))}
+                                <h2>Your Activities</h2>
+                                {activitiesJSX}
                                 
                             </Segment.Group>
                         {/* </Sticky> */}

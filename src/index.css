@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+ buttonActivityPage {
+  justify-content: space-evenly;
+ }
+
+
 
 .signButton {
   color: black;
@@ -53,4 +58,5 @@ code {
 #actListItems {
   justify-content: left;
 }
+
 

@@ -1,3 +1,5 @@
+import ActivityPage from "./ActivityPage/ActivityPage"
+
 
 import HomeFeed from "./HomeFeed/HomeFeed"
 import LoginPage from "./LoginPage/LoginPage"
@@ -11,9 +13,9 @@ const Home = ( user, props) => {
 	return (
 		<>
 
-			<h2>Community Feed Hub</h2>
-			< HomeFeed />
-			< LoginPage />
+			<h2>Welcome to HoneyBadges</h2> 
+			{/* < LoginPage /> */}
+			< ActivityPage />
 		</>
 	)
 }
