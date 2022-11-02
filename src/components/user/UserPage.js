@@ -61,7 +61,7 @@ const UserPage = ({ user, msgAlert }) => {
                 fluid
                 
             >
-                <Grid columns={3} verticalAlign='center'>
+                <Grid columns={3}>
                     <Grid.Column width={3}>
                         <BadgesSegment 
                             setOpen={setOpen} 

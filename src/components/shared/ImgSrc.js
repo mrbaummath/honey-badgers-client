@@ -8,7 +8,8 @@ const imgSrc = {
         'busywork': 'https://i.etsystatic.com/10536084/r/il/3f03d0/4011213950/il_1140xN.4011213950_h2pg.jpg',
         'social': 'https://i.etsystatic.com/13215769/r/il/c4241b/2849297993/il_1140xN.2849297993_2n4t.jpg',
         'relaxation': 'https://i.etsystatic.com/10536084/r/il/34208a/4061173433/il_1588xN.4061173433_ttah.jpg',
-        'cooking': 'https://i.etsystatic.com/10536084/r/il/5f1720/4058858205/il_1588xN.4058858205_hrqh.jpg'
+        'cooking': 'https://i.etsystatic.com/10536084/r/il/5f1720/4058858205/il_1588xN.4058858205_hrqh.jpg',
+        'recreation': 'https://i.etsystatic.com/10536084/r/il/713e7a/4011357108/il_1588xN.4011357108_p59z.jpg'
     }
 }
 

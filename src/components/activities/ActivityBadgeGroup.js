@@ -8,7 +8,7 @@ const ActivityBadgeGroup = ({badge, activities}) => {
     const type = badge.name
     const activityGroup = activities.filter(activity => activity.type === type)
     const activityGroupJSX = activityGroup.map(activity => (
-        <List.Item>
+        <List.Item key={`badge-group-${activity._id}`}>
             <List.Icon name='certificate' />
             <List.Content>
                 <p>{activity.activity}</p>

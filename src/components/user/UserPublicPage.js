@@ -89,11 +89,11 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                 // verticalAlign='middle' 
                 fluid
             >
-                <Grid columns={2} verticalAlign='center' padded>
+                <Grid columns={2} verticalAlign='middle' padded>
                     <Grid.Row>
                         <Segment>
                             <Grid columns={2}>
-                                <Grid.Column width={8} verticalAlign='middle'>
+                                <Grid.Column width={8}>
                                     <Grid columns={2}>
                                         <Grid.Column width={4}>
                                             <Image 
