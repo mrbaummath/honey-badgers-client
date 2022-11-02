@@ -15,6 +15,7 @@ import SignPage from './components/shared/SignPage'
 import UserPage from './components/user/UserPage'
 import UserPublicPage from './components/user/UserPublicPage'
 import ChangePassword from './components/auth/ChangePassword'
+import FeedPage from './components/FeedPage.js/FeedPage'
 
 import ShowActivity from './components/activities/ShowActivity'
 
@@ -83,6 +84,12 @@ const App = () => {
 						//<RequireAuth user={user}>
 							<ChangePassword msgAlert={msgAlert} user={user} />
 						//</RequireAuth>
+					}
+					/>
+					<Route
+						path='/feed-page/:otherUserId'
+						element={
+							<FeedPage msgAlert={msgAlert} currentUser={user}  />
 					}
 					/>
 					{/* <Route
