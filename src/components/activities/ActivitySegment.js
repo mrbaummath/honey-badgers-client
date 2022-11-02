@@ -12,7 +12,6 @@ const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
     const [percent, setPercent] = useState(activity.progress)
     const [percentChangeSaving, setPercentChangeSaving] = useState(false)
     const [showSaveButton, setShowSaveButton] = useState(false)
-    console.log(percent, activity.progress)
 
     //function to increment progress when user clicks --> this only changes the progress bar. Nothing is changed on the backend until "save" is hit
 
