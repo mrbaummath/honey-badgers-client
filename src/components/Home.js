@@ -15,7 +15,9 @@ const Home = ( {user, msgAlert, setUser, ...props }) => {
 	return (
 		<>
 
+
 			<h2>Welcome to HoneyBadges</h2> 
+
 
 			< LoginPage />
 			{/* < ShowActivity msgAlert={msgAlert} setUser={setUser} user={user}/> */}

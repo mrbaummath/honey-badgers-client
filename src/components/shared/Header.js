@@ -75,6 +75,17 @@ export default class Header extends Component {
 					<Link 
 						to='user-public-page' 
 					>
+						Feed
+					</Link>
+				</Menu.Item>
+				<Menu.Item
+					name='my public profile'
+					active={activeItem === 'my public profile'}
+					onClick={this.handleItemClick}
+				>
+					<Link 
+						to='user-public-page' 
+					>
 						Public Profile
 					</Link>
 				</Menu.Item>

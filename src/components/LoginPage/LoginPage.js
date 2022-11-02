@@ -1,5 +1,5 @@
 import React, { useState, Component} from 'react'
-import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input, Message } from 'semantic-ui-react'
+import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input, Message, Header, List, Image } from 'semantic-ui-react'
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import { useNavigate } from 'react-router-dom'
@@ -48,17 +48,79 @@ const LoginPage = (props) => {
 
 return (
 
-  <Grid columns={2} divided>
+  <Grid columns={2} divided padded centered>
     <Grid.Row stretched>
       <Grid.Column>
         <Segment
     raised
   inverted
   color='yellow'
-  verticalAlign='middle'>
-<Segment >
-<h2>List of User Activities</h2>
+  verticalAlign='middle'
+  padded='very'>
+
+<Segment 
+    raised
+  verticalAlign='middle'
+  centered>
+    <h4><h3>Honey Badges </h3> is an application where users can keep a running list of activites to complete and earn "badges" for completing multiple activites of the same type. Together, users form a community of badge-earners who can opt to share their accomplishments and use eachother's activities for inspiration. We hope the social aspect of creating and sharing activities will motivate users in a positive way. At the same time, users will have the option to make specific activities on their tasklist private. Users who need some help getting started can also choose to randomly generate an activity within specified parameters.</h4></Segment>
+  
+
+    <Segment >
+  <Header textAlign='center'>
+  <h1>Earn Cool Badges!</h1>
+</Header>
   </Segment>
+
+
+  <Segment>
+
+  <Grid columns={2}>
+
+
+    <Grid.Column verticalAlign='middle' width={7}>
+
+      <Image 
+          src='https://i.etsystatic.com/10536084/r/il/b67424/4058937747/il_1140xN.4058937747_esbp.jpg' 
+          size='small' 
+          circular 
+          centered
+          alt='A picture of a badge'
+      />
+
+      </Grid.Column>
+      <Grid.Column>
+      <Header><h1>The Most Selfless</h1></Header>
+            <List size='big' >
+                <List.Item>
+                    <List.Icon name='certificate' verticalAlign='middle'/>
+                    <List.Content><p>Catch up on world news</p></List.Content>
+                </List.Item>
+                <List.Item>
+                    <List.Icon name='certificate' verticalAlign='middle' />
+                    <List.Content  verticalAlign='middle'><p>Buy a new house decoration</p></List.Content>
+                </List.Item>
+                <List.Item>
+                    <List.Icon name='certificate'  verticalAlign='middle'/>
+                    <List.Content  verticalAlign='middle'>
+                    <p>Repaint a room in your house</p>
+                    </List.Content>
+                </List.Item>
+                <List.Item >
+                    <List.Icon name='certificate'  verticalAlign='middle'/>
+                    <List.Content  verticalAlign='middle'>
+                        <p>Draw something interesting</p>
+                    </List.Content>
+                </List.Item>
+            </List>
+        </Grid.Column>
+    </Grid>
+  </Segment>
+  <Segment>
+  <Header textAlign='center'>
+<h2> View an Updated Feed of Recent User Activities</h2>
+</Header>
+</Segment>
+  <Segment >
 <Feed>
     <Feed.Event>
       <Feed.Label>
@@ -66,7 +128,7 @@ return (
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
-          <Feed.User>Elliot Fu</Feed.User> added you as a friend
+          <Feed.User>Elliot Fu</Feed.User> added you as a buddy
           <Feed.Date>1 Hour Ago</Feed.Date>
         </Feed.Summary>
         <Feed.Meta>
@@ -81,7 +143,7 @@ return (
       <Feed.Label image='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
       <Feed.Content>
         <Feed.Summary>
-          <a>Helen Troy</a> added <a>2 new illustrations</a>
+          <a>Helen Troy</a> completed <a>2 new activities</a>
           <Feed.Date>4 days ago</Feed.Date>
         </Feed.Summary>
         <Feed.Meta>
@@ -98,8 +160,16 @@ return (
         <Feed.Summary
           date='2 Days Ago'
           user='Jenny Hess'
-          content='add you as a friend'
+          content='earned a new badge'
         />
+
+<Image 
+          src='https://i.etsystatic.com/10536084/r/il/83f1d3/4011356412/il_1140xN.4011356412_e62z.jpg' 
+          size='tiny' 
+          circular 
+          alt='A picture of a badge'
+      />
+
         <Feed.Meta>
           <Feed.Like>
             <Icon name='like' />8 Likes
@@ -112,14 +182,11 @@ return (
       <Feed.Label image='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
       <Feed.Content>
         <Feed.Summary>
-          <a>Joe Henderson</a> posted on his page
+          <a>Joe Henderson</a> added a note to his activity
           <Feed.Date>3 days ago</Feed.Date>
         </Feed.Summary>
         <Feed.Extra text>
-          Ours is a life of constant reruns. We're always circling back to where
-          we'd we started, then starting all over again. Even if we don't run
-          extra laps that day, we surely will come back for more of the same
-          another day soon.
+          Does anyone want to have a paper airplane contest with me? I'm trying to earn my next level social badge.
         </Feed.Extra>
         <Feed.Meta>
           <Feed.Like>
@@ -133,7 +200,7 @@ return (
       <Feed.Label image='https://react.semantic-ui.com/images/avatar/small/justen.jpg' />
       <Feed.Content>
         <Feed.Summary>
-          <a>Justen Kitsune</a> added <a>2 new photos</a> of you
+          <a>Justen Kitsune</a> added <a>2 new photos</a> "cooking seconding risotto, yum!"
           <Feed.Date>4 days ago</Feed.Date>
         </Feed.Summary>
         <Feed.Meta>
@@ -145,30 +212,24 @@ return (
       </Feed.Content>
     </Feed.Event>
   </Feed>
-
-  </Segment>
-        <Segment 
-    raised
-  inverted
-  color='yellow'
-  verticalAlign='middle'
-  centered>Honey Badges is an application where users can keep a running list of activites to complete and earn "badges" for completing multiple activites of the same type. Together, users form a community of badge-earners who can opt to share their accomplishments and use eachother's activities for inspiration. We hope the social aspect of creating and sharing activities will motivate users in a positive way. At the same time, users will have the option to make specific activities on their tasklist private. Users who need some help getting started can also choose to randomly generate an activity within specified parameters.</Segment>
+</Segment>
+  
+  
+        </Segment>
       </Grid.Column>
       <Grid.Column>
         <Segment 
     raised
   inverted
   color='yellow'
-  verticalAlign='middle'><div >
-  <Container 
-      id="container"
-  >
-      <Segment  
-          padded='very'  
+  verticalAlign='middle'>
+ 
+      <Segment   
           inverted color='yellow' 
           verticalAlign='middle' 
           id="segment"
       >
+        <Header size='huge'>Welcome to HoneyBadges</Header>
           <h3>Sign Up</h3>
           <Form  onSubmit= {onSignUp}>
               <Form.Field>
@@ -229,27 +290,23 @@ return (
                   Submit
               </Form.Button>
           </Form>
-
-
       </Segment>
-  </Container>
-</div>
+  
 <Divider horizontal>Or</Divider>
-<div >
-        <Container id="container">
-		  <Segment raised  padded='very'  inverted color='yellow' verticalAlign='middle' id="segment">
+
+
+		  <Segment raised inverted color='yellow' verticalAlign='middle' id="segment">
             <Grid columns={2} stackable textAlign='center'>
                 <Grid.Column centered>
                     {/* <Button secondary inverted color='yellow' class="signButton" href='sign-in'>Sign in</Button> */}
-                <Message fluid attached='bottom' color='yellow' stretched>
+                <Message fluid attached='bottom' color='yellow' stretched size='huge'>
       <Icon name='help' />
       Already signed up?&nbsp;<a href='sign-in'>Login here</a>&nbsp;instead.
     </Message> 
     </Grid.Column>
             </Grid>
 		  </Segment>
-          </Container>
-		</div>
+
 </Segment>
       </Grid.Column>
     </Grid.Row>
