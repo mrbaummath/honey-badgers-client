@@ -15,9 +15,7 @@ const Home = ( {user, ...props }) => {
 	return (
 		<>
 
-			<h2>Welcome to HoneyBadges</h2> 
-
-			{/* < LoginPage /> */}
+			
 			< LoginPage />
 
 		</>
