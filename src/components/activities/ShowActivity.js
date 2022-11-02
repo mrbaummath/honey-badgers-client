@@ -8,34 +8,11 @@ import { getActivity, updateActivity, deleteActivity } from '../../api/activity'
 
 const ShowActivity = ({ user, msgAlert, activityId }) => {
     console.log(msgAlert)
-    // const [noteName, setNoteName] = useState("");
-    // const [noteContent, setNoteContent] = ("");
-  
-    // const addNote = (event) => {
-    //   event.preventDefault();
-  
-    //   if (!noteContent) {
-    //     alert("You must add note content");
-    //     return;
-    //   }
-  
-    //   const newNote = {
-    //     noteName,
-    //     noteContent,
-    //     editing: false,
-    //     addingComment: false,
-    //     viewingComments: false,
-    //     comments: []
-    //   };
-  
-    //   setNoteList([...notes, newNote]);
-    //   setId(id + 1);
-    //   setNoteContent("");
-    //   setNoteName("");
-    // };
+    
     const [allActivities, setGetAllActivities] = useState([])
     const [updated, setUpdated] = useState(false)
     const [deleted, setDeleted] = useState(false)
+    const [open, setOpen] = React.useState(false)
     
     // const { activityId } = useParams()
     const navigate = useNavigate()
@@ -121,8 +98,78 @@ const ShowActivity = ({ user, msgAlert, activityId }) => {
         {/* Notes Modal Button */}
         
 <Grid.Column>
+        
+
+  <Modal
+    onClose={() => setOpen(false)}
+    onOpen={() => setOpen(true)}
+    open={open}
+    trigger={<Button size='large' variant="warning">Notes</Button>}
+  >
+    <Modal.Header>Select To See Note</Modal.Header>
+    <Modal.Content>
+      <Segment  
+          padded='very'  
+          inverted color='yellow' 
+          verticalAlign='middle' 
+          id="segment"
+           >
+          <Comment.Actions active 
+          type="text"
+          value= 'noteName'
+          placeholder="Note name"
+          required>
+          </Comment.Actions>
+          <Form reply 
+          placeholder="Note content"
+          value='noteContent'
+          >
+          <Form.TextArea />
+          </Form>
+  
+          <Segment textAlign = 'centered'>
+          <Grid centered>
+          
+          <Comment>
+    <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+    <Comment.Content>
+      <Comment.Author as='a'>Matt</Comment.Author>
+      <Comment.Metadata>
+        <span>Today at 5:42PM</span>
+      </Comment.Metadata>
+      <Comment.Text>How artistic!</Comment.Text>
+      <Comment.Actions>
+        <a>Reply</a>
+      </Comment.Actions>
+    </Comment.Content>
+  </Comment>
+  </Grid>
+  </Segment>
+          </Segment>
+       
+  
+  
+    </Modal.Content>
+    <Modal.Actions>
+      <Button color='black' onClick={() => setOpen(false)}>
+        Go Back
+      </Button>
+      <Button
+              content='Add Note'
+              labelPosition='right'
+              icon='edit'
+              primary
+              type="submit"
+          />
+    </Modal.Actions>
+  </Modal>
+
+</Grid.Column>
+
+<Grid.Column>
         <Button size='large' onClick={() => setUpdated(true)} variant="warning">Edit</Button>
 </Grid.Column>
+
 <Grid.Column>
         <Button size='large' onClick={() => handleDeleteActivity()} >Delete</Button>
 </Grid.Column> 
