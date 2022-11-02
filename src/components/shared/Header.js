@@ -16,6 +16,8 @@ export default class Header extends Component {
 	}
 
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+	handleClose = () => { this.setState({setOpen: false})
+		console.log('I RAN')}
   
 	render() {
 	  const { activeItem } = this.state
@@ -48,9 +50,9 @@ export default class Header extends Component {
 			<Menu.Menu position='right'>
 				
 				 <Modal
-					onClose={() => this.setState({setOpen: false})}
+					onClose={() => this.handleClose()}
 					onOpen={() => this.setState({setOpen: true})}
-					// open={open}
+					open={this.state.setOpen}
 					trigger={
 						<Menu.Item 
 							name='New Activity'
@@ -64,7 +66,7 @@ export default class Header extends Component {
 						</Menu.Item>}
        			 >
 					<Modal.Content>
-						<CreateActivity user={this.props.user} msgAlert={this.props.msgAlert}  />
+						<CreateActivity user={this.props.user} msgAlert={this.props.msgAlert} handleClose={this.handleClose}  />
 					</Modal.Content>
         		</Modal>
 				<Menu.Item
