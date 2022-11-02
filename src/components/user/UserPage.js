@@ -16,7 +16,6 @@ const UserPage = ({ user, msgAlert }) => {
     const [allMyActivities, setAllMyActivities] = useState([])
     const [completedCounts, setCompletedCounts] = useState({})
     const [badges, setBadges] = useState(null)
-    const [open, setOpen] = useState(false)
 
     //tbd: badges virtual 
 
@@ -64,9 +63,7 @@ const UserPage = ({ user, msgAlert }) => {
                 <Grid columns={3}>
                     <Grid.Column width={3}>
                         <BadgesSegment 
-                            setOpen={setOpen} 
                             badges={badges} 
-                            open={open}
                             badgeOwnerHandle={user.email} 
                             mine={true} 
                             activities={allMyActivities} 

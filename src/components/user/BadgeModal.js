@@ -1,10 +1,13 @@
+import React, { useState } from 'react'
 import {  Button, Segment, Grid, Label, Icon, Image, Modal, Header, List, Container } from 'semantic-ui-react'
 import ActivityBadgeGroup from '../activities/ActivityBadgeGroup'
 
 //badge image linkes
 import imgSrc from '../shared/ImgSrc'
 
-const BadgeModal = ({badge, setOpen, open, activities}) => {
+const BadgeModal = ({badge, activities}) => {
+
+    const [open, setOpen] = useState(false)
 
     const badgeImages = imgSrc.badgeImages
     const badgeName = `${badge.name[0].toUpperCase()}${badge.name.slice(1)}`
@@ -17,6 +20,7 @@ const BadgeModal = ({badge, setOpen, open, activities}) => {
             onClose={()=> setOpen(false)}
             onOpen={()=> setOpen(true)}
             dimmer='blurring'
+            size='small'
             trigger={
                 <Image 
                     src={badgeImages[badge.name]} 

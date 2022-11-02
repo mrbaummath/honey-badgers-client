@@ -15,7 +15,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
     const { otherUserId } = useParams()
 
     //piece of state for badges modal --> should be abstracte into it's own component
-    const [open, setOpen] = useState(false)
+   
     //piece of state for user email
    
     
@@ -61,23 +61,6 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
         :
         <LoadingScreen />
 
-    
-    const images = [
-        'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg',
-        'https://i.etsystatic.com/10536084/r/il/83f1d3/4011356412/il_1140xN.4011356412_e62z.jpg',
-        'https://i.etsystatic.com/10536084/r/il/3aac0c/4011244316/il_1140xN.4011244316_9ffm.jpg',
-        'https://i.etsystatic.com/10536084/r/il/b67424/4058937747/il_1140xN.4058937747_esbp.jpg',
-        'https://i.etsystatic.com/10536084/r/il/3f03d0/4011213950/il_1140xN.4011213950_h2pg.jpg',
-        'https://i.etsystatic.com/10536084/r/il/fa6529/4011242016/il_1140xN.4011242016_fdd1.jpg',
-        'https://i.etsystatic.com/13215769/r/il/c4241b/2849297993/il_1140xN.2849297993_2n4t.jpg',
-        'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg',
-        'https://i.etsystatic.com/10536084/r/il/83f1d3/4011356412/il_1140xN.4011356412_e62z.jpg',
-        'https://i.etsystatic.com/10536084/r/il/3aac0c/4011244316/il_1140xN.4011244316_9ffm.jpg',
-        'https://i.etsystatic.com/10536084/r/il/b67424/4058937747/il_1140xN.4058937747_esbp.jpg',
-        'https://i.etsystatic.com/10536084/r/il/3f03d0/4011213950/il_1140xN.4011213950_h2pg.jpg',
-        'https://i.etsystatic.com/10536084/r/il/fa6529/4011242016/il_1140xN.4011242016_fdd1.jpg',
-        // 'https://i.etsystatic.com/13215769/r/il/c4241b/2849297993/il_1140xN.2849297993_2n4t.jpg',
-    ]
 	return (
         
 		<>
@@ -89,7 +72,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                 // verticalAlign='middle' 
                 fluid
             >
-                <Grid columns={2} verticalAlign='middle' padded>
+                <Grid columns={2} padded>
                     <Grid.Row>
                         <Segment>
                             <Grid columns={2}>
@@ -167,11 +150,9 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                         <Grid.Row>
                             <Grid columns={2} padded width={5}>
                                 <BadgesSegment
-                                setOpen={setOpen} 
                                 badges={badges} 
-                                open={open}
                                 badgeOwnerHandle={email} 
-                                mine={true} 
+                                mine={false} 
                                 activities={publicActivities} 
                             />
                             </Grid>

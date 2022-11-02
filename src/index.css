@@ -78,11 +78,9 @@ code {
   align-items: right;
 }
 
-.ui.page.modals.dimmer.transition.visible.active {
-  justify-content: center !important;
-}
-
-.ui.page.modals.dimmer.transition.visible.active > .modal {
-  margin: 10% 10% !important;
-  height: 75%
+.modal {
+  width: 75vw !important;
+  height: auto !important;
+  top: auto !important;
+  left: auto !important;
 }
