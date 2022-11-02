@@ -6,6 +6,8 @@ import messages from '../shared/AutoDismissAlert/messages'
 import { getTheirActivities } from '../../api/activity'
 import ActivitySegment from '../activities/ActivitySegment'
 import LoadingScreen from '../shared/LoadingPage'
+import getUserInfo  from '../../api/user'
+import BadgesSegment from './BadgesSegment'
 
 const UserPublicPage = ({currentUser, msgAlert}) => {
 
@@ -13,23 +15,41 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
     const { otherUserId } = useParams()
 
     //piece of state for badges modal --> should be abstracte into it's own component
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
+    //piece of state for user email
+   
+    
 
     //set state variables for activities which are public for this user's public profile and completed counts
     const [publicActivities, setPublicActivities] = useState(null)
     const [completedCounts, setCompletedCounts] = useState({})
-    //TBD: once their is a badges virtual, set that state
+    const [email, setEmail] = useState('')
+    const [badges, setBadges] = useState(null)
 
      //after initial render, make axios call to grab activity/count data and set the state variables 
      useEffect(() => {
         getTheirActivities(currentUser, otherUserId)
             .then(res => {
-                console.log(res)
                 setPublicActivities(res.data.activities)
                 setCompletedCounts(res.data.completedCounts)
-                //set badges when that virtual is done
+                setBadges(res.data.userBadges.filter(badge => badge.level != 'none'))
             })
-            .catch(console.log('oops'))
+            .catch((error) => {
+                msgAlert({
+                    heading:'Something went wrong',
+                    message: "Could not get user activities " + error,
+                    variant: 'danger'
+            })})
+        getUserInfo(currentUser, otherUserId)
+            .then(res => {
+                setEmail(res.data.user.email)
+            })
+            .catch((error) => {
+                msgAlert({
+                    heading:'Something went wrong',
+                    message: "Could not get user info " + error,
+                    variant: 'danger'
+            })})
     },[])
 
 
@@ -94,7 +114,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                     <Segment>
                                         <Grid padded textAlign='center'>
                                             <Grid.Row>
-                                                <h2 id="bestBuds">(USERNAME)'s Best Buds</h2>
+                                                <h2 id="bestBuds">{email}'s Best Buds</h2>
                                             </Grid.Row>
 
                                             <Grid.Row >
@@ -130,7 +150,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                                 <div id='viewBudsButton'>
                                                 <Button verticalAlign='middle' size='medium'> 
                                                         <Icon size='large'name='user' />
-                                                    View (USERNAME)'s Buddies
+                                                    View {email}'s Buddies
                                                 </Button>
                                                 </div>
                                             </Grid.Row>
@@ -146,81 +166,21 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                         
                         <Grid.Row>
                             <Grid columns={2} padded width={5}>
-                                <Segment>
-                                    <Grid.Row>
-                                        <h1>(Username)'s earned badges</h1>
-                                    </Grid.Row>
-                                    <Grid columns={2}>
-                                        {images.map((src) => (
-                                            <Grid.Column verticalAlign='middle'  width={5}>
-                                                <Modal
-                                                    onClose={() => setOpen(false)}
-                                                    onOpen={() => setOpen(true)}
-                                                    open={open}
-                                                    dimmer='blurring'
-                                                    centered
-                                                    trigger={
-                                                        <Image 
-                                                            src={(src)} 
-                                                            size='small' 
-                                                            circular 
-                                                            centered
-                                                            alt='A picture of a badge'
-                                                        /> 
-                                                    }
-                                                >
-                                                    <Modal.Header>Completed Activities</Modal.Header>
-                                                    <Modal.Content image>
-                                                        <Image 
-                                                            src={(src)} 
-                                                            size='medium' 
-                                                            circular 
-                                                            alt='A picture of a badge'
-                                                        /> 
-                                                        <Modal.Description>
-                                                        <Header><h1>The Most Selfless</h1></Header>
-                                                        <List size='massive'>
-                                                            <List.Item>
-                                                                <List.Icon name='certificate' />
-                                                                <List.Content><a href='http://www.semantic-ui.com'>Catch up on world news</a></List.Content>
-                                                            </List.Item>
-                                                            <List.Item>
-                                                                <List.Icon name='certificate' />
-                                                                <List.Content><a href='http://www.semantic-ui.com'>Buy a new house decoration</a></List.Content>
-                                                            </List.Item>
-                                                            <List.Item>
-                                                                <List.Icon name='certificate' />
-                                                                <List.Content>
-                                                                <a href='http://www.semantic-ui.com'>Repaint a room in your house</a>
-                                                                </List.Content>
-                                                            </List.Item>
-                                                            <List.Item>
-                                                                <List.Icon name='certificate' />
-                                                                <List.Content>
-                                                                    <a href='http://www.semantic-ui.com'>Draw something interesting</a>
-                                                                </List.Content>
-                                                            </List.Item>
-                                                        </List>
-                                                        </Modal.Description>
-                                                    </Modal.Content>
-                                                    <Modal.Actions>
-                                                        <Button color='green' onClick={() => setOpen(false)}>
-                                                            Done
-                                                        </Button>
-                                                    </Modal.Actions>
-                                                </Modal>                                            
-                                                (Badge Name)
-                                            </Grid.Column>
-                                        ))}
-                                    </Grid>
-                                </Segment>
+                                <BadgesSegment
+                                setOpen={setOpen} 
+                                badges={badges} 
+                                open={open}
+                                badgeOwnerHandle={email} 
+                                mine={true} 
+                                activities={publicActivities} 
+                            />
                             </Grid>
                         </Grid.Row>
                     </Grid.Column>
                     <Grid.Column >
                         <Grid.Row>
                             <Segment raised >
-                                <h1>Activity Timeline</h1>
+                                <h1>{email}'s Activity Timeline</h1>
                                 {activitiesJSX} 
                             </Segment>
                         </Grid.Row>
