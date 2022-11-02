@@ -7,7 +7,7 @@ const options = [
     {text: 'DIY', value: 'diy'},
     {text: 'Charity', value: 'charity'},
     {text: 'Cooking', value: 'cooking'},
-    {text: 'Relaxation', value: 'relaxtion'},
+    {text: 'Relaxation', value: 'relaxation'},
     {text: 'Music', value: 'music'},
     {text: 'Busywork', value: 'busywork'},
     {text: 'Recreational', value: 'recreational'},
@@ -28,7 +28,7 @@ const ActivityForm = (props) => {
                         id='activity'
                         label='Activity' 
                         placeholder='Activity'
-                        value= { activity.activity }
+                        defaultValue={ activity.activity }
                         onChange= { handleChange }
                     />
                     <Form.Select

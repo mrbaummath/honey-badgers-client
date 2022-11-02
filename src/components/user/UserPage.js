@@ -5,31 +5,17 @@ import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import ActivitySegment from '../activities/ActivitySegment'
 import { getMyActivities } from '../../api/activity'
+import LoadingScreen from '../shared/LoadingPage'
 
 
 
 const UserPage = ({ user, msgAlert }) => {
 
-
-    let percent = 20
-
-    
-    //const [allBadges, setAllBadges] = useState([])
-    // const badgeImages = allBadges.map(badge => (
-    //     <Image src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' size='small' circular 
-    //(I think we should make each badge a modal that showes details when clicked like a    subdocument) 
-    // />
-    // ))
-
-    // if (!allBadges) {
-    //     return <LoadingScreen />
-    // }
-    
     //set state variables for all activities and user's count of completed activities
     const [allMyActivities, setAllMyActivities] = useState([])
     const [completedCounts, setCompletedCounts] = useState({})
 
-
+    //tbd: badges virtual 
 
     //after initial render, make axios call to grab activity/count data and set the state variables 
     useEffect(() => {
@@ -38,18 +24,20 @@ const UserPage = ({ user, msgAlert }) => {
                 console.log(res)
                 setAllMyActivities(res.data.activities)
                 setCompletedCounts(res.data.completedCounts)
+                //set badges when that virtual is done
             })
             .catch(console.log('oops'))
     },[])
 
 
 
-   
-
-    //set JSX for activities w/ MyActivity component 
-    const activitiesJSX = allMyActivities.map((activity) => (
-        <ActivitySegment key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={true} />
-    ))
+    //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
+    const activitiesJSX = allMyActivities ? 
+        allMyActivities.map((activity) => (
+            <ActivitySegment key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={true} />
+        ))
+        :
+        <LoadingScreen />
    
     
     const images = [

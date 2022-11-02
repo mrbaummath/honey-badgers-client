@@ -1,31 +1,46 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import {  Button, Segment, Grid, Label, Icon, Image, Modal, Header, List } from 'semantic-ui-react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
+import { getTheirActivities } from '../../api/activity'
+import ActivitySegment from '../activities/ActivitySegment'
+import LoadingScreen from '../shared/LoadingPage'
 
+const UserPublicPage = ({currentUser, msgAlert}) => {
 
-const UserPublicPage = () => {
+    //grab requested user's id from params
+    const { otherUserId } = useParams()
 
-    
-    //const [allBadges, setAllBadges] = useState([])
-    // const badgeImages = allBadges.map(badge => (
-    //     <Image src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' size='small' circular 
-    //(I think we should make each badge a modal that showes details when clicked like a    subdocument) 
-    // />
-    // ))
-
-    // if (!allBadges) {
-    //     return <LoadingScreen />
-    // }
+    //piece of state for badges modal --> should be abstracte into it's own component
     const [open, setOpen] = React.useState(false)
 
-    // state = { percent: 33 }
+    //set state variables for activities which are public for this user's public profile and completed counts
+    const [publicActivities, setPublicActivities] = useState(null)
+    const [completedCounts, setCompletedCounts] = useState({})
+    //TBD: once their is a badges virtual, set that state
 
-    // const increment = () =>
-    // this.setState((prevState) => ({
-    //   percent: prevState.percent >= 100 ? 0 : prevState.percent + 20,
-    // }))
+     //after initial render, make axios call to grab activity/count data and set the state variables 
+     useEffect(() => {
+        getTheirActivities(currentUser, otherUserId)
+            .then(res => {
+                console.log(res)
+                setPublicActivities(res.data.activities)
+                setCompletedCounts(res.data.completedCounts)
+                //set badges when that virtual is done
+            })
+            .catch(console.log('oops'))
+    },[])
+
+
+     //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
+     const activitiesJSX = publicActivities ? 
+        publicActivities.map((activity) => (
+            <ActivitySegment key={activity.id} activity={activity} user={currentUser} msgAlert={msgAlert} mine={false} />
+        ))
+        :
+        <LoadingScreen />
+
     
     const images = [
         'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg',
@@ -206,25 +221,7 @@ const UserPublicPage = () => {
                         <Grid.Row>
                             <Segment raised >
                                 <h1>Activity Timeline</h1>
-                                {images.map((src) => (
-                                    <Segment id='actListItems'>
-                                        <Grid columns={3}>
-                                            <Grid.Column width={2} verticalAlign='middle'>
-                                                <Icon name='certificate' size='large'/>
-                                            </Grid.Column>
-                                            <Grid.Column width={10} fluid>
-                                                <h2>Activity Name</h2>
-                                            </Grid.Column>
-                                            <Grid.Column width={4}  verticalAlign='middle'>
-                                                <Grid textAlign='right'>
-                                                    <Button size='small'> 
-                                                        View This Activity
-                                                    </Button>
-                                                </Grid>
-                                            </Grid.Column>
-                                        </Grid>
-                                    </Segment>
-                                ))}    
+                                {activitiesJSX} 
                             </Segment>
                         </Grid.Row>
                     </Grid.Column>

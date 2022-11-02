@@ -7,7 +7,7 @@ import LoginPage from "./LoginPage/LoginPage"
 import IndexActivity from "./activities/IndexActivity"
 
 
-const Home = ( {user, ...props }) => {
+const Home = ( {user, msgAlert, setUser, ...props }) => {
 
 	// const { msgAlert, user } = props
 	console.log('props in home', props)
@@ -15,8 +15,13 @@ const Home = ( {user, ...props }) => {
 	return (
 		<>
 
-			
+
+			<h2>Welcome to HoneyBadges</h2> 
+
+
 			< LoginPage />
+			{/* < ShowActivity msgAlert={msgAlert} setUser={setUser} user={user}/> */}
+			
 
 		</>
 	)

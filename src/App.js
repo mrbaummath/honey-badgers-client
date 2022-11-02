@@ -54,13 +54,13 @@ const App = () => {
 			<Fragment>
 				<Header user={user} msgAlert={msgAlert} />
 				<Routes>
-					<Route path='/' element={<Home msgAlert={msgAlert} setUser={setUser} />} />
+					<Route path='/' element={<Home user={user} msgAlert={msgAlert} setUser={setUser} />} />
 					<Route
 						path='/sign-up'
 						element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
 					/>
-					<Route path='/user-page' element={<UserPage msgAlert={msgAlert} user={user} />} />
-					<Route path='/user-public-page' element={<UserPublicPage msgAlert={msgAlert} user={user} />} />
+					<Route path='/user-page/' element={<UserPage msgAlert={msgAlert} user={user} />} />
+					<Route path='/user-public-page/:otherUserId' element={<UserPublicPage msgAlert={msgAlert} currentUser={user} />} />
 					<Route
 						path='/sign-in'
 						element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
