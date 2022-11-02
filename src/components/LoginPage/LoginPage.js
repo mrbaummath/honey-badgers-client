@@ -48,7 +48,7 @@ const LoginPage = (props) => {
 
 return (
 
-  <Grid columns={2} divided>
+  <Grid columns={2} divided padded centered>
     <Grid.Row stretched>
       <Grid.Column>
         <Segment
@@ -60,7 +60,6 @@ return (
 
 <Segment 
     raised
-
   verticalAlign='middle'
   centered>
     <h4><h3>Honey Badges </h3> is an application where users can keep a running list of activites to complete and earn "badges" for completing multiple activites of the same type. Together, users form a community of badge-earners who can opt to share their accomplishments and use eachother's activities for inspiration. We hope the social aspect of creating and sharing activities will motivate users in a positive way. At the same time, users will have the option to make specific activities on their tasklist private. Users who need some help getting started can also choose to randomly generate an activity within specified parameters.</h4></Segment>
@@ -91,24 +90,24 @@ return (
       </Grid.Column>
       <Grid.Column>
       <Header><h1>The Most Selfless</h1></Header>
-            <List size='big'>
+            <List size='big' >
                 <List.Item>
-                    <List.Icon name='certificate' />
+                    <List.Icon name='certificate' verticalAlign='middle'/>
                     <List.Content><p>Catch up on world news</p></List.Content>
                 </List.Item>
                 <List.Item>
-                    <List.Icon name='certificate' />
-                    <List.Content><p>Buy a new house decoration</p></List.Content>
+                    <List.Icon name='certificate' verticalAlign='middle' />
+                    <List.Content  verticalAlign='middle'><p>Buy a new house decoration</p></List.Content>
                 </List.Item>
                 <List.Item>
-                    <List.Icon name='certificate' />
-                    <List.Content>
+                    <List.Icon name='certificate'  verticalAlign='middle'/>
+                    <List.Content  verticalAlign='middle'>
                     <p>Repaint a room in your house</p>
                     </List.Content>
                 </List.Item>
-                <List.Item>
-                    <List.Icon name='certificate' />
-                    <List.Content>
+                <List.Item >
+                    <List.Icon name='certificate'  verticalAlign='middle'/>
+                    <List.Content  verticalAlign='middle'>
                         <p>Draw something interesting</p>
                     </List.Content>
                 </List.Item>
@@ -165,7 +164,7 @@ return (
         />
 
 <Image 
-          src='https://i.etsystatic.com/10536084/r/il/b67424/4058937747/il_1140xN.4058937747_esbp.jpg' 
+          src='https://i.etsystatic.com/10536084/r/il/83f1d3/4011356412/il_1140xN.4011356412_e62z.jpg' 
           size='tiny' 
           circular 
           alt='A picture of a badge'
