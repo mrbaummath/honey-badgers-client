@@ -6,14 +6,16 @@ import messages from '../shared/AutoDismissAlert/messages'
 import ActivitySegment from '../activities/ActivitySegment'
 import { getMyActivities } from '../../api/activity'
 import LoadingScreen from '../shared/LoadingPage'
+import BadgesSegment from './BadgesSegment'
 
 
 
 const UserPage = ({ user, msgAlert }) => {
 
-    //set state variables for all activities and user's count of completed activities
+    //set state variables for all activities, badges and user's count of completed activities
     const [allMyActivities, setAllMyActivities] = useState([])
     const [completedCounts, setCompletedCounts] = useState({})
+    const [badges, setBadges] = useState(null)
 
     //tbd: badges virtual 
 
@@ -21,41 +23,32 @@ const UserPage = ({ user, msgAlert }) => {
     useEffect(() => {
         getMyActivities(user)
             .then(res => {
-                console.log(res)
                 setAllMyActivities(res.data.activities)
                 setCompletedCounts(res.data.completedCounts)
-                //set badges when that virtual is done
+                setBadges(res.data.userBadges.filter(badge => badge.level != 'none'))
             })
-            .catch(console.log('oops'))
+            .catch((error) => {
+                msgAlert({
+                    heading:'Something went wrong',
+                    message: "Could not get user activities " + error,
+                    variant: 'danger'
+            })})
     },[])
-
-
 
     //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
     const activitiesJSX = allMyActivities ? 
         allMyActivities.map((activity) => (
-            <ActivitySegment key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={true} />
+            <ActivitySegment 
+            key={activity.id} 
+            activity={activity} 
+            user={user} 
+            msgAlert={msgAlert} 
+            mine={true} 
+            />
         ))
         :
         <LoadingScreen />
-   
-    
-    const images = [
-        'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg',
-        'https://i.etsystatic.com/10536084/r/il/83f1d3/4011356412/il_1140xN.4011356412_e62z.jpg',
-        'https://i.etsystatic.com/10536084/r/il/3aac0c/4011244316/il_1140xN.4011244316_9ffm.jpg',
-        'https://i.etsystatic.com/10536084/r/il/b67424/4058937747/il_1140xN.4058937747_esbp.jpg',
-        'https://i.etsystatic.com/10536084/r/il/3f03d0/4011213950/il_1140xN.4011213950_h2pg.jpg',
-        'https://i.etsystatic.com/10536084/r/il/fa6529/4011242016/il_1140xN.4011242016_fdd1.jpg',
-        'https://i.etsystatic.com/13215769/r/il/c4241b/2849297993/il_1140xN.2849297993_2n4t.jpg',
-        'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg',
-        'https://i.etsystatic.com/10536084/r/il/83f1d3/4011356412/il_1140xN.4011356412_e62z.jpg',
-        'https://i.etsystatic.com/10536084/r/il/3aac0c/4011244316/il_1140xN.4011244316_9ffm.jpg',
-        'https://i.etsystatic.com/10536084/r/il/b67424/4058937747/il_1140xN.4058937747_esbp.jpg',
-        'https://i.etsystatic.com/10536084/r/il/3f03d0/4011213950/il_1140xN.4011213950_h2pg.jpg',
-        'https://i.etsystatic.com/10536084/r/il/fa6529/4011242016/il_1140xN.4011242016_fdd1.jpg',
-        'https://i.etsystatic.com/13215769/r/il/c4241b/2849297993/il_1140xN.2849297993_2n4t.jpg',
-    ]
+
 	return (
 		<>
         <div >
@@ -67,33 +60,20 @@ const UserPage = ({ user, msgAlert }) => {
                 fluid
                 
             >
-                <Grid columns={3} verticalAlign='center'>
+                <Grid columns={3}>
                     <Grid.Column width={3}>
-                        <Segment raised>
-                            <Grid columns={2} padded>
-                                {images.map((src) => (
-                                    <Grid.Column >
-                                        <Image 
-                                            src={(src)} 
-                                            size='big' 
-                                            circular 
-                                            alt='A picture of a badge'
-                                        /> 
-                                        (Badge Name)
-                                    </Grid.Column>
-                                ))}
-                                {/* { badgeImages } */}
-                            </Grid>
-                        </Segment>
+                        <BadgesSegment 
+                            badges={badges} 
+                            badgeOwnerHandle={user.email} 
+                            mine={true} 
+                            activities={allMyActivities} 
+                        />
                     </Grid.Column>
                     <Grid.Column width={9}>
-                        {/* <Sticky offset={65}> */}
-                            <Segment.Group id='actList' raised >
-                                <h2>Your Activities</h2>
-                                {activitiesJSX}
-                                
-                            </Segment.Group>
-                        {/* </Sticky> */}
+                        <Segment.Group id='actList' raised >
+                            <h2>Your Activities</h2>
+                            {activitiesJSX}          
+                        </Segment.Group>
                     </Grid.Column>
                     <Grid.Column width={3}>
                         <Segment raised>

@@ -78,3 +78,9 @@ code {
   align-items: right;
 }
 
+.modal {
+  width: 75vw !important;
+  height: auto !important;
+  top: auto !important;
+  left: auto !important;
+}
