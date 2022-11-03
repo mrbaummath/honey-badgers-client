@@ -23,7 +23,7 @@ const BadgeModal = ({badge, activities}) => {
             size='small'
             trigger={
                 <Image 
-                    src={badgeImages[badge.name]} 
+                    src={badgeImages[badge.name][badge.level]} 
                     size='big' 
                     circular 
                     alt='A picture of a badge'

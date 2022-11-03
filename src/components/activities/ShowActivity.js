@@ -10,7 +10,6 @@ import LoadingScreen from "../shared/LoadingPage"
 
 
 const ShowActivity = ({ user, msgAlert }) => {
-    console.log(msgAlert)
     const [activity, setActivity] = useState({})
     const [updated, setUpdated] = useState(false)
     const [deleted, setDeleted] = useState(false)
@@ -25,11 +24,11 @@ const ShowActivity = ({ user, msgAlert }) => {
     // const navigate = useNavigate()
 
     useEffect(() => {
+      console.log('change to updated')
       getActivity(user, activityId)
         .then((res) => {
             setActivity(res.data.activity)
             setPercent(res.data.activity.progress)
-            setUpdated(false)
         })
         .catch((error) => {
             msgAlert({
@@ -40,7 +39,7 @@ const ShowActivity = ({ user, msgAlert }) => {
         })
     },[updated])
 
-    //if re-render was triggered by update, have updated set to false
+  
     
 
     const handleDeleteActivity = () => {
@@ -99,11 +98,12 @@ const handleSaveProgress = (e) => {
     //set percentChangeSaving to true so that save button will show as loading
     setPercentChangeSaving(true)
     //make axios call
+    activity.progress = percent
     updateActivity(user, activity, activity.id )
         //set 'saving' state to false so save button is no longer loading
         .then(() => {
           setPercentChangeSaving(false)
-          setUpdated(true)
+          setShowSaveButton(false)
         })
         .catch(error => {
             msgAlert({
@@ -119,7 +119,7 @@ const handleSaveProgress = (e) => {
 //function to determine whether to show save button or not 
 useEffect (()=> {
     setShowSaveButton((percent != activity.progress))
-}, [percent, updated])
+}, [percent])
 
 // if (deleted) navigate('/activities')
 // const allActivitiesJSX = allActivities.map(activity => {
@@ -253,7 +253,6 @@ useEffect (()=> {
                       icon='edit'
                       primary
                       type="submit"
-                      setUpdated={setUpdated}
                     />
                   </Modal.Actions>
               </Modal>
@@ -263,6 +262,7 @@ useEffect (()=> {
                     activity={activity}
                     user={user}
                     msgAlert={msgAlert}
+                    triggerRefresh={()=>setUpdated(prev=>!prev)}
                     />
                     
 
