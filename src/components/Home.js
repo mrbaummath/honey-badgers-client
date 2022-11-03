@@ -22,8 +22,8 @@ const Home = ( {user, msgAlert, setUser, ...props }) => {
 			<h2>Welcome to HoneyBadges</h2> 
 
 
-			< LoginPage />
-			< IndexActivity />
+			< LoginPage setUser={setUser} msgAlert={msgAlert}/>
+			
 			
 			
 
