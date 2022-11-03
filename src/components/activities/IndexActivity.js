@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Icon, Item, Button, Grid, Comment, Form, Modal, Search, Header, Segment, Label } from 'semantic-ui-react'
-import SearchCategory from "../SearchBar/Search";
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { getAllActivities } from '../../api/activity'
 import { act } from "react-dom/test-utils";
+import SearchBar from "../SearchBar/Search";
 
 
 
@@ -12,11 +12,21 @@ import { act } from "react-dom/test-utils";
 const IndexActivity = ({ user, msgAlert }) => {
 
     const [allActivities, setGetAllActivities] = useState([])
+    const [filterActivities, setFilterActivities] = useState([])
+    const [searchText, setSearchText] = useState([])
+    const handleChange = (e) => {
+        
+        let activities = allActivities
+        setFilterActivities(activities.filter(
+        a => a['activity'].includes(e.target.value) )
+        )
+    }
     
         useEffect(() => {
             getAllActivities(user)
             .then(res => {
                 setGetAllActivities(res.data.activities)
+                setFilterActivities(res.data.activities)
             })
             .catch((error) => {
                 msgAlert({
@@ -38,7 +48,7 @@ const IndexActivity = ({ user, msgAlert }) => {
                 </Link>
             )
         })
-        const Index = allActivities.map(activities => (
+        const Index = filterActivities.map(activities => (
             <Segment key={ activities.id } inverted color='yellow'>
                 <Grid centered stretched columns={9}>
         <Grid.Row padded>
@@ -72,7 +82,12 @@ return (
                         <Segment.Group id='actList' raised  >
                         <h2>All Activities</h2>
                         <p>Take a look to find things to do when you're bored! </p>
-                        < Search/>
+                        <div className="headerSearch">
+                    <form className="searchForm" >
+                        <input className="headerSearchInput" type="text" onChange={handleChange} />
+                        <input type="submit" value="Search"></input>
+                    </form>
+                </div>
                         </Segment.Group>
                         <Segment><h1>Recent User Completed Activities </h1></Segment>
             </Grid.Row>
