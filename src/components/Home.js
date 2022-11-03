@@ -1,13 +1,5 @@
-import ShowActivity from "./activities/ShowActivity"
-
-
-
-
-
-// import HomeFeed from "./HomeFeed/HomeFeed"
-
 import LoginPage from "./LoginPage/LoginPage"
-import IndexActivity from "./activities/IndexActivity"
+
 
 
 const Home = ( {user, msgAlert, setUser, ...props }) => {
@@ -22,8 +14,8 @@ const Home = ( {user, msgAlert, setUser, ...props }) => {
 			<h2>Welcome to HoneyBadges</h2> 
 
 
-			< LoginPage />
-			< IndexActivity />
+			< LoginPage setUser={setUser} msgAlert={msgAlert}/>
+			
 			
 			
 

@@ -6,8 +6,6 @@ import messages from '../shared/AutoDismissAlert/messages'
 import { updateActivity } from '../../api/activity'
 
 const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
-    const imgSrc = 'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg'
-
     //declare pieces of state --> grab current progress from activity object and set it as initial state. Set state variables to track when progress is being saved and whether to show the save button
     const [percent, setPercent] = useState(activity.progress)
     const [percentChangeSaving, setPercentChangeSaving] = useState(false)
@@ -53,7 +51,10 @@ const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
         //make axios call
         updateActivity(user, activity, activity.id )
             //set 'saving' state to false so save button is no longer loading
-            .then(() => {setPercentChangeSaving(false)})
+            .then(() => {
+                setPercentChangeSaving(false)
+                setShowSaveButton(false)
+            })
             .catch(error => {
                 msgAlert({
                     heading:'Something went wrong',
@@ -78,12 +79,14 @@ const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
                     size='small'
                     circular />
                 </Grid.Column>
+
                 <Grid.Column width={8} textAlign='middle' verticalAlign='center'>
                     <Link to={`/show-page/${activity._id}`}><h1>{activity.activity}</h1></Link>
                     <List horizontal size='huge'>
-                        <List.Item >Category: {activity.type}</List.Item>
+                        <List.Item >Category: {activity.categoryName}</List.Item>
                         <List.Item >Price Rating: {activity.price}</List.Item>
                         <List.Item >Accessibiity Rating: {activity.accessibility}</List.Item>
+
                     </List>
                 </Grid.Column>
                 <Grid.Column width={4} verticalAlign='center' textAlign='middle'>

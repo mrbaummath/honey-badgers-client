@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Checkbox, Form, Container} from 'semantic-ui-react'
+import {Button, Checkbox, Form, Container, Icon} from 'semantic-ui-react'
 
 const options = [
     {text: 'Education', value: 'education'},
@@ -15,7 +15,7 @@ const options = [
 
 const ActivityForm = (props) => {
 
-    const { activity, handleChange, handleSubmit, heading } = props
+    const { activity, handleChange, handleSubmit, handleActivity, heading } = props
 
     return (
         <Container className="justify-content-center">
@@ -91,7 +91,13 @@ const ActivityForm = (props) => {
                         onChange={ handleChange }
                     />
                 </Form.Field>
-                <Button type='submit'>Submit</Button>
+                <Button icon
+                        type='button'
+                        color='yellow'
+                        label='Generate Random Activity'
+                        onClick= { handleActivity }>
+                <Icon name='random' /></Button>
+                <Button type='submit' color='yellow'>Submit</Button>
             </Form>
         </Container>
     )

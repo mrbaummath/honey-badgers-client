@@ -10,22 +10,23 @@ import SearchBar from "../SearchBar/Search";
 
 
 const IndexActivity = ({ user, msgAlert }) => {
-
-    const [allActivities, setGetAllActivities] = useState([])
+    //set state for all public activites, filtered activities based on search
+    const [allActivities, setAllActivities] = useState([])
     const [filterActivities, setFilterActivities] = useState([])
     const [searchText, setSearchText] = useState([])
+
+    //function for filtering as user types in activity name
     const handleChange = (e) => {
-        
         let activities = allActivities
         setFilterActivities(activities.filter(
-        a => a['activity'].includes(e.target.value) )
+        a => a.activity.includes(e.target.value) )
         )
     }
     
         useEffect(() => {
             getAllActivities(user)
             .then(res => {
-                setGetAllActivities(res.data.activities)
+                setAllActivities(res.data.activities)
                 setFilterActivities(res.data.activities)
             })
             .catch((error) => {

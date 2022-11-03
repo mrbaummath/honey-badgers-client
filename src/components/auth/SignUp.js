@@ -116,6 +116,7 @@ const SignUp = (props) => {
     const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const [username, setUsername] = useState('')
 
   const navigate = useNavigate()
 
@@ -124,7 +125,7 @@ const SignUp = (props) => {
 
   const { msgAlert, setUser } = props
 
-      const credentials = {email, password, passwordConfirmation}
+      const credentials = {email, username, password, passwordConfirmation}
 
   signUp(credentials)
     .then(() => signIn(credentials))
@@ -139,6 +140,7 @@ const SignUp = (props) => {
     .then(() => navigate('/user-page'))
     .catch((error) => {
               setEmail('')
+              setUsername('')
               setPassword('')
               setPasswordConfirmation('')
       msgAlert({
@@ -286,6 +288,21 @@ return (
                       value={email}
                       placeholder='Enter email'
                       onChange={e => setEmail(e.target.value)}
+
+                  />
+              </Form.Field>
+              < br/>
+              <Form.Field>
+                  <Form.Input 
+                      fluid
+                      icon='users' 
+                      iconPosition='left' 
+                      required
+                      type='username'
+                      name='username'
+                      value={username}
+                      placeholder='Enter a Username'
+                      onChange={e => setUsername(e.target.value)}
 
                   />
               </Form.Field>

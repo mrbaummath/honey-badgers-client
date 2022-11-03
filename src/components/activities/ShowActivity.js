@@ -3,36 +3,32 @@ import { Label, Icon, Item, Button, Segment, Grid, Comment, Form, Modal, Progres
 import { useNavigate, useParams} from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { getActivity, updateActivity, deleteActivity } from '../../api/activity'
-import CreateActivity from '../activities/CreateActivity'
+import UpdateActivity from "./UpdateActivity"
 
 
 
-const ShowActivity = ({ user, msgAlert, props }) => {
+const ShowActivity = ({ user, msgAlert }) => {
     console.log(msgAlert)
     const [activity, setActivity] = useState({})
     const [updated, setUpdated] = useState(false)
     const [deleted, setDeleted] = useState(false)
-    const [percent, setPercent] = useState(activity.progress)
+    const [percent, setPercent] = useState(null)
     const [percentChangeSaving, setPercentChangeSaving] = useState(false)
     const [showSaveButton, setShowSaveButton] = useState(false)
-    const [mine, setMine] = useState(false)
     const navigate = useNavigate()
     const [open, setOpen] = React.useState(false)
    
-  
-
 
     const { activityId } = useParams()
     // const navigate = useNavigate()
 
     useEffect(() => {
       getActivity(user, activityId)
-
         .then((res) => {
             setActivity(res.data.activity)
-            setMine((activity.owner._id == user._id))
+            setPercent(res.data.activity.progress)
+            setUpdated(false)
         })
-
         .catch((error) => {
             msgAlert({
                 heading: 'Failure',
@@ -42,6 +38,8 @@ const ShowActivity = ({ user, msgAlert, props }) => {
         })
     },[updated])
 
+    //once the activity has been set on the re-render, determine if the user owns this activity
+    const mine = activity.owner  
 
     const handleDeleteActivity = () => {
       deleteActivity(user, activityId)
@@ -98,12 +96,13 @@ const decreaseProgress = (e) => {
 const handleSaveProgress = (e) => {
     //set percentChangeSaving to true so that save button will show as loading
     setPercentChangeSaving(true)
-    //set new progress
-    activity.progress = percent
     //make axios call
     updateActivity(user, activity, activity.id )
         //set 'saving' state to false so save button is no longer loading
-        .then(() => {setPercentChangeSaving(false)})
+        .then(() => {
+          setPercentChangeSaving(false)
+          setUpdated(true)
+        })
         .catch(error => {
             msgAlert({
                 heading:'Something went wrong',
@@ -116,7 +115,7 @@ const handleSaveProgress = (e) => {
 //function to determine whether to show save button or not 
 useEffect (()=> {
     setShowSaveButton((percent != activity.progress))
-}, [percent])
+}, [percent, updated])
 
 // if (deleted) navigate('/activities')
 // const allActivitiesJSX = allActivities.map(activity => {
@@ -138,13 +137,13 @@ useEffect (()=> {
             <Grid.Column verticalAlign="middle"
               centered>
               <Progress 
-                percent={activity.progress} 
+                percent={percent} 
                 indicating 
                 verticalAlign='middle'
                 centered
               />
                 { 
-                mine 
+                user && activity.owner && user._id == activity.owner._id
                 ? 
                 <>
                 <Button onClick={decreaseProgress}  negative circular icon='minus'/>
@@ -259,7 +258,7 @@ useEffect (()=> {
                   }
                   >
                 <Modal.Content>
-                  <CreateActivity user={user} msgAlert={msgAlert}  activityId={activityId} activity/>
+                  <UpdateActivity user={user} msgAlert={msgAlert}  activityId={activityId} activity={activity}/>
                 </Modal.Content>
               </Modal>
 

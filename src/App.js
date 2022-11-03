@@ -15,7 +15,7 @@ import SignPage from './components/shared/SignPage'
 import UserPage from './components/user/UserPage'
 import UserPublicPage from './components/user/UserPublicPage'
 import ChangePassword from './components/auth/ChangePassword'
-import FeedPage from './components/FeedPage.js/FeedPage'
+import FeedPage from './components/activities/FeedPage'
 import ShowActivity from './components/activities/ShowActivity'
 
 
