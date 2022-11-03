@@ -78,16 +78,15 @@ const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
                     size='small'
                     circular />
                 </Grid.Column>
-                <Grid.Column width={8}>
-                    <h1>{activity.activity}</h1>
-                    <List horizontal>
-                        <List.Item as='p'>Category: {activity.type}</List.Item>
-                        <List.Item as='p'>Price Rating: {activity.price}</List.Item>
-                        <List.Item as='p'>Accessibiity Rating: {activity.accessibility}</List.Item>
+                <Grid.Column width={8} textAlign='middle' verticalAlign='center'>
+                    <Link to={`/show-page/${activity._id}`}><h1>{activity.activity}</h1></Link>
+                    <List horizontal size='huge'>
+                        <List.Item >Category: {activity.type}</List.Item>
+                        <List.Item >Price Rating: {activity.price}</List.Item>
+                        <List.Item >Accessibiity Rating: {activity.accessibility}</List.Item>
                     </List>
-                    <Link to={`/user-public-page/${activity.owner}`}>Test</Link>
                 </Grid.Column>
-                <Grid.Column width={4}>
+                <Grid.Column width={4} verticalAlign='center' textAlign='middle'>
                     <Progress percent={percent} indicating />
                     { mine ? 
                     <>

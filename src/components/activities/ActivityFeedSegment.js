@@ -18,6 +18,7 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
     const increaseProgress = (e) => {
         setPercent(prevPercent => {
             if (prevPercent >= 100) {
+                
                 msgAlert({
                     heading:'Whoa There!',
                     message: "You're already done!",
@@ -81,13 +82,13 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
                     centered/>
                 </Grid.Column>
                 <Grid.Column width={10} textAlign='center' verticalAlign='middle'>
-                    <h1><Link to={`/user-public-page/${activity.owner}`}>{activity.owner.email}</Link> is currently working on the "{activity.activity}" activity</h1>
+                    <h1><Link to={`/user-public-page/${activity.owner._id}`}>{activity.owner.email}</Link> is currently working on the "{activity.activity}" activity</h1>
                 </Grid.Column>
                 <Grid.Column width={4} verticalAlign='middle' textAlign='center'>
                     <Progress percent={percent} indicating />
                     {/* <Button size='large' useNavigate={`/page-page/${activity.owner}`}>View Their Activity</Button> */}
                     <Link to={`/show-page/${activity._id}`}>SHOW PAGE</Link>
-                    { mine ? 
+                    {/* { mine ? 
                     <>
                     <Button onClick={decreaseProgress}  negative circular icon='minus'/>
                     <Button onClick={increaseProgress} positive circular icon='plus'/>
@@ -104,7 +105,7 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
                     </>
                     :
                     null
-                    } 
+                    }  */}
                 </Grid.Column>
             </Grid>
             </Container>

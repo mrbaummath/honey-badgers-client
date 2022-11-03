@@ -76,7 +76,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                     <Grid.Row>
                         <Segment>
                             <Grid columns={2}>
-                                <Grid.Column width={8}>
+                                <Grid.Column width={8} verticalAlign='center'>
                                     <Grid columns={2}>
                                         <Grid.Column width={4}>
                                             <Image 
@@ -160,7 +160,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                     </Grid.Column>
                     <Grid.Column >
                         <Grid.Row>
-                            <Segment raised >
+                            <Segment raised textAlign='center'>
                                 <h1>{email}'s Activity Timeline</h1>
                                 {activitiesJSX} 
                             </Segment>

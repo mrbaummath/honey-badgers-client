@@ -84,3 +84,8 @@ code {
   top: auto !important;
   left: auto !important;
 }
+
+#yourActs {
+  text-align: center;
+  font-size:xx-large;
+}
