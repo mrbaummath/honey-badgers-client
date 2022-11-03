@@ -20,16 +20,16 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
     const [completedCounts, setCompletedCounts] = useState({})
     //TBD: once their is a badges virtual, set that state
 
-     //after initial render, make axios call to grab activity/count data and set the state variables 
-     useEffect(() => {
-        getTheirActivities(currentUser, otherUserId)
-            .then(res => {
-                console.log(res)
-                setPublicActivities(res.data.activities)
-                setCompletedCounts(res.data.completedCounts)
-                //set badges when that virtual is done
-            })
-            .catch(console.log('oops'))
+    //after initial render, make axios call to grab activity/count data and set the state variables 
+    useEffect(() => {
+    getTheirActivities(currentUser, otherUserId)
+        .then(res => {
+            console.log(res)
+            setPublicActivities(res.data.activities)
+            setCompletedCounts(res.data.completedCounts)
+            //set badges when that virtual is done
+        })
+        .catch(console.log('oops'))
     },[])
 
 
