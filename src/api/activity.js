@@ -19,6 +19,14 @@ export const getAllActivities = () => {
         url: `${apiUrl}/activities`
     })
 }
+// For Search Bar to filter all Activities
+export const searchActivities = (searchText) => { 
+    return axios({ 
+        method: 'POST', 
+        url: `${apiUrl}/activities`, 
+        data: searchText 
+        })
+    }
 
 //get the logged-in user's activities
 //data returned: res.data.activities has all of the user's activities
@@ -56,7 +64,7 @@ export const getActivity = (user, activityId) => {
         headers: {
             Authorization: `Token token=${user.token}`
         },
-        url: `${apiUrl}/activities//${activityId}`
+        url: `${apiUrl}/activities/${activityId}`
     })
 }
 //create an activity 

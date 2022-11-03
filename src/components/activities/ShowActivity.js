@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from "react"
-import { Label, Icon, Item, Button, Segment, Grid, Comment, Form, Modal, Header } from 'semantic-ui-react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Label, Icon, Item, Button, Segment, Grid, Comment, Form, Modal, Progress, Divider } from 'semantic-ui-react'
+import { useNavigate, useParams} from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { getActivity, updateActivity, deleteActivity } from '../../api/activity'
+import CreateActivity from '../activities/CreateActivity'
 
 
 
-const ShowActivity = ({ user, msgAlert, activityId }) => {
+const ShowActivity = ({ user, msgAlert, props }) => {
     console.log(msgAlert)
-    
-    const [allActivities, setGetAllActivities] = useState([])
+    const [activity, setActivity] = useState({})
     const [updated, setUpdated] = useState(false)
     const [deleted, setDeleted] = useState(false)
-    const [open, setOpen] = React.useState(false)
-    
-    // const { activityId } = useParams()
+    const [percent, setPercent] = useState(activity.progress)
+    const [percentChangeSaving, setPercentChangeSaving] = useState(false)
+    const [showSaveButton, setShowSaveButton] = useState(false)
+    const [mine, setMine] = useState(false)
     const navigate = useNavigate()
+    const [open, setOpen] = React.useState(false)
+   
+  
+
+
+    const { activityId } = useParams()
+    // const navigate = useNavigate()
 
     useEffect(() => {
       getActivity(user, activityId)
+
         .then((res) => {
-            setGetAllActivities(res.data.activity)
+            setActivity(res.data.activity)
+            setMine((activity.owner._id == user._id))
         })
+
         .catch((error) => {
             msgAlert({
                 heading: 'Failure',
-                message: 'Index Activities failed' + error,
+                message: 'Show Activities failed' + error,
                 variant: 'danger'
             })
         })
@@ -38,10 +49,12 @@ const ShowActivity = ({ user, msgAlert, activityId }) => {
           setDeleted(true)
           msgAlert({
               heading: 'Success',
-              message: 'Deleting a Activity',
+              message: 'Deleting an Activity',
               variant: 'success'
           })
-          
+      })
+      .then(() => {
+        navigate(`/feed-page/${user._id}`)
       })
       .catch((error) => {
           msgAlert({
@@ -51,241 +64,279 @@ const ShowActivity = ({ user, msgAlert, activityId }) => {
           })
       })
   }
-  if (deleted) navigate('/activities')
 
+  const increaseProgress = (e) => {
+    setPercent(prevPercent => {
+        if (prevPercent >= 100) {
+            msgAlert({
+                heading:'Whoa There!',
+                message: "You're already done!",
+                variant: 'success'
+            })
+            return prevPercent
+        } else {
+            return Math.min(100, (prevPercent + 20))
+        }
+    })  
+}
 
-    const allActivitiesJSX = allActivities.map(activity => {
-        return (
-            <Link to={`/activities/${activity._id}`} key={activity._id}>
-                <li>
-                activity: {activity.name} accessibility: {activity.accessibility} 
-                type: {activity.type} participants: {activity.participants} 
-                price: {activity.price} progress: {activity.progress} 
-                </li>
-            </Link>
-        )
-    })
-    const show = allActivities.map(activities => (
-      <div> 
-    <Segment    
+const decreaseProgress = (e) => {
+    setPercent(prevPercent => {
+        if (prevPercent <= 0) {
+            msgAlert({
+                heading:'Hey now',
+                message: "You can't do less than nothing! ",
+                variant: 'success'
+            })
+            return prevPercent
+        } else {
+            return Math.max(0, (prevPercent - 20))
+        }
+    })  
+}
+
+const handleSaveProgress = (e) => {
+    //set percentChangeSaving to true so that save button will show as loading
+    setPercentChangeSaving(true)
+    //set new progress
+    activity.progress = percent
+    //make axios call
+    updateActivity(user, activity, activity.id )
+        //set 'saving' state to false so save button is no longer loading
+        .then(() => {setPercentChangeSaving(false)})
+        .catch(error => {
+            msgAlert({
+                heading:'Something went wrong',
+                message: "Update progress failed " + error,
+                variant: 'danger'
+            })
+        })
+}
+
+//function to determine whether to show save button or not 
+useEffect (()=> {
+    setShowSaveButton((percent != activity.progress))
+}, [percent])
+
+// if (deleted) navigate('/activities')
+// const allActivitiesJSX = allActivities.map(activity => {
+
+  return(
+    <>  
+      <Segment    
           inverted color='yellow'
           verticalAlign='middle' 
           id="segment"
-          key={ activities.id }
-      >
-    <Grid centered stretched columns={4}>
-        <Grid.Row padded>
-            <h1>Activity Name</h1>
-            <Segment fluid textAlign="left">
-        <h3>Category:</h3>
-        <h3>Accessibility:</h3>
-        <h3>Type:</h3>
-        <h3>Participants:</h3>
-        <h3>Price:</h3>
-
-  </Segment>
-  </Grid.Row>
-        <Grid.Row padded>
-            <Segment     
-          verticalAlign='middle' 
-          id="segment"
-      >
- {/* <div class="buttonActivityPage"> */}
-<Grid columns={3}>
- <Grid.Column>
-        <Button size='large'>Mark as Complete</Button>
-</Grid.Column>
-        {/* Notes Modal Button */}
-        
-<Grid.Column>
-        
-
-  <Modal
-    onClose={() => setOpen(false)}
-    onOpen={() => setOpen(true)}
-    open={open}
-    trigger={<Button size='large' variant="warning">Notes</Button>}
-  >
-    <Modal.Header>Select To See Note</Modal.Header>
-    <Modal.Content>
-      <Segment  
-          padded='very'  
-          inverted color='yellow' 
-          verticalAlign='middle' 
-          id="segment"
-           >
-          <Comment.Actions active 
-          type="text"
-          value= 'noteName'
-          placeholder="Note name"
-          required>
-          </Comment.Actions>
-          <Form reply 
-          placeholder="Note content"
-          value='noteContent'
-          >
-          <Form.TextArea />
-          </Form>
-  
-          <Segment textAlign = 'centered'>
-          <Grid centered>
           
-          <Comment>
-    <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-    <Comment.Content>
-      <Comment.Author as='a'>Matt</Comment.Author>
-      <Comment.Metadata>
-        <span>Today at 5:42PM</span>
-      </Comment.Metadata>
-      <Comment.Text>How artistic!</Comment.Text>
-      <Comment.Actions>
-        <a>Reply</a>
-      </Comment.Actions>
-    </Comment.Content>
-  </Comment>
-  </Grid>
-  </Segment>
-          </Segment>
-       
-  
-  
-    </Modal.Content>
-    <Modal.Actions>
-      <Button color='black' onClick={() => setOpen(false)}>
-        Go Back
-      </Button>
-      <Button
-              content='Add Note'
-              labelPosition='right'
-              icon='edit'
-              primary
-              type="submit"
-          />
-    </Modal.Actions>
-  </Modal>
+          // key={ activities.id }
+      >
+        <Segment>
+          <Grid columns={2}>
+            <Grid.Column verticalAlign="middle">
+              <h2>activity: {activity.activity} </h2>
+            </Grid.Column>
+            <Grid.Column verticalAlign="middle"
+              centered>
+              <Progress 
+                percent={activity.progress} 
+                indicating 
+                verticalAlign='middle'
+                centered
+              />
+                { 
+                mine 
+                ? 
+                <>
+                <Button onClick={decreaseProgress}  negative circular icon='minus'/>
+                <Button onClick={increaseProgress} positive circular icon='plus'/>
+                {
+                    showSaveButton ?
+                    <>
+                        <Divider hidden />
+                        <Button onClick={handleSaveProgress} loading={percentChangeSaving}>Save</Button>
+                    </>
+                    :
+                    null
+                }
+                </>
+                :
+                null
+                } 
+            </Grid.Column>
+          </Grid>
+        </Segment>
+        <Segment>
+          <h2>type: {activity.type}</h2>
+          <h2>accessibility: {activity.accessibility} </h2> 
+          <h2>participants: {activity.participants}</h2>
+          <h2>price: {activity.price}</h2> 
+        </Segment>
+        <Grid 
+          padded 
+          centered
+          columns={3}
+        >
+          <Grid.Row>
+            <Grid.Column  textAlign='middle'>
+              <Modal
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
+                  open={open}
+                  trigger={
+                    <Button size='large' variant="warning">Notes</Button>
+                  }
+              >
+                  <Modal.Header>Select To See Note</Modal.Header>
+                  <Modal.Content>
+                    <Segment  
+                      padded='very'  
+                      inverted color='yellow' 
+                      verticalAlign='middle' 
+                      id="segment"
+                    >
+                      <Comment.Actions active 
+                        type="text"
+                        value= 'noteName'
+                        placeholder="Note name"
+                        required>
+                      </Comment.Actions>
+                      <Form reply 
+                        placeholder="Note content"
+                        value='noteContent'
+                      >
+                        <Form.TextArea />
+                      </Form>
+                
+                      <Segment 
+                        textAlign = 'centered'
+                      >
+                        <Grid 
+                          centered
+                        >
+                          <Comment>
+                            <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+                            <Comment.Content>
+                              <Comment.Author 
+                                as='a'>Matt
+                              </Comment.Author>
+                              <Comment.Metadata>
+                                <span>Today at 5:42PM</span>
+                              </Comment.Metadata>
+                              <Comment.Text>
+                                How artistic!
+                              </Comment.Text>
+                              <Comment.Actions>
+                                <a>Reply</a>
+                              </Comment.Actions>
+                            </Comment.Content>
+                          </Comment>
+                        </Grid>
+                      </Segment>
+                    </Segment>
+                  </Modal.Content>
+                  <Modal.Actions>
+                    <Button color='black' onClick={() => setOpen(false)}>
+                      Go Back
+                    </Button>
+                    <Button
+                      content='Add Note'
+                      labelPosition='right'
+                      icon='edit'
+                      primary
+                      type="submit"
+                    />
+                  </Modal.Actions>
+              </Modal>
+            </Grid.Column>
+            <Grid.Column textAlign='middle'>
+             
+              <Modal
+                onClose={() => ({setOpen: false})}
+                onOpen={() => ({setOpen: true})}
+                // open={open}
+                trigger={
+                  <Button onClick={() => setUpdated(true)} variant="warning">Update</Button>
+                  }
+                  >
+                <Modal.Content>
+                  <CreateActivity user={user} msgAlert={msgAlert}  activityId={activityId} activity/>
+                </Modal.Content>
+              </Modal>
 
-</Grid.Column>
-
-<Grid.Column>
-        <Button size='large' onClick={() => setUpdated(true)} variant="warning">Edit</Button>
-</Grid.Column>
-
-<Grid.Column>
-        <Button size='large' onClick={() => handleDeleteActivity()} >Delete</Button>
-</Grid.Column> 
-</Grid> 
-    
- </Segment>
-        </Grid.Row>
-        <Grid.Row >
-            <Segment  
-            padded='very'  
-            inverted color='yellow' 
-            verticalAlign='middle' 
-            id="segment"
-             >
-            <Comment.Actions active 
-            type="text"
-            value= 'noteName'
-            placeholder="Note name"
-            required>
-            </Comment.Actions>
-            <Form reply 
-            placeholder="Note content"
-            value='noteContent'
-            >
-            <Form.TextArea />
-            <Button
-                content='Add Note'
-                labelPosition='center'
-                icon='edit'
-                primary
-                type="submit"
-            />
-            </Form>
-            </Segment>
-            <Segment>
-            <Comment.Group minimal>
-    <Header as='h3' dividing>
-      Comments
-    </Header>
-
-    <Comment>
-      <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Matt</Comment.Author>
-        <Comment.Metadata>
-          <span>Today at 5:42PM</span>
-        </Comment.Metadata>
-        <Comment.Text>How artistic!</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-
-    <Comment>
-      <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Elliot Fu</Comment.Author>
-        <Comment.Metadata>
-          <span>Yesterday at 12:30AM</span>
-        </Comment.Metadata>
-        <Comment.Text>
-          <p>This has been very useful for my research. Thanks as well!</p>
-        </Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-
-      <Comment.Group>
-        <Comment>
-          <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
-          <Comment.Content>
-            <Comment.Author as='a'>Jenny Hess</Comment.Author>
-            <Comment.Metadata>
-              <span>Just now</span>
-            </Comment.Metadata>
-            <Comment.Text>Elliot you are always so right :)</Comment.Text>
-            <Comment.Actions>
-              <a>Reply</a>
-            </Comment.Actions>
-          </Comment.Content>
-        </Comment>
-      </Comment.Group>
-    </Comment>
-
-    <Comment>
-      <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-  </Comment.Group>
-            </Segment>
-       </Grid.Row>
-    </Grid> 
-    </Segment>
-</div>
-    ))
-
-return (
-      
-      <>
-      {show}
-      </>
-
- 
-)
+          
+            </Grid.Column>
+            <Grid.Column  textAlign='middle'>
+              
+              
+              <Button onClick={() => handleDeleteActivity()} >Delete</Button>
+                
+             
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+    </>
+  )
 }
 
+{/* <Link to={`/activities/`} >
+                 
 
-export default ShowActivity;
+//     const show = allActivities.map(activities => (
+
+//         <Grid.Row padded>
+//             <Segment     
+//           verticalAlign='middle' 
+//           id="segment"
+//       >
+//  {/* <div class="buttonActivityPage"> */}
+// <Grid columns={3}>
+//  <Grid.Column>
+//         <Button size='large'>Mark as Complete</Button>
+// </Grid.Column>
+//         {/* Notes Modal Button */}
+        
+// <Grid.Column>
+        
+// </Grid.Column>
+
+// <Grid.Column>
+//         <Button size='large' onClick={() => setUpdated(true)} variant="warning">Edit</Button>
+// </Grid.Column>
+
+// <Grid.Column>
+//         <Button size='large' onClick={() => handleDeleteActivity()} >Delete</Button>
+// </Grid.Column> 
+// </Grid> 
+    
+//  </Segment>
+//         </Grid.Row>
+//         <Grid.Row >
+
+// 
+//             <Form reply 
+//             placeholder="Note content"
+//             value='noteContent'
+//             >
+//             <Form.TextArea />
+//             <Button
+//                 content='Add Note'
+//                 labelPosition='center'
+//                 icon='edit'
+//                 primary
+//                 type="submit"
+//             />
+//             </Form>
+//             </Segment>
+//             <Segment>
+//             
+//     <Header as='h3' dividing>
+//       Comments
+//     </Header>
+      
+      // <>
+      // {show}
+      // </>
+
+
+export default ShowActivity

@@ -70,12 +70,12 @@ export default class Header extends Component {
 					</Modal.Content>
         		</Modal>
 				<Menu.Item
-					name='my public profile'
-					active={activeItem === 'my public profile'}
+					name='feed page'
+					active={activeItem === 'feed page'}
 					onClick={this.handleItemClick}
 				>
 					<Link 
-						to='user-public-page' 
+						to={`feed-page/${this.props.user._id}`}  
 					>
 						Feed
 					</Link>
@@ -86,7 +86,7 @@ export default class Header extends Component {
 					onClick={this.handleItemClick}
 				>
 					<Link 
-						to='user-public-page' 
+						to={`user-public-page/${this.props.user._id}`} 
 					>
 						Public Profile
 					</Link>
