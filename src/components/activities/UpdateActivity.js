@@ -57,14 +57,15 @@ const UpdateActivity = (props) => {
     return (
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton/>
-                <Modal.Body>
-                    <ActivityForm 
+                <Modal.Content>
+                    This be a modal
+                    {/* <ActivityForm 
                         activity={activity}
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
                         heading="Update Activity"
-                    />
-                </Modal.Body>
+                    /> */}
+                </Modal.Content>
             </Modal>
     )
 }
