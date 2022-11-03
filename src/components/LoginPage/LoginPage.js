@@ -12,7 +12,8 @@ const LoginPage = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
-  const [createdDate, setCreatedDate] = useState('')
+  const [username, setUsername] = useState('')
+  // const [createdDate, setCreatedDate] = useState('')
   const navigate = useNavigate()
 
   const onSignUp = (event) => {
@@ -20,7 +21,7 @@ const LoginPage = (props) => {
 
   const { msgAlert, setUser } = props
 
-      const credentials = {email, password, passwordConfirmation, createdDate}
+      const credentials = {email, username, password, passwordConfirmation }
 
   signUp(credentials)
     .then(() => signIn(credentials))
@@ -35,9 +36,10 @@ const LoginPage = (props) => {
     .then(() => navigate('/user-page'))
     .catch((error) => {
               setEmail('')
+              setUsername('')
               setPassword('')
               setPasswordConfirmation('')
-              setCreatedDate('')
+              // setCreatedDate('')
       msgAlert({
         heading: 'Sign Up Failed with error: ' + error.message,
         message: messages.signUpFailure,
@@ -239,6 +241,21 @@ return (
                       icon='users' 
                       iconPosition='left' 
                       required
+                      type='text'
+                      name='username'
+                      value={username}
+                      placeholder='Enter a username'
+                      onChange={e => setUsername(e.target.value)}
+
+                  />
+              </Form.Field>
+              <br />
+              <Form.Field>
+                  <Form.Input 
+                      fluid
+                      icon='users' 
+                      iconPosition='left' 
+                      required
                       type='email'
                       name='email'
                       value={email}
@@ -277,19 +294,18 @@ return (
                       
                   />
               </Form.Field>
-              <Form.Field>
+              {/* <Form.Field>
                   <Form.Input 
                       fluid
                       icon='lock'
                       iconPosition='left'
                       required
                       name='createdDate'
-                      value=''
                       type='text'
-                      placeholder='Password'
-                      onChange={e => setPassword(e.target.value)}
+                      class="form-control"
+   
                   />
-              </Form.Field>
+              </Form.Field> */}
               <br />
               <Form.Button 
                    secondary 
