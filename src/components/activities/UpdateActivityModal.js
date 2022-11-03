@@ -5,7 +5,7 @@ import { updateActivity } from '../../api/activity'
 
 const UpdateActivityModal = (props) => {
 
-    const {user, msgAlert, setUpdated} = props
+    const {user, msgAlert, triggerRefresh} = props
     
     const [activity, setActivity] = useState(props.activity)
     const [open, setOpen] = useState(false)
@@ -37,15 +37,15 @@ const UpdateActivityModal = (props) => {
 
     const handleUpdateActivity = (e) => {
         e.preventDefault()
+
         //close form if no change was made
         if (activity == props.activity) {
             setOpen(false)
         } else {
         updateActivity(user, activity, props.activity._id)
-            .then(() => setOpen(false))
             .then(() => {
                 setOpen(false)
-                setUpdated(true)
+                triggerRefresh()
                 msgAlert({
                     heading: 'Success',
                     message: 'Updated Activity',
