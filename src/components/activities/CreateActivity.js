@@ -39,6 +39,10 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
                 updatedValue = false
             }
 
+            if(updatedName === 'type') {
+                updatedValue = activity.type
+            }
+
             const updatedActivity = { [updatedName]: updatedValue }
 
             return { ...prevActivity, ...updatedActivity}
@@ -76,8 +80,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
         .then(jsonData => {
             setActivity((prevActivity) => {
                 return { ...prevActivity, activity: jsonData.data.activity, type: jsonData.data.type, accessibility: jsonData.data.accessibility, participants: jsonData.participants, price: jsonData.data.price}
-            } )
-            console.log(jsonData,'~~~~~~~~~')
+            } ) 
         })
 
     }

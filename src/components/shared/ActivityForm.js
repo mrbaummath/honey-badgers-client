@@ -1,6 +1,5 @@
 import React from 'react'
 import {Button, Checkbox, Form, Container, Icon} from 'semantic-ui-react'
-import RandomActivity from '../activities/RandomActivity'
 
 const options = [
     {text: 'Education', value: 'education'},
@@ -92,11 +91,13 @@ const ActivityForm = (props) => {
                         onChange={ handleChange }
                     />
                 </Form.Field>
-                <Button class="ui circular icon button" 
+                <Button icon
                         type='button'
+                        color='yellow'
+                        label='Generate Random Activity'
                         onClick= { handleActivity }>
                 <Icon name='random' /></Button>
-                <Button type='submit'>Submit</Button>
+                <Button type='submit' color='yellow'>Submit</Button>
             </Form>
         </Container>
     )
