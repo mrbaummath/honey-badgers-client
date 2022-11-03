@@ -21,7 +21,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
     const [activityModalShow, setActivityModalShow] = useState(false)
 
     const handleChange = (e , target) => {
-        
+        console.log(target)
         setActivity(prevActivity => {
             const { name, value } = target
             const updatedName = name
@@ -37,10 +37,6 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
                 updatedValue = true
             } else if (updatedName === 'private' && !target.checked) {
                 updatedValue = false
-            }
-
-            if(updatedName === 'type') {
-                updatedValue = activity.type
             }
 
             const updatedActivity = { [updatedName]: updatedValue }

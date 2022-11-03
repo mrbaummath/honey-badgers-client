@@ -28,7 +28,7 @@ const ActivityForm = (props) => {
                         id='activity'
                         label='Activity' 
                         placeholder='Activity'
-                        defaultValue='{ activity.activity }'
+                        defaultValue={ activity.activity }
                         onChange= { handleChange }
                     />
                     <Form.Select

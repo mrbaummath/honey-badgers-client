@@ -3,7 +3,9 @@ import { Label, Icon, Item, Button, Segment, Grid, Comment, Form, Modal, Progres
 import { useNavigate, useParams} from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { getActivity, updateActivity, deleteActivity } from '../../api/activity'
-import UpdateActivity from "./UpdateActivity"
+import UpdateActivityModal from "./UpdateActivityModal"
+import ActivityForm from "../shared/ActivityForm"
+import LoadingScreen from "../shared/LoadingPage"
 
 
 
@@ -38,8 +40,8 @@ const ShowActivity = ({ user, msgAlert }) => {
         })
     },[updated])
 
-    //once the activity has been set on the re-render, determine if the user owns this activity
-    const mine = activity.owner  
+    //if re-render was triggered by update, have updated set to false
+    
 
     const handleDeleteActivity = () => {
       deleteActivity(user, activityId)
@@ -78,20 +80,20 @@ const ShowActivity = ({ user, msgAlert }) => {
     })  
 }
 
-const decreaseProgress = (e) => {
-    setPercent(prevPercent => {
-        if (prevPercent <= 0) {
-            msgAlert({
-                heading:'Hey now',
-                message: "You can't do less than nothing! ",
-                variant: 'success'
-            })
-            return prevPercent
-        } else {
-            return Math.max(0, (prevPercent - 20))
-        }
-    })  
-}
+  const decreaseProgress = (e) => {
+      setPercent(prevPercent => {
+          if (prevPercent <= 0) {
+              msgAlert({
+                  heading:'Hey now',
+                  message: "You can't do less than nothing! ",
+                  variant: 'success'
+              })
+              return prevPercent
+          } else {
+              return Math.max(0, (prevPercent - 20))
+          }
+      })  
+  }
 
 const handleSaveProgress = (e) => {
     //set percentChangeSaving to true so that save button will show as loading
@@ -112,6 +114,8 @@ const handleSaveProgress = (e) => {
         })
 }
 
+
+
 //function to determine whether to show save button or not 
 useEffect (()=> {
     setShowSaveButton((percent != activity.progress))
@@ -119,6 +123,12 @@ useEffect (()=> {
 
 // if (deleted) navigate('/activities')
 // const allActivitiesJSX = allActivities.map(activity => {
+
+  if (!activity) {
+    return (
+      <LoadingScreen />
+    )
+  }
 
   return(
     <>  
@@ -243,24 +253,18 @@ useEffect (()=> {
                       icon='edit'
                       primary
                       type="submit"
+                      setUpdated={setUpdated}
                     />
                   </Modal.Actions>
               </Modal>
             </Grid.Column>
             <Grid.Column textAlign='middle'>
-             
-              <Modal
-                onClose={() => ({setOpen: false})}
-                onOpen={() => ({setOpen: true})}
-                // open={open}
-                trigger={
-                  <Button onClick={() => setUpdated(true)} variant="warning">Update</Button>
-                  }
-                  >
-                <Modal.Content>
-                  <UpdateActivity user={user} msgAlert={msgAlert}  activityId={activityId} activity={activity}/>
-                </Modal.Content>
-              </Modal>
+                  <UpdateActivityModal 
+                    activity={activity}
+                    user={user}
+                    msgAlert={msgAlert}
+                    />
+                    
 
           
             </Grid.Column>
