@@ -1,3 +1,4 @@
+import IndexActivity from "./activities/IndexActivity"
 import LoginPage from "./LoginPage/LoginPage"
 
 
@@ -15,6 +16,7 @@ const Home = ( {user, msgAlert, setUser, ...props }) => {
 
 
 			< LoginPage setUser={setUser} msgAlert={msgAlert}/>
+			< IndexActivity setUser={setUser} user={user} msgAlert={msgAlert}/>
 			
 			
 			

@@ -50,7 +50,7 @@ const IndexActivity = ({ user, msgAlert }) => {
             )
         })
         const Index = filterActivities.map(activities => (
-            <Segment key={ activities.id } inverted color='yellow'>
+            <Segment key={ activities.id } inverted color='yellow' class="capitalize-me">
                 <Grid centered stretched columns={9}>
         <Grid.Row padded>
             {/* <Segment.Group id='actList' raised  >
@@ -77,7 +77,7 @@ const IndexActivity = ({ user, msgAlert }) => {
         ))
 return (
     <>
-    <Segment inverted color='yellow'>
+    <Segment inverted color='yellow' class="capitalize-me">
         <Grid centered stretched columns={9}>
             <Grid.Row padded>
                         <Segment.Group id='actList' raised  >

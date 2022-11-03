@@ -24,6 +24,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
     const [publicActivities, setPublicActivities] = useState(null)
     const [completedCounts, setCompletedCounts] = useState({})
     const [email, setEmail] = useState('')
+    const [createdDate, setCreatedDate] = useState('')
     const [badges, setBadges] = useState(null)
 
      //after initial render, make axios call to grab activity/count data and set the state variables 
@@ -43,6 +44,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
         getUserInfo(currentUser, otherUserId)
             .then(res => {
                 setEmail(res.data.user.email)
+                setCreatedDate(res.data.user.createdDate)
             })
             .catch((error) => {
                 msgAlert({
@@ -89,7 +91,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                         </Grid.Column>
                                         <Grid.Column textAlign='middle'>
                                             <h1>Super Active Guy</h1> 
-                                            <h2>member since 10/31/2022</h2>
+                                            <h2>member since {createdDate}</h2>
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Column>
