@@ -12,7 +12,7 @@ const LoginPage = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
-
+  const [createdDate, setCreatedDate] = useState('')
   const navigate = useNavigate()
 
   const onSignUp = (event) => {
@@ -20,7 +20,7 @@ const LoginPage = (props) => {
 
   const { msgAlert, setUser } = props
 
-      const credentials = {email, password, passwordConfirmation}
+      const credentials = {email, password, passwordConfirmation, createdDate}
 
   signUp(credentials)
     .then(() => signIn(credentials))
@@ -37,6 +37,7 @@ const LoginPage = (props) => {
               setEmail('')
               setPassword('')
               setPasswordConfirmation('')
+              setCreatedDate('')
       msgAlert({
         heading: 'Sign Up Failed with error: ' + error.message,
         message: messages.signUpFailure,
@@ -274,6 +275,19 @@ return (
                       type='password'
                       onChange={e => setPasswordConfirmation(e.target.value)}
                       
+                  />
+              </Form.Field>
+              <Form.Field>
+                  <Form.Input 
+                      fluid
+                      icon='lock'
+                      iconPosition='left'
+                      required
+                      name='createdDate'
+                      value=''
+                      type='text'
+                      placeholder='Password'
+                      onChange={e => setPassword(e.target.value)}
                   />
               </Form.Field>
               <br />

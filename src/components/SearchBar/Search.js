@@ -1,120 +1,150 @@
-import PropTypes from 'prop-types'
-import _ from 'lodash'
-// import faker from 'faker'
-import React, { Component } from 'react'
-import { Search, Grid, Header, Segment, Label } from 'semantic-ui-react'
+// import _ from 'lodash'
+// import React,{ useReducer, useEffect, useRef } from 'react'
+// import { Search, Grid, Header, Segment } from 'semantic-ui-react'
+// import { getAllActivities } from '../../api/activity' 
+// import messages from '../shared/AutoDismissAlert/messages'
 
-const categoryLayoutRenderer = ({ categoryContent, resultsContent }) => (
-  <div>
-    <h3 className='name'>{categoryContent}</h3>
-    <div style={{ background: 'red' }} className='results'>
-      {resultsContent}
-    </div>
-  </div>
-)
 
-categoryLayoutRenderer.propTypes = {
-  categoryContent: PropTypes.node,
-  resultsContent: PropTypes.node,
-}
 
-const categoryRenderer = ({ name }) => <Label as='span' content={name} />
+// const source = _.times(5, () => ({
+//   activity: '',
+// }))
 
-categoryRenderer.propTypes = {
-  name: PropTypes.string,
-}
+// const initialState = {
+//   loading: false,
+//   results: [],
+//   value: '',
+// }
 
-const resultRenderer = ({ title }) => <Label content={title} />
+// function Reducer(state, props) {
+//   switch (props.type) {
+//     case 'CLEAN_QUERY':
+//       return initialState
+//     case 'START_SEARCH':
+//       return { ...state, loading: true, value: props.query }
+//     case 'FINISH_SEARCH':
+//       return { ...state, loading: false, results: props.results }
+//     case 'UPDATE_SELECTION':
+//       return { ...state, value: props.selection }
 
-resultRenderer.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-}
+//     default:
+//       throw new Error()
+//   }
+// }
 
-const initialState = { isLoading: false, results: [], value: '' }
+// function SearchBar(props) {
+// const activities = props.activities
+// const user = props.activity
+// const msgAlert = props.msgAlert
 
-const getResults = () =>
-  _.times(5, () => ({
-    user: '',
-  }))
 
-const source = _.range(0, 3).reduce((memo) => {
-  const name = ''
+//   const [state, dispatch] = React.useReducer(Reducer, initialState)
+//   const { loading, results, value } = state
 
-  // eslint-disable-next-line no-param-reassign
-  memo[name] = {
-    name,
-    results: getResults(),
-  }
+//   useEffect(() => {
+//     getAllActivities(user, activities)
+//       .then((res) => {
+//           dispatch(res.data.activities)
+//       })
+//       .catch((error) => {
+//           msgAlert({
+//               heading: 'Failure',
+//               message: 'Index Activities failed' + error,
+//               variant: 'danger'
+//           })
+//       })
+//   },[])
 
-  return memo
-}, {})
+//   const timeoutRef = React.useRef()
+//   const handleSearchChange = React.useCallback((e, props) => {
+//     clearTimeout(timeoutRef.current)
+//     dispatch({ type: 'START_SEARCH', query: props.activity })
 
-export default class SearchCategory extends Component {
-  state = initialState
+//     timeoutRef.current = setTimeout(() => {
+//       if (props.value.length === 0) {
+//         dispatch({ type: 'CLEAN_QUERY' })
+//         return
+//       }
 
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+//       const re = new RegExp(_.escapeRegExp(props.activity), 'i')
+//       const isMatch = (result) => re.test(result.activity)
 
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value })
+//       dispatch({
+//         type: 'FINISH_SEARCH',
+//         results: _.filter(source, isMatch),
+//       })
+//     }, 300)
+//   }, [])
+//   React.useEffect(() => {
+//     return () => {
+//       clearTimeout(timeoutRef.current)
+//     }
+//   }, [])
 
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.setState(initialState)
+//   return (
+//     <Grid>
+//       <Grid.Column width={6}>
+//         <Search
+//           loading={loading}
+//           placeholder='Search...'
+//           onResultSelect={(e, props) =>
+//             dispatch({ type: 'UPDATE_SELECTION', selection: props.result.activity })
+//           }
+//           onSearchChange={handleSearchChange}
+//           results={results}
+//           value={value}
+//         />
+//       </Grid.Column>
 
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isMatch = (result) => re.test(result.title)
+//       <Grid.Column width={10}>
+//         <Segment>
+//           <Header>State</Header>
+//           <pre style={{ overflowX: 'auto' }}>
+//             {JSON.stringify({ loading, results, value }, null, 2)}
+//           </pre>
+//           <Header>Options</Header>
+//           <pre style={{ overflowX: 'auto' }}>
+//             {JSON.stringify(source, null, 2)}
+//           </pre>
+//         </Segment>
+//       </Grid.Column>
+//     </Grid>
+//   )
+// }
 
-      const filteredResults = _.reduce(
-        source,
-        (memo, data, name) => {
-          const results = _.filter(data.results, isMatch)
-          if (results.length) memo[name] = { name, results } // eslint-disable-line no-param-reassign
+// export default SearchBar
+// // import React, { Component } from "react";
+// // import { render } from "react-dom";
+// // import { Search } from "semantic-ui-react";
 
-          return memo
-        },
-        {},
-      )
+// // const results = [
+// //   {
+// //     name: "John",
+// //     age: 14
+// //   },
+// //   {
+// //     name: "Mary",
+// //     age: 92
+// //   }
+// // ];
+// // const Search = ({name, age}) => {
 
-      this.setState({
-        isLoading: false,
-        results: filteredResults,
-      })
-    }, 300)
-  }
 
-  render() {
-    const { isLoading, value, results } = this.state
+// //     const resRender = ({ name, age }) => (
+// //       <span key="name">
+// //         {name} is {age} yo
+// //       </span>
+// //     );
+// //     return (
+// //       <Searchbar
+// //         fluid
+// //         icon="search"
+// //         placeholder="Search..."
+// //         results={results}
+// //         resultRenderer={resRender}
+// //       />
+// //     );
+// //   }}
 
-    return (
-      <Grid>
-        <Grid.Column width={8}>
-          <Search
-            category
-            categoryLayoutRenderer={categoryLayoutRenderer}
-            categoryRenderer={categoryRenderer}
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={_.debounce(this.handleSearchChange, 500, {
-              leading: true,
-            })}
-            resultRenderer={resultRenderer}
-            results={results}
-            value={value}
-          />
-        </Grid.Column>
-        <Grid.Column width={8}>
-          <Segment>
-            <Header>State</Header>
-            <pre style={{ overflowX: 'auto' }}>
-              {JSON.stringify(this.state, null, 2)}
-            </pre>
-            <Header>Options</Header>
-            <pre style={{ overflowX: 'auto' }}>
-              {JSON.stringify(source, null, 2)}
-            </pre>
-          </Segment>
-        </Grid.Column>
-      </Grid>
-    )
-  }
-}
+
+// // export default Search
