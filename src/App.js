@@ -16,7 +16,6 @@ import UserPage from './components/user/UserPage'
 import UserPublicPage from './components/user/UserPublicPage'
 import ChangePassword from './components/auth/ChangePassword'
 import FeedPage from './components/FeedPage.js/FeedPage'
-
 import ShowActivity from './components/activities/ShowActivity'
 
 
@@ -90,6 +89,12 @@ const App = () => {
 						path='/feed-page/:otherUserId'
 						element={
 							<FeedPage msgAlert={msgAlert} currentUser={user}  />
+					}
+					/>
+					<Route
+						path='/show-page/:activityId'
+						element={
+							<ShowActivity msgAlert={msgAlert} user={user} />
 					}
 					/>
 					{/* <Route
