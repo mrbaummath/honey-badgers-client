@@ -16,7 +16,7 @@ const BadgesSegment = ({badges, badgeOwnerHandle, mine, activities}) => {
         <LoadingScreen />
     return (
         <Segment raised>
-            <h2>{header}</h2>
+            <h1 id='commFeed'>{header}</h1>
             <Grid columns={2} padded>
             {badgesJSX}
             </Grid>

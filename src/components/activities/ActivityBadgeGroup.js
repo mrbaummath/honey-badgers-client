@@ -1,4 +1,4 @@
-import {  List } from 'semantic-ui-react'
+import {  List, Grid } from 'semantic-ui-react'
 
 //badge image linkes
 import imgSrc from '../shared/ImgSrc'
@@ -11,14 +11,20 @@ const ActivityBadgeGroup = ({badge, activities}) => {
         <List.Item key={`badge-group-${activity._id}`}>
             <List.Icon name='certificate' />
             <List.Content>
-                <p>{activity.activity}</p>
+                
             </List.Content>
+            <Grid >
+                <Grid.Column width={20}>
+                <p>{activity.activity}</p>
+                </Grid.Column>
+            </Grid>
         </List.Item>
     ))
     return (
         <List>
             {activityGroupJSX}
         </List>
+
     )
 }
 

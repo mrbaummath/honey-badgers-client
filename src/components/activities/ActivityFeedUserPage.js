@@ -5,7 +5,7 @@ import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import { updateActivity } from '../../api/activity'
 
-const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
+const ActivityFeedUserPage = ({ activity, msgAlert, user, mine}) => {
     const imgSrc = 'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg'
     //declare pieces of state --> grab current progress from activity object and set it as initial state. Set state variables to track when progress is being saved and whether to show the save button
     const [percent, setPercent] = useState(activity.progress)
@@ -72,8 +72,8 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
     return (
         <Segment id='actListItems'>
             <Container fluid>
-            <Grid>
-                <Grid.Column width={2} verticalAlign='center'>
+            <Grid columns={2} centered>
+                <Grid.Column width={5} verticalAlign='center' textAlign='middle'>
                     
                 <Image 
                     src='https://react.semantic-ui.com/images/avatar/small/christian.jpg'
@@ -81,11 +81,11 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
                     circular 
                     centered/>
                 </Grid.Column>
-                <Grid.Column width={10} textAlign='center' verticalAlign='middle'>
-                    <h1><Link to={`/user-public-page/${activity.owner._id}`}>{activity.owner.email}</Link> is currently working on the <Link to={`/show-page/${activity._id}`}>{activity.activity}</Link> activity</h1>
+                <Grid.Column textAlign='center' verticalAlign='middle' width={10}>
+                    <h2><Link to={`/user-public-page/${activity.owner._id}`}>{activity.owner.email}</Link> is currently working on the <Link to={`/show-page/${activity._id}`}>{activity.activity}</Link> activity</h2>
                 </Grid.Column>
-                <Grid.Column width={4} verticalAlign='middle' textAlign='center'>
-                    <Progress percent={percent} indicating />
+                <Grid.Row verticalAlign='middle' textAlign='center'>
+                    <Progress  percent={percent} indicating verticalAlign='middle'/>
                     {/* <Button size='large' useNavigate={`/page-page/${activity.owner}`}>View Their Activity</Button> */}
                     
                     {/* { mine ? 
@@ -106,11 +106,11 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
                     :
                     null
                     }  */}
-                </Grid.Column>
+                </Grid.Row>
             </Grid>
             </Container>
         </Segment>
     )
 }
 
-export default ActivityFeedSegment
+export default ActivityFeedUserPage
