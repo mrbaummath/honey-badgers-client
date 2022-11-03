@@ -7,7 +7,7 @@ import CreateActivity from '../activities/CreateActivity'
 
 
 
-const ShowActivity = ({ user, msgAlert, props }) => {
+const ShowActivity = ({ user, msgAlert }) => {
     console.log(msgAlert)
     const [activity, setActivity] = useState({})
     const [updated, setUpdated] = useState(false)
@@ -15,24 +15,18 @@ const ShowActivity = ({ user, msgAlert, props }) => {
     const [percent, setPercent] = useState(activity.progress)
     const [percentChangeSaving, setPercentChangeSaving] = useState(false)
     const [showSaveButton, setShowSaveButton] = useState(false)
-    const [mine, setMine] = useState(false)
     const navigate = useNavigate()
     const [open, setOpen] = React.useState(false)
    
-  
-
 
     const { activityId } = useParams()
     // const navigate = useNavigate()
 
     useEffect(() => {
       getActivity(user, activityId)
-
         .then((res) => {
             setActivity(res.data.activity)
-            setMine((activity.owner._id == user._id))
         })
-
         .catch((error) => {
             msgAlert({
                 heading: 'Failure',
@@ -40,8 +34,10 @@ const ShowActivity = ({ user, msgAlert, props }) => {
                 variant: 'danger'
             })
         })
-    },[updated])
+    },[])
 
+    //once the activity has been set on the re-render, determine if the user owns this activity
+    const mine = activity.owner  
 
     const handleDeleteActivity = () => {
       deleteActivity(user, activityId)
@@ -144,7 +140,7 @@ useEffect (()=> {
                 centered
               />
                 { 
-                mine 
+                user && activity.owner && user._id == activity.owner._id
                 ? 
                 <>
                 <Button onClick={decreaseProgress}  negative circular icon='minus'/>
