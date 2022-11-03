@@ -1,5 +1,11 @@
 import ShowActivity from "./activities/ShowActivity"
-import HomeFeed from "./HomeFeed/HomeFeed"
+
+
+
+
+
+// import HomeFeed from "./HomeFeed/HomeFeed"
+
 import LoginPage from "./LoginPage/LoginPage"
 import IndexActivity from "./activities/IndexActivity"
 

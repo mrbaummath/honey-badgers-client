@@ -64,7 +64,7 @@ export const getActivity = (user, activityId) => {
         headers: {
             Authorization: `Token token=${user.token}`
         },
-        url: `${apiUrl}/activities//${activityId}`
+        url: `${apiUrl}/activities/${activityId}`
     })
 }
 //create an activity 
