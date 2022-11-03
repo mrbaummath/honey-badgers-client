@@ -17,11 +17,25 @@ const RandomActivity = ({ user, msgAlert }) => {
     
     const [activity, setActivity] = useState(defaultActivity)
 
+    // const handleChange = (e , target) => {
+        
+        //         setActivity(prevActivity => {
+                   
+        //             const { name, value } = target
+        //             const updatedName = name
+        //             let updatedValue = value
+        //             // handle number type
+        //             if(target.type === 'number') {
+        //                 // change from string to actual number
+        //                 updatedValue = parseInt(e.target.value)
+        //             }
+    
     const handleRandomActivity = (e) => {
-        let results = ''
+        
         e.preventDefault()
 
         randomActivity(user, activity)
+
         .then(res => res.json())
         .then(jsonData => {
             setActivity({
@@ -32,9 +46,14 @@ const RandomActivity = ({ user, msgAlert }) => {
 
     }
     
-    // return(
+    return(
+        <ActivityForm
+        activity={ activity }
+        // handleChange= { handleChange }
+        handleActivity= {handleRandomActivity}
 
-    // )
+    />
+    )
 }
 
 

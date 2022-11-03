@@ -16,7 +16,7 @@ const options = [
 
 const ActivityForm = (props) => {
 
-    const { activity, handleChange, handleSubmit, heading } = props
+    const { activity, handleChange, handleSubmit, handleActivity, heading } = props
 
     return (
         <Container className="justify-content-center">
@@ -93,9 +93,8 @@ const ActivityForm = (props) => {
                     />
                 </Form.Field>
                 <Button class="ui circular icon button" 
-                        action={{
-                            onClick: { RandomActivity }
-                        }}>
+                        type='button'
+                        onClick= { handleActivity }>
                 <Icon name='random' /></Button>
                 <Button type='submit'>Submit</Button>
             </Form>

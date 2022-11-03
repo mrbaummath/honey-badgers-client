@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { createActivity } from '../../api/activity'
+import { createActivity, randomActivity } from '../../api/activity'
+
 
 import ActivityForm from '../shared/ActivityForm'
 
@@ -66,6 +67,21 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
             })
     }
 
+    const handleRandomActivity = (e) => {
+        
+        e.preventDefault()
+
+        randomActivity(user, activity)
+
+        .then(jsonData => {
+            setActivity((prevActivity) => {
+                return { ...prevActivity, activity: jsonData.data.activity, type: jsonData.data.type, accessibility: jsonData.data.accessibility, participants: jsonData.participants, price: jsonData.data.price}
+            } )
+            console.log(jsonData,'~~~~~~~~~')
+        })
+
+    }
+
     return (
         <ActivityForm
             show={activityModalShow}
@@ -73,6 +89,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
             handleChange={ handleChange }
             heading="Create a new Activity!"
             handleSubmit={ handleCreateActivity }
+            handleActivity= { handleRandomActivity }
             handleClose={() => setActivityModalShow(false)}
         />
     
