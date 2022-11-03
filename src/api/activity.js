@@ -74,6 +74,17 @@ export const createActivity = (user, newActivity) => {
     })
 }
 
+// GET a single random activity
+export const randomActivity = (user) => {
+    return axios({
+        method: 'GET',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        url: apiUrl + '/random'
+    })
+}
+
 //update an activity
 //nothing returned
 export const updateActivity = (user, updatesToActivity, activityId) => {
