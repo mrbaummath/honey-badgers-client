@@ -76,17 +76,18 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                     <Grid.Row>
                         <Segment>
                             <Grid columns={2}>
-                                <Grid.Column width={8} verticalAlign='center'>
+                                <Grid.Column width={8} verticalAlign='center' textAlign='middle'>
                                     <Grid columns={2}>
-                                        <Grid.Column width={4}>
+                                        <Grid.Column width={5} textAlign='middle'>
                                             <Image 
                                                 src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
                                                 size='small' 
                                                 circular 
+                                                centered
                                                 alt='A picture of the user'
                                             /> 
                                         </Grid.Column>
-                                        <Grid.Column>
+                                        <Grid.Column textAlign='middle'>
                                             <h1>Super Active Guy</h1> 
                                             <h2>member since 10/31/2022</h2>
                                         </Grid.Column>

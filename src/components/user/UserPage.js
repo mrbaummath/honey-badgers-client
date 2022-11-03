@@ -7,7 +7,7 @@ import ActivitySegment from '../activities/ActivitySegment'
 import { getMyActivities } from '../../api/activity'
 import LoadingScreen from '../shared/LoadingPage'
 import BadgesSegment from './BadgesSegment'
-import ActivityFeedSegment from '../activities/ActivityFeedSegment'
+import ActivityFeedUserPage from '../activities/ActivityFeedUserPage'
 import { getAllActivities } from '../../api/activity'
 
 
@@ -42,7 +42,7 @@ const UserPage = ({ user, msgAlert }) => {
 
     const activitiesJSX = publicActivities ? 
     publicActivities.map((activity) => (
-        <ActivityFeedSegment key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={false} />
+        <ActivityFeedUserPage key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={false} />
     ))
     :
     <LoadingScreen />
@@ -84,7 +84,7 @@ const UserPage = ({ user, msgAlert }) => {
                 
             >
                 <Grid columns={3}>
-                    <Grid.Column width={3}>
+                    <Grid.Column width={4}>
                         <BadgesSegment 
                             badges={badges} 
                             badgeOwnerHandle={user.email} 
@@ -92,17 +92,16 @@ const UserPage = ({ user, msgAlert }) => {
                             activities={allMyActivities} 
                         />
                     </Grid.Column>
-                    <Grid.Column width={8}>
-                        <Segment.Group id='actList' raised >
-                            <Segment textAlign='middle'>
+                    <Grid.Column width={7}>
+                            <Segment>
                                 <h2 id='yourActs'>Your Activities</h2>
-                            </Segment>
-                            {myActivitiesJSX}          
-                        </Segment.Group>
+                                {myActivitiesJSX}
+                            </Segment>          
+        
                     </Grid.Column>
-                    <Grid.Column width={5}>
-                        <Segment raised>
-                            <h2>Community Tasks</h2>
+                    <Grid.Column width={5} >
+                        <Segment raised textAlign='middle'>
+                            <h1 id='commFeed'>Community Tasks</h1>
                             {/* <Feed events={events} /> */}
                             {activitiesJSX}
                         </Segment>

@@ -12,7 +12,7 @@ const BadgeModal = ({badge, activities}) => {
     const badgeImages = imgSrc.badgeImages
     const badgeName = `${badge.name[0].toUpperCase()}${badge.name.slice(1)}`
     return (       
-        <Grid.Column >
+        <Grid.Column>
         
         <Modal
             open={open}
@@ -56,7 +56,7 @@ const BadgeModal = ({badge, activities}) => {
                 </Button>
             </Modal.Actions> 
         </Modal>
-            {badgeName} Badge: {badge.level}
+            <h3 id='commFeed'>{badgeName} Badge: {badge.level}</h3>
          
         </Grid.Column>
     )
