@@ -7,7 +7,7 @@ import { getTheirActivities } from '../../api/activity'
 import ActivitySegment from '../activities/ActivitySegment'
 import LoadingScreen from '../shared/LoadingPage'
 import getUserInfo  from '../../api/user'
-import BadgesSegment from './BadgesSegment'
+import BadgesSegment from '../badges/BadgesSegment'
 
 const UserPublicPage = ({currentUser, msgAlert}) => {
     const [open, setOpen] = React.useState(false)

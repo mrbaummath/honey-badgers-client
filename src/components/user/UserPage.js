@@ -6,24 +6,21 @@ import messages from '../shared/AutoDismissAlert/messages'
 import ActivitySegment from '../activities/ActivitySegment'
 import { getMyActivities } from '../../api/activity'
 import LoadingScreen from '../shared/LoadingPage'
-import BadgesSegment from './BadgesSegment'
+import BadgesSegment from '../badges/BadgesSegment'
 import ActivityFeedUserPage from '../activities/ActivityFeedUserPage'
 import { getAllActivities } from '../../api/activity'
-
+import MyActivities from '../activities/MyActivities'
 
 
 const UserPage = ({ user, msgAlert }) => {
 
     //set state variables for all activities, badges and user's count of completed activities
-    const [allMyActivities, setAllMyActivities] = useState([])
+    const [allMyActivities, setAllMyActivities] = useState(null)
     const [completedCounts, setCompletedCounts] = useState({})
     const [badges, setBadges] = useState(null)
     const [publicActivities, setPublicActivities] = useState(null)
-
-
-    
-    //tbd: badges virtual 
-
+    const [newBadge, setNewBadge] = useState({})
+ 
     //after initial render, make axios call to grab activity/count data and set the state variables 
     useEffect(() => {
         getMyActivities(user)
@@ -40,6 +37,8 @@ const UserPage = ({ user, msgAlert }) => {
             })})
     },[])
 
+
+    //set JSX for rendering the user's feed of community activities 
     const activitiesJSX = publicActivities ? 
     publicActivities.slice(0).reverse().filter((activity, idx) => idx < 10).map((activity) => (
         <ActivityFeedUserPage key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={false} />
@@ -50,27 +49,11 @@ const UserPage = ({ user, msgAlert }) => {
     useEffect(() => {
         getAllActivities()
             .then(res => {
-                console.log(res)
                 setPublicActivities(res.data.activities.filter(activity => activity.owner))
-                setCompletedCounts(res.data.completedCounts)
-                //set badges when that virtual is done
             })
             .catch(console.log('oops'))
     },[])
 
-    //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
-    const myActivitiesJSX = publicActivities ? 
-    publicActivities.map((activity) => (
-            <ActivitySegment 
-            key={activity.id} 
-            activity={activity} 
-            user={user} 
-            msgAlert={msgAlert} 
-            mine={true} 
-            />
-        ))
-        :
-        <LoadingScreen />
 
 	return (
 		<>
@@ -89,13 +72,18 @@ const UserPage = ({ user, msgAlert }) => {
                             badges={badges} 
                             badgeOwnerHandle={user.email} 
                             mine={true} 
-                            activities={allMyActivities} 
+                            activities={allMyActivities}
+                            setNewBadge={setNewBadge} 
                         />
                     </Grid.Column>
                     <Grid.Column width={7}>
                             <Segment>
                                 <h2 id='yourActs'>Your Activities</h2>
-                                {myActivitiesJSX}
+                                <MyActivities
+                                    allMyActivities={allMyActivities}
+                                    user={user}
+                                    msgAlert={msgAlert}
+                                />
                             </Segment>          
         
                     </Grid.Column>
