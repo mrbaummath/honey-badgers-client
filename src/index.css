@@ -93,3 +93,6 @@ code {
 #commFeed {
   text-align: center;
 }
+.capitalize-me::first-letter {
+  text-transform: capitalize;
+}

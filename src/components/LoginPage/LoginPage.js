@@ -13,7 +13,7 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [username, setUsername] = useState('')
-  // const [createdDate, setCreatedDate] = useState('')
+  const [createdDate, setCreatedDate] = useState('')
   const navigate = useNavigate()
 
   const onSignUp = (event) => {
@@ -21,7 +21,7 @@ const LoginPage = (props) => {
 
   const { msgAlert, setUser } = props
 
-      const credentials = {email, username, password, passwordConfirmation }
+      const credentials = {email, username, password, passwordConfirmation, createdDate }
 
   signUp(credentials)
     .then(() => signIn(credentials))
@@ -39,7 +39,7 @@ const LoginPage = (props) => {
               setUsername('')
               setPassword('')
               setPasswordConfirmation('')
-              // setCreatedDate('')
+              setCreatedDate('')
       msgAlert({
         heading: 'Sign Up Failed with error: ' + error.message,
         message: messages.signUpFailure,
@@ -294,18 +294,21 @@ return (
                       
                   />
               </Form.Field>
-              {/* <Form.Field>
+              <Form.Field>
                   <Form.Input 
                       fluid
                       icon='lock'
                       iconPosition='left'
+                      placeholder='Enter birth date'
                       required
                       name='createdDate'
-                      type='text'
-                      class="form-control"
+                      value={createdDate}
+                      type='date'
+                      onChange={e => setCreatedDate(e.target.value)}
+
    
                   />
-              </Form.Field> */}
+              </Form.Field>
               <br />
               <Form.Button 
                    secondary 
