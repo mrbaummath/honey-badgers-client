@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import {  Button, Segment, Grid, Label, Icon, Image, Modal, Header, List, Form } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import { changeBuddyStatus, signOut } from '../../api/auth'
@@ -8,11 +8,14 @@ import ActivitySegment from '../activities/ActivitySegment'
 import LoadingScreen from '../shared/LoadingPage'
 import getUserInfo  from '../../api/user'
 import BadgesSegment from './BadgesSegment'
+import getViewedUserInfo from '../../api/viewedUser'
 
-const UserPublicPage = ({currentUser, msgAlert}) => {
+const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => {
     const [open, setOpen] = React.useState(false)
     //grab requested user's id from params
     const { otherUserId } = useParams()
+    const { viewedUserId } = useParams()
+    const navigate = useNavigate()
 
     //piece of state for badges modal --> should be abstracte into it's own component
    
@@ -24,8 +27,10 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
     const [publicActivities, setPublicActivities] = useState(null)
     const [completedCounts, setCompletedCounts] = useState({})
     const [email, setEmail] = useState('')
+    const [thisUser, setThisUser] = useState({})
     const [createdDate, setCreatedDate] = useState('')
     const [badges, setBadges] = useState(null)
+    const [buddiesArr, setBuddiesArr] = useState([])
 
      //after initial render, make axios call to grab activity/count data and set the state variables 
      useEffect(() => {
@@ -45,6 +50,8 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
             .then(res => {
                 setEmail(res.data.user.email)
                 setCreatedDate(res.data.user.createdDate)
+                setThisUser(res.data.user.user)
+                setBuddiesArr(res.data.user.buddies)
             })
             .catch((error) => {
                 msgAlert({
@@ -54,28 +61,70 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
             })})
     },[])
 
-   
+    const handleRefresh = (e) => {
+        e.preventDefault()
+        triggerRefresh()
+    }
+
+
 
     const handleChangeBuddyStatus = (e) => {
         //set new buddy status
-        console.log(currentUser.buddies)
+        
         if(currentUser.buddies.filter(buddy => buddy == email).length > 0){
             
             for(let i = 0; i < currentUser.buddies.length; i ++){
                     if(i == email){
-                        currentUser.buddies.splice(i, 1, '')
+                        currentUser.buddies.splice(i, 1)
                     }
             }
             console.log('success')
         } else {
-            currentUser.buddies.push({email})
+            currentUser.buddies.push(email)
+            buddiesArr.push(currentUser.email)
         }
-        
+        currentUser.buddies.push(email)
+        currentUser.buddies.push(otherUserId)
+        buddiesArr.push(currentUser.email)
+        buddiesArr.push(currentUser._id)
         //make axios call
         changeBuddyStatus(currentUser, email)
             .then(() => {
                 // trigger
-                console.log(currentUser.buddies)
+                console.log('current', currentUser.email, currentUser.buddies)
+                console.log('this', thisUser.email, buddiesArr)
+            })
+            .catch(error => {
+                msgAlert({
+                    heading:'Something went wrong',
+                    message: "Update progress failed " + error,
+                    variant: 'danger'
+                })
+            })
+        changeBuddyStatus(currentUser, otherUserId)
+            .then(() => {
+                // trigger
+                console.log('current', currentUser.email, currentUser.buddies)
+                console.log('this', thisUser.email, buddiesArr)
+            })
+            .catch(error => {
+                msgAlert({
+                    heading:'Something went wrong',
+                    message: "Update progress failed " + error,
+                    variant: 'danger'
+                })
+            })
+        changeBuddyStatus(thisUser, currentUser.email)
+            .then(() => {
+                // trigger
+                console.log('it did it')
+
+            })
+        changeBuddyStatus(thisUser, currentUser._id)
+            .then(() => {
+                // trigger
+                console.log('it did it')
+
             })
             .catch(error => {
                 msgAlert({
@@ -85,6 +134,12 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                 })
             })
     }
+    const buddsMap = buddiesArr.map((buds) => (
+    <h1><Link to={`/user-public-page/${buds}`} onClick={handleRefresh}>{buds}</Link>
+        {/* <Button onClick={nav}>{buds}</Button> */}
+    </h1>
+    ))
+    console.log('this user', thisUser)
 
 
      //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
@@ -125,7 +180,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                             <h1>Super Active Guy</h1> 
 
                                             <h2>member since {createdDate}</h2>
-
+                                            <Button onClick={handleChangeBuddyStatus}>Add Buddy</Button>
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Column>
@@ -140,6 +195,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                             <Grid.Row >
                                                 <Grid columns={4}>
                                                     <Grid.Column textAlign='center'>
+
                                                         <Label as='a' image size='big'>
                                                             <img src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
                                                             Joe
@@ -181,6 +237,8 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                                         <Modal.Header>{email}'s Buddies</Modal.Header>
                                                         <Modal.Content >
                                                            <Segment>
+                                                                {buddsMap}
+                                                                
                                                            <Label as='a' image size='big'>
                                                             <img src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
                                                             Joe
