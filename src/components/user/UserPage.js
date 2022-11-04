@@ -16,12 +16,18 @@ const UserPage = ({ user, msgAlert }) => {
 
     //set state variables for all activities, badges and user's count of completed activities
     const [allMyActivities, setAllMyActivities] = useState(null)
+    //this completed counts object can be used to trigger refresh of badge modal data as new activities apply to the badge
     const [completedCounts, setCompletedCounts] = useState({})
+    //badges are passed down to BadgeSegment through to BadgeModal. the set function will also pass through to the ActivitySegment so that if there is a new badge it can be added. There will be a listener on BadgesSegment and NewBadgeModal to determine whether the 
     const [badges, setBadges] = useState(null)
     const [publicActivities, setPublicActivities] = useState(null)
-    const [newBadge, setNewBadge] = useState({})
+    //state for an update to badges --> will tell whether a badge was gained or lost. If there is a new badge, it's description will also be in the object. setBadgeUpdate will be passed through to activity segment. badgeUpdate will be sent to the newBadge Modal 
+    const [badgeUpdate, setBadgeUpdate] = useState({})
+    
+    
+    
  
-    //after initial render, make axios call to grab activity/count data and set the state variables 
+    //after initial render, make axios call to grab activity/count data and set the state variables. Also listen for an update to user badge/completions data 
     useEffect(() => {
         getMyActivities(user)
             .then(res => {
@@ -73,7 +79,9 @@ const UserPage = ({ user, msgAlert }) => {
                             badgeOwnerHandle={user.email} 
                             mine={true} 
                             activities={allMyActivities}
-                            setNewBadge={setNewBadge} 
+                            setBadgeUpdate={setBadgeUpdate}
+                            completedCounts={completedCounts} 
+
                         />
                     </Grid.Column>
                     <Grid.Column width={7}>
@@ -83,6 +91,9 @@ const UserPage = ({ user, msgAlert }) => {
                                     allMyActivities={allMyActivities}
                                     user={user}
                                     msgAlert={msgAlert}
+                                    completedCounts={completedCounts}
+                                    setCompletedCounts={setCompletedCounts}
+                                    setBadgeUpdate={setBadgeUpdate}
                                 />
                             </Segment>          
         

@@ -5,7 +5,7 @@ import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import { updateActivity } from '../../api/activity'
 
-const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
+const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, completedCounts }) => {
     //declare pieces of state --> grab current progress from activity object and set it as initial state. Set state variables to track when progress is being saved and whether to show the save button
     const [percent, setPercent] = useState(activity.progress)
     const [percentChangeSaving, setPercentChangeSaving] = useState(false)
@@ -43,9 +43,23 @@ const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
         })  
     }
 
+    //save the progress made/lost and determine if completed activity count needs to change
     const handleSaveProgress = (e) => {
         //set percentChangeSaving to true so that save button will show as loading
         setPercentChangeSaving(true)
+        //if the activity had been completed, decrement completed count. Strictly speaking the percent < 100 here is not needed because the user shouldn't be able to save progress as 100 if it was already 100.
+        if (activity.progress == 100 && percent < 100) {
+            setCompletedCounts(counts => {
+                counts[activity.type] -= 1
+                return counts
+            })
+        }
+        //if the activity is now completed, increment completedCounts
+        if (percent == 100) {
+            setCompletedCounts(counts => {
+                counts[activity.type] += 1
+            })
+        }
         //set new progress
         activity.progress = percent
         //make axios call
@@ -55,6 +69,8 @@ const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
                 setPercentChangeSaving(false)
                 setShowSaveButton(false)
             })
+            //if the activity is completed 
+            .then
             .catch(error => {
                 msgAlert({
                     heading:'Something went wrong',
@@ -63,6 +79,7 @@ const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
                 })
             })
     }
+
 
     //function to determine whether to show save button or not 
     useEffect (()=> {

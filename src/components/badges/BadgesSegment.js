@@ -3,6 +3,9 @@ import BadgeModal from './BadgeModal'
 import { Segment, Grid } from 'semantic-ui-react'
 
 const BadgesSegment = ({badges, badgeOwnerHandle, mine, activities}) => {
+
+    //when completed count changes, chec
+
     const header = mine ? "Badges You've Earned" : `${badgeOwnerHandle}'s badges` 
     const badgesJSX = badges ?
         badges.map((badge,index) => (
