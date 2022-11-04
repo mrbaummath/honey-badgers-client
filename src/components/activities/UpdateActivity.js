@@ -54,6 +54,28 @@ const UpdateActivity = (props) => {
             })
     }
 
+    const handleAddBuddy = (e) => {
+        e.preventDefault()
+
+        updateActivity(activity, user, props.activity._id)
+            .then(() => handleClose())
+            .then(() => {
+                msgAlert({
+                    heading: 'Success',
+                    message: 'Updated Activity',
+                    variant: 'success'
+                })
+            })
+            .then(() => triggerRefresh())
+            .catch((error) => {
+                msgAlert({
+                    heading: 'Failure',
+                    message: 'Update Activity Failure' + error,
+                    variant: 'danger'
+                })
+            })
+    }
+
     return (
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton/>
