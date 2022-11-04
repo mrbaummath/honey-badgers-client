@@ -5,7 +5,7 @@ import ActivityBadgeGroup from '../activities/ActivityBadgeGroup'
 //badge image linkes
 import imgSrc from '../shared/ImgSrc'
 
-const BadgeModal = ({badge, activities}) => {
+const BadgeModal = ({badge, activities, completedCounts}) => {
 
     const [open, setOpen] = useState(false)
 
@@ -54,6 +54,7 @@ const BadgeModal = ({badge, activities}) => {
                             <ActivityBadgeGroup 
                                 badge={badge}
                                 activities={activities}
+                                completedCounts={completedCounts}
                             />
                         
                     </Modal.Description>

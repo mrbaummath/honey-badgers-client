@@ -93,11 +93,6 @@ const UserPage = ({ user, msgAlert }) => {
                                     completedCounts={completedCounts}
                                     setCompletedCounts={setCompletedCounts}
                                     setBadgeUpdate={setBadgeUpdate}
-                                    addActivity= {(type)=>setCompletedCounts(oldCounts => {
-                                        let counts = oldCounts
-                                        counts[type] += 1
-                                        return {...oldCounts, ...counts}
-                                    })}
                                 />
                             </Segment>          
         

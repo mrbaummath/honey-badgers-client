@@ -21,6 +21,7 @@ const BadgesSegment = ({badges, badgeOwnerHandle, mine, activities, badgeUpdate,
             key={`${badge.name}-${badge.level}-${index}`} 
             badge={badge}
             activities={activities}
+            completedCounts={completedCounts}
             />
         ))
         :

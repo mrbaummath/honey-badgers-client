@@ -6,7 +6,7 @@ import messages from '../shared/AutoDismissAlert/messages'
 import { updateActivity } from '../../api/activity'
 import badgeLevel from '../badges/badgeLevel'
 
-const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, completedCounts, setBadgeUpdate, addActivity }) => {
+const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, completedCounts, setBadgeUpdate }) => {
     //declare pieces of state --> grab current progress from activity object and set it as initial state. Set state variables to track when progress is being saved and whether to show the save button
     const [percent, setPercent] = useState(activity.progress)
     const [percentChangeSaving, setPercentChangeSaving] = useState(false)
@@ -60,7 +60,6 @@ const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, c
     }
 
     
-
     //save the progress made/lost and determine if completed activity count needs to change
     const handleSaveProgress = (e) => {
         //set percentChangeSaving to true so that save button will show as loading

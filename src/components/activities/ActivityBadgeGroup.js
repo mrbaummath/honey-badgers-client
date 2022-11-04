@@ -3,9 +3,17 @@ import { Link } from 'react-router-dom'
 
 //badge image linkes
 import imgSrc from '../shared/ImgSrc'
+import { useEffect, useState } from 'react'
 
 //component to filter out activities which are relevant to a particular badge and render them in the badge's modal
-const ActivityBadgeGroup = ({badge, activities}) => {
+const ActivityBadgeGroup = ({badge, activities, completedCounts}) => {
+    //piece of state to trigger refresh here if there is a change in completed counts 
+    const[updatedCounts,setUpdatedCounts] = useState(false)
+
+    useEffect(()=>{
+        setUpdatedCounts(prev => (!prev))
+    },[completedCounts])
+
     const type = badge.name
     const activityGroup = activities.filter(activity => (activity.type === type && activity.progress === 100))
     const activityGroupJSX = activityGroup.map(activity => (
