@@ -68,9 +68,9 @@ const App = () => {
 					<Route
 						path='/sign-out'
 						element={
-						//<RequireAuth user={user}>
+						<RequireAuth user={user}>
 							<SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
-						//</RequireAuth> 
+						</RequireAuth> 
 						}
 					/>
 					<Route
@@ -80,9 +80,9 @@ const App = () => {
 					<Route
 						path='/change-password'
 						element={
-						//<RequireAuth user={user}>
+						<RequireAuth user={user}>
 							<ChangePassword msgAlert={msgAlert} user={user} />
-						//</RequireAuth>
+						</RequireAuth>
 					}
 					/>
 					<Route

@@ -41,7 +41,7 @@ const UserPage = ({ user, msgAlert }) => {
     },[])
 
     const activitiesJSX = publicActivities ? 
-    publicActivities.map((activity) => (
+    publicActivities.slice(0).reverse().filter((activity, idx) => idx < 10).map((activity) => (
         <ActivityFeedUserPage key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={false} />
     ))
     :
