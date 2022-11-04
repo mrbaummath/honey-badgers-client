@@ -12,6 +12,7 @@ import { getAllActivities } from '../../api/activity'
 import MyActivities from '../activities/MyActivities'
 
 
+
 const UserPage = ({ user, msgAlert }) => {
 
     //set state variables for all activities, badges and user's count of completed activities
@@ -25,8 +26,6 @@ const UserPage = ({ user, msgAlert }) => {
     const [badgeUpdate, setBadgeUpdate] = useState({})
     
     
-    
- 
     //after initial render, make axios call to grab activity/count data and set the state variables. Also listen for an update to user badge/completions data 
     useEffect(() => {
         getMyActivities(user)
@@ -42,7 +41,6 @@ const UserPage = ({ user, msgAlert }) => {
                     variant: 'danger'
             })})
     },[])
-
 
     //set JSX for rendering the user's feed of community activities 
     const activitiesJSX = publicActivities ? 
@@ -80,7 +78,8 @@ const UserPage = ({ user, msgAlert }) => {
                             mine={true} 
                             activities={allMyActivities}
                             setBadgeUpdate={setBadgeUpdate}
-                            completedCounts={completedCounts} 
+                            completedCounts={completedCounts}
+                            badgeUpdate={badgeUpdate} 
 
                         />
                     </Grid.Column>
@@ -94,6 +93,11 @@ const UserPage = ({ user, msgAlert }) => {
                                     completedCounts={completedCounts}
                                     setCompletedCounts={setCompletedCounts}
                                     setBadgeUpdate={setBadgeUpdate}
+                                    addActivity= {(type)=>setCompletedCounts(oldCounts => {
+                                        let counts = oldCounts
+                                        counts[type] += 1
+                                        return {...oldCounts, ...counts}
+                                    })}
                                 />
                             </Segment>          
         

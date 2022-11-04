@@ -4,14 +4,30 @@ import {  Button, Segment, Grid, Feed, Icon, Image, Progress, List, Divider, Con
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import { updateActivity } from '../../api/activity'
+import badgeLevel from '../badges/badgeLevel'
 
-const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, completedCounts }) => {
+const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, completedCounts, setBadgeUpdate, addActivity }) => {
     //declare pieces of state --> grab current progress from activity object and set it as initial state. Set state variables to track when progress is being saved and whether to show the save button
     const [percent, setPercent] = useState(activity.progress)
     const [percentChangeSaving, setPercentChangeSaving] = useState(false)
     const [showSaveButton, setShowSaveButton] = useState(false)
 
     //functions to increment/decrement progress when user clicks --> this only changes the progress bar. Nothing is changed on the backend until "save" is hit. Progress cannot be above 100 or below 0
+
+    const detectNewBadge = (oldCounts, type, newCount) => {
+        const oldCount = oldCounts[type]
+        const oldLevel = badgeLevel(oldCount)
+        const newLevel = badgeLevel(newCount)
+        if (oldLevel != newLevel) {
+            if (newLevel == 'none') {
+                setBadgeUpdate({'type':type, 'change':'lost'})
+            } else if (newCount > oldCount){
+                setBadgeUpdate({'type':type, 'change': 'up', 'level': newLevel})
+            } else if (newCount < oldCount) {
+                setBadgeUpdate({'type': type, 'change': 'down', 'level': newLevel})
+            }
+        }
+    }
 
     const increaseProgress = (e) => {
         setPercent(prevPercent => {
@@ -43,21 +59,28 @@ const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, c
         })  
     }
 
+    
+
     //save the progress made/lost and determine if completed activity count needs to change
     const handleSaveProgress = (e) => {
         //set percentChangeSaving to true so that save button will show as loading
         setPercentChangeSaving(true)
         //if the activity had been completed, decrement completed count. Strictly speaking the percent < 100 here is not needed because the user shouldn't be able to save progress as 100 if it was already 100.
         if (activity.progress == 100 && percent < 100) {
-            setCompletedCounts(counts => {
+            detectNewBadge(completedCounts, activity.type, completedCounts[activity.type] - 1)
+            setCompletedCounts(oldCounts => {
+                const counts = oldCounts
                 counts[activity.type] -= 1
-                return counts
+                return {...oldCounts, ...counts}
             })
         }
         //if the activity is now completed, increment completedCounts
         if (percent == 100) {
-            setCompletedCounts(counts => {
+            detectNewBadge(completedCounts, activity.type, completedCounts[activity.type] + 1)
+            setCompletedCounts(oldCounts => {
+                const counts = oldCounts
                 counts[activity.type] += 1
+                return {...oldCounts, ...counts}
             })
         }
         //set new progress
@@ -69,8 +92,6 @@ const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, c
                 setPercentChangeSaving(false)
                 setShowSaveButton(false)
             })
-            //if the activity is completed 
-            .then
             .catch(error => {
                 msgAlert({
                     heading:'Something went wrong',
