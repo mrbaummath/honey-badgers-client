@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { createActivity, randomActivity } from '../../api/activity'
 
-
 import ActivityForm from '../shared/ActivityForm'
-
 
 const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
 
@@ -16,6 +14,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
         progress: 0,
         private: false
     }
+
 
     const [activity, setActivity] = useState(defaultActivity)
     const [activityModalShow, setActivityModalShow] = useState(false)
@@ -38,6 +37,28 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
             } else if (updatedName === 'private' && !target.checked) {
                 updatedValue = false
             }
+
+
+            // if(updatedName === 'type' && updatedValue === 'education') {
+            //     options.text = 'Education'
+            // } else if (updatedName === 'type' && updatedValue === 'social') {
+            //     options.text = 'Social'
+            // } else if (updatedName === 'type' && updatedValue === 'diy') {
+            //     options.text = 'DIY'
+            // } else if (updatedName === 'type' && updatedValue === 'charity') {
+            //     options.text = 'Charity'
+            // } else if (updatedName === 'type' && updatedValue === 'cooking') {
+            //     options.text = 'Cooking'
+            // } else if (updatedName === 'type' && updatedValue === 'relaxation') {
+            //     options.text = 'Relaxation'
+            // } else if (updatedName === 'type' && updatedValue === 'music') {
+            //     options.text = 'Music'
+            // } else if (updatedName === 'type' && updatedValue === 'busywork') {
+            //     options.text = 'Busywork'
+            // } else if (updatedName === 'type' && updatedValue === 'recreational') {
+            //     options.text = 'Recreational'
+            // }
+
 
             const updatedActivity = { [updatedName]: updatedValue }
 

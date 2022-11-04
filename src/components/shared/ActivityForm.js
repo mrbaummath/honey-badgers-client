@@ -1,17 +1,17 @@
 import React from 'react'
 import {Button, Checkbox, Form, Container, Icon} from 'semantic-ui-react'
 
-const options = [
-    {text: 'Education', value: 'education'},
-    {text: 'Social', value: 'social'},
-    {text: 'DIY', value: 'diy'},
-    {text: 'Charity', value: 'charity'},
-    {text: 'Cooking', value: 'cooking'},
-    {text: 'Relaxation', value: 'relaxation'},
-    {text: 'Music', value: 'music'},
-    {text: 'Busywork', value: 'busywork'},
-    {text: 'Recreational', value: 'recreational'},
-]
+// const options = [
+//     {text: 'Education', value: 'education'},
+//     {text: 'Social', value: 'social'},
+//     {text: 'DIY', value: 'diy'},
+//     {text: 'Charity', value: 'charity'},
+//     {text: 'Cooking', value: 'cooking'},
+//     {text: 'Relaxation', value: 'relaxation'},
+//     {text: 'Music', value: 'music'},
+//     {text: 'Busywork', value: 'busywork'},
+//     {text: 'Recreational', value: 'recreational'},
+// ]
 
 const ActivityForm = (props) => {
 
@@ -28,10 +28,19 @@ const ActivityForm = (props) => {
                         id='activity'
                         label='Activity' 
                         placeholder='Activity'
-                        defaultValue={ activity.activity }
+                        defaultValue= { activity.activity }
                         onChange= { handleChange }
                     />
-                    <Form.Select
+                      <Form.Input 
+                        required 
+                        name='type'
+                        id='type'
+                        label='Type: (education, social, diy, charity, cooking, relaxation, music, busywork, recreational)' 
+                        placeholder='Type'
+                        defaultValue= { activity.type}
+                        onChange= { handleChange }
+                    />
+                    {/* <Form.Select
                         required
                         name='type'
                         id='type'
@@ -40,7 +49,7 @@ const ActivityForm = (props) => {
                         options={options}
                         placeholder='Type'
                         onChange= { handleChange }
-                    />
+                    /> */}
                 </Form.Group>
                 <Form.Group inline>
                     <Form.Input 
@@ -49,7 +58,7 @@ const ActivityForm = (props) => {
                         type='number'
                         name='accessibility'
                         id='accessibility'
-                        label='Accessibility'
+                        label='Accessibility Rating'
                         value = { activity.accessibility }
                         onChange= { handleChange }
                     />

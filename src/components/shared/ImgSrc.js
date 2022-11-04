@@ -1,4 +1,10 @@
 const imgSrc = {
+    'avatarimages': {
+        'badger': 'https://imgur.com/uEW4fPX',
+        'giraffe': 'https://imgur.com/ncojeOX',
+        'raccoon': 'https://imgur.com/4fQ9L5r',
+        'bear': 'https://imgur.com/h3RxyAQ'
+        },
     'badgeImages': {
         'education' : {
             'novice': 'https://i.imgur.com/jeEQMlc.png',
