@@ -40,7 +40,7 @@ const BadgeModal = ({badge, activities}) => {
                 <Grid columns={2}>
                     <Grid.Column verticalAlign='middle' textAlign='center'>
                         <Image 
-                            src={badgeImages[badge.name]} 
+                            src={badgeImages[badge.name][badge.level]} 
                             size='medium' 
                             circular 
                             alt='A picture of a badge'
