@@ -15,6 +15,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
         private: false
     }
 
+
     const [activity, setActivity] = useState(defaultActivity)
     const [activityModalShow, setActivityModalShow] = useState(false)
 
