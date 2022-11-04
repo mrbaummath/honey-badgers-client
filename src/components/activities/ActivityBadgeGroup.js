@@ -7,7 +7,7 @@ import imgSrc from '../shared/ImgSrc'
 //component to filter out activities which are relevant to a particular badge and render them in the badge's modal
 const ActivityBadgeGroup = ({badge, activities}) => {
     const type = badge.name
-    const activityGroup = activities.filter(activity => activity.type === type)
+    const activityGroup = activities.filter(activity => (activity.type === type && activity.progress === 100))
     const activityGroupJSX = activityGroup.map(activity => (
         <List.Item key={`badge-group-${activity._id}`}>
             <Segment>
