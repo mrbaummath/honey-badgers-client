@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import {  Button, Segment, Grid, Label, Icon, Image, Modal, Header, List } from 'semantic-ui-react'
+import {  Button, Segment, Grid, Label, Icon, Image, Modal, Header, List, Form } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
-import { signOut } from '../../api/auth'
+import { changeBuddyStatus, signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import { getTheirActivities } from '../../api/activity'
 import ActivitySegment from '../activities/ActivitySegment'
@@ -10,7 +10,7 @@ import getUserInfo  from '../../api/user'
 import BadgesSegment from './BadgesSegment'
 
 const UserPublicPage = ({currentUser, msgAlert}) => {
-
+    const [open, setOpen] = React.useState(false)
     //grab requested user's id from params
     const { otherUserId } = useParams()
 
@@ -52,6 +52,38 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
             })})
     },[])
 
+   
+
+    const handleChangeBuddyStatus = (e) => {
+        //set new buddy status
+        console.log(currentUser.buddies)
+        if(currentUser.buddies.filter(buddy => buddy == email).length > 0){
+            
+            for(let i = 0; i < currentUser.buddies.length; i ++){
+                    if(i == email){
+                        currentUser.buddies.splice(i, 1, '')
+                    }
+            }
+            console.log('success')
+        } else {
+            currentUser.buddies.push({email})
+        }
+        
+        //make axios call
+        changeBuddyStatus(currentUser, email)
+            .then(() => {
+                // trigger
+                console.log(currentUser.buddies)
+            })
+            .catch(error => {
+                msgAlert({
+                    heading:'Something went wrong',
+                    message: "Update progress failed " + error,
+                    variant: 'danger'
+                })
+            })
+    }
+
 
      //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
      const activitiesJSX = publicActivities ? 
@@ -72,11 +104,11 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                 // verticalAlign='middle' 
                 fluid
             >
-                <Grid columns={2} padded>
+                
                     <Grid.Row>
                         <Segment>
-                            <Grid columns={2}>
-                                <Grid.Column width={8} verticalAlign='center' textAlign='middle'>
+                            <Grid columns={2} >
+                                <Grid.Column width={8} verticalAlign='center' textAlign='middle' >
                                     <Grid columns={2}>
                                         <Grid.Column width={5} textAlign='middle'>
                                             <Image 
@@ -90,6 +122,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                         <Grid.Column textAlign='middle'>
                                             <h1>Super Active Guy</h1> 
                                             <h2>member since 10/31/2022</h2>
+                                                <Button onClick={handleChangeBuddyStatus}>Add {email} as a buddy</Button>
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Column>
@@ -132,10 +165,43 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                             </Grid.Row>
                                             <Grid.Row>
                                                 <div id='viewBudsButton'>
-                                                <Button verticalAlign='middle' size='medium'> 
-                                                        <Icon size='large'name='user' />
-                                                    View {email}'s Buddies
-                                                </Button>
+                                                    <Modal
+                                                        onClose={() => setOpen(false)}
+                                                        onOpen={() => setOpen(true)}
+                                                        open={open}
+                                                        trigger={
+                                                            <Button verticalAlign='middle' size='medium'> 
+                                                                <Icon size='large'name='user' />
+                                                                View {email}'s Buddies
+                                                            </Button>}
+                                                        >
+                                                        <Modal.Header>{email}'s Buddies</Modal.Header>
+                                                        <Modal.Content >
+                                                           <Segment>
+                                                           <Label as='a' image size='big'>
+                                                            <img src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
+                                                            Joe
+                                                        </Label>
+                                                        <Label as='a' image size='big'>
+                                                            <img src='https://react.semantic-ui.com/images/avatar/small/christian.jpg' />
+                                                            Elliot
+                                                        </Label>
+                                                        <Label as='a' image size='big'>
+                                                            <img src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
+                                                            Stevie
+                                                        </Label>
+                                                        <Label as='a' image size='big'>
+                                                            <img src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
+                                                            Jenny
+                                                        </Label>
+                                                           </Segment>
+                                                        </Modal.Content>
+                                                        <Modal.Actions>
+                                                            <Button color='black' onClick={() => setOpen(false)}>
+                                                                Close
+                                                            </Button>
+                                                        </Modal.Actions>
+                                                        </Modal>
                                                 </div>
                                             </Grid.Row>
                                         </Grid>
@@ -146,10 +212,12 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                         </Segment>
                     </Grid.Row>
                     <br/>
+
+                    <Grid columns={2} padded>
                     <Grid.Column width={8}>
                         
-                        <Grid.Row>
-                            <Grid columns={2} padded width={5}>
+                        
+                            <Grid columns={2} padded centered>
                                 <BadgesSegment
                                 badges={badges} 
                                 badgeOwnerHandle={email} 
@@ -157,15 +225,15 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                 activities={publicActivities} 
                             />
                             </Grid>
-                        </Grid.Row>
+                       
                     </Grid.Column>
                     <Grid.Column >
-                        <Grid.Row>
-                            <Segment raised textAlign='center'>
+
+                            <Segment raised textAlign='center' fluid>
                                 <h1>{email}'s Activity Timeline</h1>
                                 {activitiesJSX} 
                             </Segment>
-                        </Grid.Row>
+     
                     </Grid.Column>
                 </Grid>
             </Segment>

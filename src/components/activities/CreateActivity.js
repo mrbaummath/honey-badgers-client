@@ -20,7 +20,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
     const [activityModalShow, setActivityModalShow] = useState(false)
 
     const handleChange = (e , target) => {
-        
+        console.log(target)
         setActivity(prevActivity => {
             const { name, value } = target
             const updatedName = name
@@ -37,6 +37,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
             } else if (updatedName === 'private' && !target.checked) {
                 updatedValue = false
             }
+
 
             // if(updatedName === 'type' && updatedValue === 'education') {
             //     options.text = 'Education'
@@ -57,6 +58,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
             // } else if (updatedName === 'type' && updatedValue === 'recreational') {
             //     options.text = 'Recreational'
             // }
+
 
             const updatedActivity = { [updatedName]: updatedValue }
 
