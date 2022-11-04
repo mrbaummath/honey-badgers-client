@@ -31,23 +31,34 @@ const BadgeModal = ({badge, activities}) => {
             
             }
         >
-            <Modal.Header>Completed Activities</Modal.Header>
-            <Modal.Content image scrolling>
-                <Image 
-                    src={badgeImages[badge.name]} 
-                    size='small' 
-                    circular 
-                    alt='A picture of a badge'
-                    wrapped
-                /> 
-                <Modal.Description>
-                <h1>{badge.level} badge for {badgeName}</h1>
-                <ActivityBadgeGroup 
-                    badge={badge}
-                    activities={activities}
-                />
-                </Modal.Description>
-                
+            <Modal.Header >
+                <Grid centered padded>
+                    Completed Activities
+                </Grid>
+            </Modal.Header>
+            <Modal.Content scrolling>
+                <Grid columns={2}>
+                    <Grid.Column verticalAlign='middle' textAlign='center'>
+                        <Image 
+                            src={badgeImages[badge.name]} 
+                            size='medium' 
+                            circular 
+                            alt='A picture of a badge'
+                            wrapped
+                        /> 
+                        <h1>{badge.level} badge for {badgeName}</h1>
+                    </Grid.Column>
+                    <Grid.Column>
+                    <Modal.Description>
+                        
+                            <ActivityBadgeGroup 
+                                badge={badge}
+                                activities={activities}
+                            />
+                        
+                    </Modal.Description>
+                    </Grid.Column>
+                </Grid>
                 
             </Modal.Content>
             <Modal.Actions>

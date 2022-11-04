@@ -73,11 +73,8 @@ const ActivitySegment = ({ activity, msgAlert, user, mine }) => {
         <Segment id='actListItems'>
             <Container fluid>
             <Grid>
-                <Grid.Column width={4}>
-                <Image 
-                    src='https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg'
-                    size='small'
-                    circular />
+                <Grid.Column width={4} verticalAlign='middle' textAlign='center'>
+                    <Icon size='huge' name={activity.categoryIcon}></Icon>
                 </Grid.Column>
 
                 <Grid.Column width={8} textAlign='middle' verticalAlign='center'>
