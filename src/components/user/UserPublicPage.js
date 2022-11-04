@@ -122,7 +122,7 @@ const UserPublicPage = ({currentUser, msgAlert}) => {
                                         <Grid.Column textAlign='middle'>
                                             <h1>Super Active Guy</h1> 
                                             <h2>member since 10/31/2022</h2>
-                                                <Button onClick={handleChangeBuddyStatus}>This</Button>
+                                                <Button onClick={handleChangeBuddyStatus}>Add {email} as a buddy</Button>
                                         </Grid.Column>
                                     </Grid>
                                 </Grid.Column>
