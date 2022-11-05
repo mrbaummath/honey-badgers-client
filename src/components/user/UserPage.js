@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {  Button, Segment, Grid, Feed, Icon, Image, Progress } from 'semantic-ui-react'
+import {  Button, Segment, Grid, Feed, Icon, Image, Progress, Modal } from 'semantic-ui-react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import ActivitySegment from '../activities/ActivitySegment'
@@ -9,7 +9,11 @@ import LoadingScreen from '../shared/LoadingPage'
 import BadgesSegment from '../badges/BadgesSegment'
 import ActivityFeedUserPage from '../activities/ActivityFeedUserPage'
 import { getAllActivities } from '../../api/activity'
+
+import { getAllMessages } from '../../api/message'
+
 import MyActivities from '../activities/MyActivities'
+
 
 
 
@@ -22,8 +26,13 @@ const UserPage = ({ user, msgAlert }) => {
     //badges are passed down to BadgeSegment through to BadgeModal. the set function will also pass through to the ActivitySegment so that if there is a new badge it can be added. There will be a listener on BadgesSegment and NewBadgeModal to determine whether the 
     const [badges, setBadges] = useState(null)
     const [publicActivities, setPublicActivities] = useState(null)
+
+    const [open, setOpen] = React.useState(false)
+    const [allMyMessages, setMyMessages] = useState([])
+
     //state for an update to badges --> will tell whether a badge was gained or lost. If there is a new badge, it's description will also be in the object. setBadgeUpdate will be passed through to activity segment. badgeUpdate will be sent to the newBadge Modal 
     const [badgeUpdate, setBadgeUpdate] = useState({})
+
     
     
     //after initial render, make axios call to grab activity/count data and set the state variables. Also listen for an update to user badge/completions data 
@@ -33,6 +42,11 @@ const UserPage = ({ user, msgAlert }) => {
                 setAllMyActivities(res.data.activities)
                 setCompletedCounts(res.data.completedCounts)
                 setBadges(res.data.userBadges.filter(badge => badge.level != 'none'))
+            })
+        getAllMessages(user)
+            .then(res => {
+                setMyMessages(res.data.messages)    
+                console.log(res)
             })
             .catch((error) => {
                 msgAlert({
@@ -59,6 +73,9 @@ const UserPage = ({ user, msgAlert }) => {
     },[])
 
 
+        allMyMessages.map((message) => (<h1>{message.owner}</h1>))
+        console.log(allMyMessages, 'messages')
+
 	return (
 		<>
         <div >
@@ -70,6 +87,23 @@ const UserPage = ({ user, msgAlert }) => {
                 fluid
                 
             >
+
+            <Modal
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                open={open}
+                trigger={<Button>Show Messages</Button>}
+                >
+                <Modal.Header>Buddy Requests</Modal.Header>
+                <Modal.Content> 
+                    {allMyMessages} 
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button color='black' onClick={() => setOpen(false)}>
+                        Close
+                    </Button>
+                </Modal.Actions>
+                </Modal>
                 <Grid columns={3}>
                     <Grid.Column width={4}>
                         <BadgesSegment 
