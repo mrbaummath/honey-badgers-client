@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { createNote } from '../../api/note'
 
+import NoteForm from '../shared/NoteForm'
+
 
 const CreateNote = ({ user, activity, handleClose, msgAlert, triggerRefresh }) => {
 
@@ -11,7 +13,7 @@ const CreateNote = ({ user, activity, handleClose, msgAlert, triggerRefresh }) =
 
     const [note, setNote] = useState(defaultNote)
 
-    const handleChange = (e) => {
+    const handleChange = (e, target) => {
         setNote(prevNote => {
             const { name, value } = target
             const updatedName = name

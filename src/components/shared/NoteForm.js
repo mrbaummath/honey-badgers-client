@@ -10,6 +10,7 @@ const NoteForm = (props) => {
             <h3>{ heading }</h3>
             <Form onSubmit={ handleSubmit }>
                 <Form.Input
+                    reply
                     required
                     name='noteText'
                     id='noteText'
