@@ -6,6 +6,7 @@ import { getActivity, updateActivity, deleteActivity } from '../../api/activity'
 import UpdateActivityModal from "./UpdateActivityModal"
 import ActivityForm from "../shared/ActivityForm"
 import LoadingScreen from "../shared/LoadingPage"
+import NoteForm from "../shared/NoteForm"
 
 
 
@@ -195,7 +196,7 @@ useEffect (()=> {
                     <Button size='large' variant="warning">Notes</Button>
                   }
               >
-                  <Modal.Header>Select To See Note</Modal.Header>
+                  <Modal.Header>Notes</Modal.Header>
                   <Modal.Content>
                     <Segment  
                       padded='very'  
@@ -209,13 +210,7 @@ useEffect (()=> {
                         placeholder="Note name"
                         required>
                       </Comment.Actions>
-                      <Form reply 
-                        placeholder="Note content"
-                        value='noteContent'
-                      >
-                        <Form.TextArea />
-                      </Form>
-                
+                      < NoteForm />
                       <Segment 
                         textAlign = 'centered'
                       >

@@ -6,26 +6,36 @@ import messages from '../shared/AutoDismissAlert/messages'
 import ActivitySegment from '../activities/ActivitySegment'
 import { getMyActivities } from '../../api/activity'
 import LoadingScreen from '../shared/LoadingPage'
-import BadgesSegment from './BadgesSegment'
+import BadgesSegment from '../badges/BadgesSegment'
 import ActivityFeedUserPage from '../activities/ActivityFeedUserPage'
 import { getAllActivities } from '../../api/activity'
+
 import { getAllMessages } from '../../api/message'
+
+import MyActivities from '../activities/MyActivities'
+
 
 
 
 const UserPage = ({ user, msgAlert }) => {
 
     //set state variables for all activities, badges and user's count of completed activities
-    const [allMyActivities, setAllMyActivities] = useState([])
+    const [allMyActivities, setAllMyActivities] = useState(null)
+    //this completed counts object can be used to trigger refresh of badge modal data as new activities apply to the badge
     const [completedCounts, setCompletedCounts] = useState({})
+    //badges are passed down to BadgeSegment through to BadgeModal. the set function will also pass through to the ActivitySegment so that if there is a new badge it can be added. There will be a listener on BadgesSegment and NewBadgeModal to determine whether the 
     const [badges, setBadges] = useState(null)
     const [publicActivities, setPublicActivities] = useState(null)
+
     const [open, setOpen] = React.useState(false)
     const [allMyMessages, setMyMessages] = useState([])
-    
-    //tbd: badges virtual 
 
-    //after initial render, make axios call to grab activity/count data and set the state variables 
+    //state for an update to badges --> will tell whether a badge was gained or lost. If there is a new badge, it's description will also be in the object. setBadgeUpdate will be passed through to activity segment. badgeUpdate will be sent to the newBadge Modal 
+    const [badgeUpdate, setBadgeUpdate] = useState({})
+
+    
+    
+    //after initial render, make axios call to grab activity/count data and set the state variables. Also listen for an update to user badge/completions data 
     useEffect(() => {
         getMyActivities(user)
             .then(res => {
@@ -46,6 +56,7 @@ const UserPage = ({ user, msgAlert }) => {
             })})
     },[])
 
+    //set JSX for rendering the user's feed of community activities 
     const activitiesJSX = publicActivities ? 
     publicActivities.slice(0).reverse().filter((activity, idx) => idx < 10).map((activity) => (
         <ActivityFeedUserPage key={activity.id} activity={activity} user={user} msgAlert={msgAlert} mine={false} />
@@ -56,27 +67,11 @@ const UserPage = ({ user, msgAlert }) => {
     useEffect(() => {
         getAllActivities()
             .then(res => {
-                console.log(res)
                 setPublicActivities(res.data.activities.filter(activity => activity.owner))
-                setCompletedCounts(res.data.completedCounts)
-                //set badges when that virtual is done
             })
             .catch(console.log('oops'))
     },[])
 
-    //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
-    const myActivitiesJSX = publicActivities ? 
-    publicActivities.map((activity) => (
-            <ActivitySegment 
-            key={activity.id} 
-            activity={activity} 
-            user={user} 
-            msgAlert={msgAlert} 
-            mine={true} 
-            />
-        ))
-        :
-        <LoadingScreen />
 
         allMyMessages.map((message) => (<h1>{message.owner}</h1>))
         console.log(allMyMessages, 'messages')
@@ -115,13 +110,24 @@ const UserPage = ({ user, msgAlert }) => {
                             badges={badges} 
                             badgeOwnerHandle={user.email} 
                             mine={true} 
-                            activities={allMyActivities} 
+                            activities={allMyActivities}
+                            setBadgeUpdate={setBadgeUpdate}
+                            completedCounts={completedCounts}
+                            badgeUpdate={badgeUpdate} 
+
                         />
                     </Grid.Column>
                     <Grid.Column width={7}>
                             <Segment>
                                 <h2 id='yourActs'>Your Activities</h2>
-                                {myActivitiesJSX}
+                                <MyActivities
+                                    allMyActivities={allMyActivities}
+                                    user={user}
+                                    msgAlert={msgAlert}
+                                    completedCounts={completedCounts}
+                                    setCompletedCounts={setCompletedCounts}
+                                    setBadgeUpdate={setBadgeUpdate}
+                                />
                             </Segment>          
         
                     </Grid.Column>
