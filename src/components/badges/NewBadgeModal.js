@@ -9,7 +9,9 @@ const NewBadgeModal = (props) => {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
-        setOpen((badgeUpdate.change != 'none'))
+        if (badgeUpdate && badgeUpdate.change) {
+            setOpen((badgeUpdate.change != 'none'))
+        }
     },[badgeUpdate])
 
     return(

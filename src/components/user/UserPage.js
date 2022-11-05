@@ -31,7 +31,7 @@ const UserPage = ({ user, msgAlert }) => {
     const [allMyMessages, setMyMessages] = useState([])
 
     //state for an update to badges --> will tell whether a badge was gained or lost. If there is a new badge, it's description will also be in the object. setBadgeUpdate will be passed through to activity segment. badgeUpdate will be sent to the newBadge Modal 
-    const [badgeUpdate, setBadgeUpdate] = useState({})
+    const [badgeUpdate, setBadgeUpdate] = useState(null)
 
     
     
@@ -74,7 +74,6 @@ const UserPage = ({ user, msgAlert }) => {
 
 
         allMyMessages.map((message) => (<h1>{message.owner}</h1>))
-        console.log(allMyMessages, 'messages')
 
 	return (
 		<>
