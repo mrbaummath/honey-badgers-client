@@ -8,7 +8,7 @@ import ActivitySegment from '../activities/ActivitySegment'
 import LoadingScreen from '../shared/LoadingPage'
 import getUserInfo  from '../../api/user'
 
-import BadgesSegment from './BadgesSegment'
+
 import MessageForm from '../shared/MessageForm'
 import getViewedUserInfo from '../../api/viewedUser'
 import { createMessage } from '../../api/message'

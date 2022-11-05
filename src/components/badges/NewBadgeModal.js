@@ -8,7 +8,9 @@ const NewBadgeModal = (props) => {
     const {badgeUpdate} = props
     const [open, setOpen] = useState(false)
 
-
+    useEffect(() => {
+        setOpen((badgeUpdate.change != 'none'))
+    },[badgeUpdate])
 
     return(
         <Modal
@@ -19,11 +21,11 @@ const NewBadgeModal = (props) => {
             onOpen={() => setOpen(true)}
             open={open}
         >
-            <Modal.Header>Congratulations!!!</Modal.Header>
+            <Modal.Header>Change</Modal.Header>
             <Modal.Content>
                 <Modal.Description>
-                    <Header>You've Earned a New Honey Badge!</Header>
-                    <p>You are a {badge.level} in {badge.name}</p>
+                    <Header>There was a change in your badge status</Header>
+                    <p>This is the change</p>
                 </Modal.Description>
             </Modal.Content>
       </Modal>
