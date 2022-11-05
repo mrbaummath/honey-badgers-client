@@ -10,7 +10,7 @@ import BadgesSegment from '../badges/BadgesSegment'
 import ActivityFeedUserPage from '../activities/ActivityFeedUserPage'
 import { getAllActivities } from '../../api/activity'
 
-import { getAllMessages } from '../../api/message'
+import { getMyMessages } from '../../api/message'
 
 import MyActivities from '../activities/MyActivities'
 
@@ -43,17 +43,6 @@ const UserPage = ({ user, msgAlert }) => {
                 setCompletedCounts(res.data.completedCounts)
                 setBadges(res.data.userBadges.filter(badge => badge.level != 'none'))
             })
-        getAllMessages(user)
-            .then(res => {
-                setMyMessages(res.data.messages)    
-                console.log(res)
-            })
-            .catch((error) => {
-                msgAlert({
-                    heading:'Something went wrong',
-                    message: "Could not get user activities " + error,
-                    variant: 'danger'
-            })})
     },[])
 
     //set JSX for rendering the user's feed of community activities 
