@@ -114,6 +114,7 @@ const UserPage = ({ user, msgAlert }) => {
                             setBadgeUpdate={setBadgeUpdate}
                             completedCounts={completedCounts}
                             badgeUpdate={badgeUpdate} 
+                            setBadges={setBadges}
 
                         />
                     </Grid.Column>

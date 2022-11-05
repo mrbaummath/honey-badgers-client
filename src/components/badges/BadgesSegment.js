@@ -4,9 +4,15 @@ import { Segment, Grid } from 'semantic-ui-react'
 import { useEffect } from 'react'
 import NewBadgeModal from './NewBadgeModal'
 
-const BadgesSegment = ({badges, badgeOwnerHandle, mine, activities, badgeUpdate, completedCounts}) => {
+const BadgesSegment = ({badges, setBadges, badgeOwnerHandle, mine, activities, badgeUpdate, completedCounts}) => {
 
-    
+    useEffect(() => {
+        //if badge is new, push a new badge to badges array
+        if (badgeUpdate.change === 'up' && badgeUpdate.level === 'novice') {
+            const newBadge= {'name': badgeUpdate.type, 'level':badgeUpdate.level}
+            setBadges(prevBadges => [...prevBadges, newBadge])
+        }
+    }, [badgeUpdate])
 
 
     const header = mine ? "Badges You've Earned" : `${badgeOwnerHandle}'s badges` 
