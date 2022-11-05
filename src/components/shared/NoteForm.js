@@ -12,8 +12,8 @@ const NoteForm = (props) => {
                 <Form.Input
                     reply
                     required
-                    name='noteText'
-                    id='noteText'
+                    name='text'
+                    id='text'
                     Label='Note'
                     placeholder='Note Content'
                     defaultValue = { note.text}

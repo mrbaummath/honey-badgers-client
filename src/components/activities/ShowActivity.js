@@ -7,6 +7,7 @@ import UpdateActivityModal from "./UpdateActivityModal"
 import ActivityForm from "../shared/ActivityForm"
 import LoadingScreen from "../shared/LoadingPage"
 import NoteForm from "../shared/NoteForm"
+import CreateNote from "../notes/CreateNote"
 
 
 
@@ -115,12 +116,27 @@ const handleSaveProgress = (e) => {
         })
 }
 
-
-
 //function to determine whether to show save button or not 
 useEffect (()=> {
     setShowSaveButton((percent != activity.progress))
 }, [percent])
+
+// let noteCards
+//     if (activity) {
+//         if (activity.notes.length > 0) {
+//             noteCards = activity.notes.map(note => (
+//                 <ShowNote
+//                     key={note._id}
+//                     note={note}
+//                     activity={activity}
+//                     user={user}
+//                     msgAlert={msgAlert}
+//                     triggerRefresh={() => setUpdated(prev => !prev)}
+//                 />
+//             ))
+//         }
+//     }
+
 
 // if (deleted) navigate('/activities')
 // const allActivitiesJSX = allActivities.map(activity => {
@@ -188,7 +204,19 @@ useEffect (()=> {
         >
           <Grid.Row>
             <Grid.Column  textAlign='middle'>
-              <Modal
+            <Modal
+              onClose={() => setOpen(false)}
+              onOpen={() => setOpen(true)}
+              open={open}
+              trigger={
+                <Button size='large' variant="warning">Notes</Button>
+              }
+            >
+					<Modal.Content>
+						<CreateNote user={user} msgAlert={msgAlert} />
+					</Modal.Content>
+        		</Modal>
+              {/* <Modal
                   onClose={() => setOpen(false)}
                   onOpen={() => setOpen(true)}
                   open={open}
@@ -210,13 +238,19 @@ useEffect (()=> {
                         placeholder="Note name"
                         required>
                       </Comment.Actions>
-                      < NoteForm />
+                      < NoteForm 
+                        note={ note }
+                        handleChange={ handleChange }
+                        heading="Create a new Note!"
+                        handleSubmit={ handleSubmit }
+                      />
                       <Segment 
                         textAlign = 'centered'
                       >
                         <Grid 
                           centered
                         >
+                          { noteCards }
                           <Comment>
                             <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
                             <Comment.Content>
@@ -250,7 +284,7 @@ useEffect (()=> {
                       type="submit"
                     />
                   </Modal.Actions>
-              </Modal>
+              </Modal> */}
             </Grid.Column>
             <Grid.Column textAlign='middle'>
                   <UpdateActivityModal 

@@ -16,8 +16,7 @@ export default class Header extends Component {
 	}
 
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-	handleClose = () => { this.setState({setOpen: false})
-		console.log('I RAN')}
+	handleClose = () => { this.setState({setOpen: false})}
   
 	render() {
 	  const { activeItem } = this.state

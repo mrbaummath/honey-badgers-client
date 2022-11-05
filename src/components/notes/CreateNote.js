@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { createNote } from '../../api/note'
+import { Modal } from 'semantic-ui-react'
 
 import NoteForm from '../shared/NoteForm'
 
@@ -11,19 +12,19 @@ const CreateNote = ({ user, activity, handleClose, msgAlert, triggerRefresh }) =
         private: false
     }
 
-    const [note, setNote] = useState(defaultNote)
+    const [note, setNote] = useState({defaultNote})
+    const [noteModalShow, setNoteModalShow] = useState(false)
 
-    const handleChange = (e, target) => {
+    const handleChange = (e) => {
         setNote(prevNote => {
-            const { name, value } = target
-            const updatedName = name
-            let updatedValue = value
+            const name = e.target.name
+            let value = e.target.value
 
             //handle the checkbox
-            if (updatedName === 'private' && target.checked) {
-                updatedValue = true
-            } else if (updatedName === 'private' && !target.checked) {
-                updatedValue = false
+            if (name === 'private' && e.target.checked) {
+                value = true
+            } else if (name === 'private' && !e.target.checked) {
+                value = false
             }
 
             const updatedNote = { [name]: value }
@@ -37,13 +38,13 @@ const CreateNote = ({ user, activity, handleClose, msgAlert, triggerRefresh }) =
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        createNote(user, activity._id, activity)
+        createNote(user, activity._id, note)
             .then(() => handleClose())
             .then(() => {
                 msgAlert({
                     heading: 'Nice!',
                     message: 'Your note has been submitted',
-                    varuant: 'success'
+                    variant: 'success'
                 })
             })
             .then(() => triggerRefresh())
@@ -58,10 +59,12 @@ const CreateNote = ({ user, activity, handleClose, msgAlert, triggerRefresh }) =
 
     return (
         <NoteForm
-            activity= {activity}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
+            show={ noteModalShow }
+            note={ note }
+            handleChange={ handleChange }
+            handleSubmit={ handleSubmit }
             heading='Leave a note!'
+            handleClose={() => setNoteModalShow (false)}
         />
     )
 }
