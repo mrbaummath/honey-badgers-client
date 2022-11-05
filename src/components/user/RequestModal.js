@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form } from 'semantic-ui-react'
 import { createMessage } from '../../api/message'
 
-const RequestModal = ({sender, recipient}) => {
+const RequestModal = ({sender, recipient, msgAlert}) => {
    
     const [open, setOpen] = useState(false)
     const [messageContent, setMessageContent] = useState('')

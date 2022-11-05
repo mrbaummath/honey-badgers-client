@@ -200,7 +200,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                             ?
                                             // <Button onClick={handleChangeBuddyStatus}>Add Buddy</Button>
                                             <Container className="justify-content-center">
-                                                <RequestModal sender={currentUser} recipient={thisUser}  />
+                                                <RequestModal msgAlert={msgAlert} sender={currentUser} recipient={thisUser}  />
                                             </Container>
                                             
                                             :
