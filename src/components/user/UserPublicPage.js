@@ -7,6 +7,7 @@ import { getTheirActivities } from '../../api/activity'
 import ActivitySegment from '../activities/ActivitySegment'
 import LoadingScreen from '../shared/LoadingPage'
 import getUserInfo  from '../../api/user'
+import RequestModal from './RequestModal'
 
 
 import MessageForm from '../shared/MessageForm'
@@ -23,13 +24,6 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
     const { viewedUserId } = useParams()
     const navigate = useNavigate()
 
-
-    const defaultMessage = {
-        recipient: ''
-    }
-
-
-    const [message, setMessage] = useState(defaultMessage)
 
     //piece of state for badges modal --> should be abstracte into it's own component
    
@@ -80,39 +74,6 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
         triggerRefresh()
     }
 
-    const handleSubmit = (e) => {
-            e.preventDefault()
-
-            createMessage(currentUser, message)
-                // .then(() => handleClose())
-                .then(() => {
-                
-                    msgAlert({
-                        heading: 'Success',
-                        message: 'Created Buddy Request',
-                        variant: 'success'
-                    })
-                })
-                .then(() => triggerRefresh())
-                .catch((error) => {
-                    msgAlert({
-                        heading: 'Failure',
-                        message: 'Create Buddy Request Failure' + error,
-                        variant: 'danger'
-                    })
-                })
-        }
-    
-        const handleChange = (e , target) => {
-            setMessage(prevMessage => {
-                const { name, value } = target
-                const updatedName = name
-                let updatedValue = value
-                const updatedMessage = { [updatedName]: updatedValue }
-
-                return { ...prevMessage, ...updatedMessage}
-            })
-        }
 
     const handleChangeBuddyStatus = (e) => {
         //set new buddy status
@@ -239,16 +200,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                             ?
                                             // <Button onClick={handleChangeBuddyStatus}>Add Buddy</Button>
                                             <Container className="justify-content-center">
-                                                <Form onSubmit={ handleSubmit }>
-                                                    <Form.Input
-                                                        type='text'
-                                                        name='recipient'
-                                                        id='recipient'
-                                                        defaultValue="635fcd2e20335c848dc124e4"
-                                                        onChange={handleChange}>
-                                                    </Form.Input>
-                                                    <Button type='submit' color='yellow'>Send Buddy Invite</Button>
-                                                </Form>
+                                                <RequestModal sender={currentUser} recipient={thisUser}  />
                                             </Container>
                                             
                                             :

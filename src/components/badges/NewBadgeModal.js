@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Header } from 'semantic-ui-react'
-import ActivityForm from '../shared/ActivityForm'
+
 
 
 
