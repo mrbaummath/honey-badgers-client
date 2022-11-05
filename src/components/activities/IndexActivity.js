@@ -10,7 +10,7 @@ import SearchBar from "../SearchBar/Search";
 
 
 const IndexActivity = ({ user, msgAlert }) => {
-    //set state for all public activites, filtered activities based on search
+    //set state for all public activities, filtered activities based on search
     const [allActivities, setAllActivities] = useState([])
     const [filterActivities, setFilterActivities] = useState([])
     const [searchText, setSearchText] = useState([])
