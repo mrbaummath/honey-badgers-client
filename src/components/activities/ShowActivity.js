@@ -8,6 +8,7 @@ import ActivityForm from "../shared/ActivityForm"
 import LoadingScreen from "../shared/LoadingPage"
 import NoteForm from "../shared/NoteForm"
 import CreateNote from "../notes/CreateNote"
+import ShowNote from "../notes/ShowNote"
 
 
 
@@ -213,7 +214,37 @@ useEffect (()=> {
               }
             >
 					<Modal.Content>
-						<CreateNote user={user} msgAlert={msgAlert} />
+            <Segment  
+              padded='very'  
+              inverted color='yellow' 
+              verticalAlign='middle' 
+              id="segment"
+            >
+                <CreateNote user={user} msgAlert={msgAlert} />
+            </ Segment>
+               <Grid 
+                  centered
+                >
+                  <Comment>
+                      <Comment.Avatar as='a' src='https://imgur.com/uEW4fPX.png' style={{width: '20px', height: '20px'}} />
+                        <Comment.Content>
+                          <Comment.Author 
+                            as='a'>Matt
+                          </Comment.Author>
+                          <Comment.Metadata>
+                            <span>Today at 5:42PM</span>
+                          </Comment.Metadata>
+                          <Comment.Text>
+                            How artistic!
+                          </Comment.Text>
+                        </Comment.Content>
+                  </Comment>
+                </Grid>
+            <Modal.Actions>
+              <Button color='black' onClick={() => setOpen(false)}>
+                Go Back
+              </Button>
+            </Modal.Actions>
 					</Modal.Content>
         		</Modal>
               {/* <Modal
