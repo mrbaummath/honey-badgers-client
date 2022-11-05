@@ -96,3 +96,8 @@ code {
 .capitalize-me::first-letter {
   text-transform: capitalize;
 }
+.AvatarSelection {
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}

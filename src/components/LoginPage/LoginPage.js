@@ -3,6 +3,7 @@ import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input, Mes
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import { useNavigate } from 'react-router-dom'
+import AvatarSelection from '../../components/Avatars/AvatarSelection'
 
 
 
@@ -294,6 +295,7 @@ return (
                       
                   />
               </Form.Field>
+              <br />
               <Form.Field>
                   <Form.Input 
                       fluid
@@ -308,6 +310,10 @@ return (
 
    
                   />
+              </Form.Field>
+              <br />
+              <Form.Field>
+              < AvatarSelection />
               </Form.Field>
               <br />
               <Form.Button 

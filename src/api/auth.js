@@ -11,7 +11,8 @@ export const signUp = (credentials) => {
 				email: credentials.email,
 				password: credentials.password,
 				password_confirmation: credentials.passwordConfirmation,
-				createdDate:credentials.createdDate
+				createdDate:credentials.createdDate,
+				avatar:credentials.avatar
 			},
 		},
 	})
