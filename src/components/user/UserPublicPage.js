@@ -240,8 +240,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                                         type='text'
                                                         name='recipient'
                                                         id='recipient'
-                                                        
-                                                        defaultValue = 'this'
+                                                        defaultValue="635fcd2e20335c848dc124e4"
                                                         onChange={handleChange}>
                                                     </Form.Input>
                                                     <Button type='submit' color='yellow'>Send Buddy Invite</Button>

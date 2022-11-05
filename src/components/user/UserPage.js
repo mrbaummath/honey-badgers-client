@@ -36,6 +36,7 @@ const UserPage = ({ user, msgAlert }) => {
         getAllMessages(user)
             .then(res => {
                 setMyMessages(res.data.messages)    
+                console.log(res)
             })
             .catch((error) => {
                 msgAlert({
