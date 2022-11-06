@@ -31,15 +31,7 @@ const ActivityForm = (props) => {
                         defaultValue= { activity.activity }
                         onChange= { handleChange }
                     />
-                      <Form.Input 
-                        required 
-                        name='type'
-                        id='type'
-                        label='Type: (education, social, diy, charity, cooking, relaxation, music, busywork, recreational)' 
-                        placeholder='Type'
-                        defaultValue= { activity.type}
-                        onChange= { handleChange }
-                    />
+                   
                     {/* <Form.Select
                         required
                         name='type'
@@ -51,6 +43,15 @@ const ActivityForm = (props) => {
                         onChange= { handleChange }
                     /> */}
                 </Form.Group>
+                <Form.Input 
+                        required 
+                        name='type'
+                        id='type'
+                        label='Type: (education, social, diy, charity, cooking, relaxation, music, busywork, recreational)' 
+                        placeholder='Type'
+                        defaultValue= { activity.type}
+                        onChange= { handleChange }
+                    />
                 <Form.Group inline>
                     <Form.Input 
                         required

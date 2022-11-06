@@ -17,6 +17,7 @@ import UserPublicPage from './components/user/UserPublicPage'
 import ChangePassword from './components/auth/ChangePassword'
 import FeedPage from './components/activities/FeedPage'
 import ShowActivity from './components/activities/ShowActivity'
+import IndexActivity from './components/activities/IndexActivity'
 
 
 // import CreateActivity from './components/activities/CreateActivity'
@@ -26,6 +27,7 @@ import ShowActivity from './components/activities/ShowActivity'
 const App = () => {
 
   const [user, setUser] = useState(null)
+  const [viewedUser, setViewedUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
 
   console.log('user in app', user)
@@ -60,7 +62,7 @@ const App = () => {
 						element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
 					/>
 					<Route path='/user-page/' element={<UserPage msgAlert={msgAlert} user={user} />} />
-					<Route path='/user-public-page/:otherUserId' element={<UserPublicPage msgAlert={msgAlert} currentUser={user} />} />
+					<Route path='/user-public-page/:otherUserId' element={<UserPublicPage msgAlert={msgAlert} currentUser={user} viewedUser={viewedUser}/>} />
 					<Route
 						path='/sign-in'
 						element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
@@ -95,6 +97,12 @@ const App = () => {
 						path='/show-page/:activityId'
 						element={
 							<ShowActivity msgAlert={msgAlert} user={user} />
+					}
+					/>
+					<Route
+						path='/activities'
+						element={
+							<IndexActivity msgAlert={msgAlert} user={user} />
 					}
 					/>
 					{/* <Route

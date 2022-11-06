@@ -38,28 +38,6 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
                 updatedValue = false
             }
 
-
-            // if(updatedName === 'type' && updatedValue === 'education') {
-            //     options.text = 'Education'
-            // } else if (updatedName === 'type' && updatedValue === 'social') {
-            //     options.text = 'Social'
-            // } else if (updatedName === 'type' && updatedValue === 'diy') {
-            //     options.text = 'DIY'
-            // } else if (updatedName === 'type' && updatedValue === 'charity') {
-            //     options.text = 'Charity'
-            // } else if (updatedName === 'type' && updatedValue === 'cooking') {
-            //     options.text = 'Cooking'
-            // } else if (updatedName === 'type' && updatedValue === 'relaxation') {
-            //     options.text = 'Relaxation'
-            // } else if (updatedName === 'type' && updatedValue === 'music') {
-            //     options.text = 'Music'
-            // } else if (updatedName === 'type' && updatedValue === 'busywork') {
-            //     options.text = 'Busywork'
-            // } else if (updatedName === 'type' && updatedValue === 'recreational') {
-            //     options.text = 'Recreational'
-            // }
-
-
             const updatedActivity = { [updatedName]: updatedValue }
 
             return { ...prevActivity, ...updatedActivity}
@@ -96,7 +74,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
 
         .then(jsonData => {
             setActivity((prevActivity) => {
-                return { ...prevActivity, activity: jsonData.data.activity, type: jsonData.data.type, accessibility: jsonData.data.accessibility, participants: jsonData.participants, price: jsonData.data.price}
+                return { ...prevActivity, activity: jsonData.data.activity, type: jsonData.data.type, accessibility: jsonData.data.accessibility, participants: jsonData.data.participants, price: jsonData.data.price}
             } ) 
         })
 

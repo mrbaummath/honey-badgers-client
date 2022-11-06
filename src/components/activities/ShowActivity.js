@@ -6,6 +6,7 @@ import { getActivity, updateActivity, deleteActivity } from '../../api/activity'
 import UpdateActivityModal from "./UpdateActivityModal"
 import ActivityForm from "../shared/ActivityForm"
 import LoadingScreen from "../shared/LoadingPage"
+import NoteForm from "../shared/NoteForm"
 
 
 
@@ -140,11 +141,11 @@ useEffect (()=> {
           // key={ activities.id }
       >
         <Segment>
-          <Grid columns={2}>
-            <Grid.Column verticalAlign="middle">
-              <h2>activity: {activity.activity} </h2>
+          <Grid columns={2} padded>
+            <Grid.Column verticalAlign="middle" >
+              <h2>{activity.activity} </h2>
             </Grid.Column>
-            <Grid.Column verticalAlign="middle"
+            <Grid.Column verticalAlign="middle" textAlign="center"
               centered>
               <Progress 
                 percent={percent} 
@@ -174,11 +175,57 @@ useEffect (()=> {
             </Grid.Column>
           </Grid>
         </Segment>
-        <Segment>
-          <h2>type: {activity.type}</h2>
-          <h2>accessibility: {activity.accessibility} </h2> 
-          <h2>participants: {activity.participants}</h2>
-          <h2>price: {activity.price}</h2> 
+        <Segment inverted color='yellow' class="capitalize-me">
+            <Grid centered stretched>
+                <Grid.Row padded>
+                    <Segment fluid>
+                        <Grid columns={5}>
+                            <Grid.Column>
+                            {
+                            activity.owner 
+                            ?
+                            <h3>Activity Owner: 
+                                <Link to={`/user-public-page/${activity.owner._id}`}> 
+                                    <h2>{activity.owner.email}</h2>
+                                </Link>
+                            </h3>
+                            : 
+                            <h3>Activity Owner: 
+                                <h3>None</h3>
+                            </h3>
+                            }
+                            </Grid.Column>
+                            <Grid.Column>
+                                <h3>Category: </h3>
+                                <h3>
+                                    { activity.catagoryIcon
+                                        ?
+                                        <Icon size='large' name={activity.catagoryIcon}></Icon>
+                                        :
+                                        null
+                                    }
+
+                                    {activity.type}
+                                </h3>
+                            </Grid.Column>
+                            <Grid.Column>
+                                <h3>Accessibility: </h3>
+                                <h3>{activity.accessibility}</h3>
+                            </Grid.Column>
+                            <Grid.Column>
+                                <h3>Participants: </h3>
+                                <h3>{activity.participants}</h3>
+                            </Grid.Column>
+                            <Grid.Column>
+                                <h3>Price: </h3>
+                                <h3>{activity.price}</h3>
+                            </Grid.Column>
+
+                        </Grid>
+                        
+                    </Segment>
+                </Grid.Row>
+            </Grid>
         </Segment>
         <Grid 
           padded 
@@ -195,7 +242,7 @@ useEffect (()=> {
                     <Button size='large' variant="warning">Notes</Button>
                   }
               >
-                  <Modal.Header>Select To See Note</Modal.Header>
+                  <Modal.Header>Notes</Modal.Header>
                   <Modal.Content>
                     <Segment  
                       padded='very'  
@@ -209,13 +256,7 @@ useEffect (()=> {
                         placeholder="Note name"
                         required>
                       </Comment.Actions>
-                      <Form reply 
-                        placeholder="Note content"
-                        value='noteContent'
-                      >
-                        <Form.TextArea />
-                      </Form>
-                
+                      < NoteForm />
                       <Segment 
                         textAlign = 'centered'
                       >
@@ -269,11 +310,9 @@ useEffect (()=> {
           
             </Grid.Column>
             <Grid.Column  textAlign='middle'>
-              
-              
+
               <Button onClick={() => handleDeleteActivity()} >Delete</Button>
-                
-             
+
             </Grid.Column>
           </Grid.Row>
         </Grid>

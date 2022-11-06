@@ -56,17 +56,3 @@ export const changePassword = (passwords, user) => {
 		},
 	})
 }
-
-export const changeBuddyStatus = (user, buddy) => {
-	return axios({
-		url: apiUrl + '/change-buddies',
-		method: 'PATCH',
-		headers: {
-			Authorization: `Token token=${user.token}`,
-		},
-		data: {
-			buddy:  buddy,
-			user: user
-		}
-	})
-}
