@@ -1,4 +1,5 @@
 const imgSrc = {
+
     'avatarImages': {
         'badger': 'https://i.imgur.com/uEW4fPX.png',
         'giraffe': 'https://i.imgur.com/ncojeOX.png',

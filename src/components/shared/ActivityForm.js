@@ -1,18 +1,6 @@
 import React from 'react'
 import {Button, Checkbox, Form, Container, Icon} from 'semantic-ui-react'
 
-// const options = [
-//     {text: 'Education', value: 'education'},
-//     {text: 'Social', value: 'social'},
-//     {text: 'DIY', value: 'diy'},
-//     {text: 'Charity', value: 'charity'},
-//     {text: 'Cooking', value: 'cooking'},
-//     {text: 'Relaxation', value: 'relaxation'},
-//     {text: 'Music', value: 'music'},
-//     {text: 'Busywork', value: 'busywork'},
-//     {text: 'Recreational', value: 'recreational'},
-// ]
-
 const ActivityForm = (props) => {
 
     const { activity, handleChange, handleSubmit, handleActivity, heading } = props
@@ -31,17 +19,6 @@ const ActivityForm = (props) => {
                         defaultValue= { activity.activity }
                         onChange= { handleChange }
                     />
-                   
-                    {/* <Form.Select
-                        required
-                        name='type'
-                        id='type'
-                        label='Type'
-                        defaultValue={ activity.type }
-                        options={options}
-                        placeholder='Type'
-                        onChange= { handleChange }
-                    /> */}
                 </Form.Group>
                 <Form.Input 
                         required 
