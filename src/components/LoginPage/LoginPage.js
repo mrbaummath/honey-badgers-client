@@ -340,7 +340,7 @@ return (
                     {/* <Button secondary inverted color='yellow' class="signButton" href='sign-in'>Sign in</Button> */}
                 <Message fluid attached='bottom' color='yellow' stretched size='huge'>
       <Icon name='help' />
-      Already signed up?&nbsp;<a href='sign-in'>Login here</a>&nbsp;instead.
+      Already signed up?&nbsp;<Link to='/sign-in'>Login here</Link>&nbsp;instead.
     </Message> 
     </Grid.Column>
             </Grid>
