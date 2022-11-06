@@ -5,8 +5,14 @@ import messages from '../shared/AutoDismissAlert/messages'
 import { getTheirActivities } from '../../api/activity'
 import ActivitySegment from '../activities/ActivitySegment'
 import LoadingScreen from '../shared/LoadingPage'
+
+
+
+import imgSrc from '../shared/ImgSrc'
+
 import { getUserInfo }  from '../../api/user'
 import RequestModal from './RequestModal'
+
 
 
 import MessageForm from '../shared/MessageForm'
@@ -36,6 +42,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
     const [email, setEmail] = useState('')
     const [thisUser, setThisUser] = useState({})
     const [createdDate, setCreatedDate] = useState('')
+    const [createdAvatar, setAvatar] = useState('')
     const [badges, setBadges] = useState(null)
     // const [buddiesArr, setBuddiesArr] = useState([]) ==> not going to view other's buddies for now
 
@@ -57,8 +64,13 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
             .then(res => {
                 setEmail(res.data.user.email)
                 setCreatedDate(res.data.user.createdDate)
+
+                setAvatar(res.data.user.avatar)
+
+
                 setThisUser(res.data.user.user)
                 // setBuddiesArr(res.data.user.buddies)
+
             })
             .catch((error) => {
                 msgAlert({
@@ -105,7 +117,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                     <Grid columns={2}>
                                         <Grid.Column width={5} textAlign='middle'>
                                             <Image 
-                                                src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
+                                                src={createdAvatar}
                                                 size='small' 
                                                 circular 
                                                 centered

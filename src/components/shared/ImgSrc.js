@@ -1,9 +1,9 @@
 const imgSrc = {
-    'avatarimages': {
-        'badger': 'https://imgur.com/uEW4fPX',
-        'giraffe': 'https://imgur.com/ncojeOX',
-        'raccoon': 'https://imgur.com/4fQ9L5r',
-        'bear': 'https://imgur.com/h3RxyAQ'
+    'avatarImages': {
+        'badger': 'https://i.imgur.com/uEW4fPX.png',
+        'giraffe': 'https://i.imgur.com/ncojeOX.png',
+        'raccoon': 'https://i.imgur.com/4fQ9L5r.png',
+        'bear': 'https://i.imgur.com/h3RxyAQ.png'
         },
     'badgeImages': {
         'education' : {

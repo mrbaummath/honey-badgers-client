@@ -2,7 +2,12 @@ import React, { useState, Component} from 'react'
 import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input, Message, Header, List, Image, Progress } from 'semantic-ui-react'
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
+
+
+import AvatarSelection from '../../components/Avatars/AvatarSelection'
+
 import { useNavigate, Link } from 'react-router-dom'
+
 
 
 
@@ -286,6 +291,7 @@ return (
                       
                   />
               </Form.Field>
+              <br />
               <Form.Field>
                   <Form.Input 
                       fluid
@@ -301,6 +307,10 @@ return (
 
    
                   />
+              </Form.Field>
+              <br />
+              <Form.Field>
+              < AvatarSelection />
               </Form.Field>
               <br />
               <Form.Button 
