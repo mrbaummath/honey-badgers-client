@@ -19,39 +19,42 @@ const LoginPage = (props) => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [username, setUsername] = useState('')
   const [createdDate, setCreatedDate] = useState('')
+  //default avatar will be badger
+  const [avatar, setAvatar] = useState('https://i.imgur.com/uEW4fPX.png')
   const navigate = useNavigate()
 
   const onSignUp = (event) => {
-  event.preventDefault()
+    event.preventDefault()
 
-  const { msgAlert, setUser } = props
+    const { msgAlert, setUser } = props
 
-      const credentials = {email, username, password, passwordConfirmation, createdDate }
+    const credentials = {email, username, password, passwordConfirmation, createdDate, avatar }
+    console.log(credentials)
 
-  signUp(credentials)
-    .then(() => signIn(credentials))
-    .then((res) => setUser(res.data.user))
-    .then(() =>
-      msgAlert({
-        heading: 'Sign Up Success',
-        message: messages.signUpSuccess,
-        variant: 'success',
+    signUp(credentials)
+      .then(() => signIn(credentials))
+      .then((res) => setUser(res.data.user))
+      .then(() =>
+        msgAlert({
+          heading: 'Sign Up Success',
+          message: messages.signUpSuccess,
+          variant: 'success',
+        })
+      )
+      .then(() => navigate('/user-page'))
+      .catch((error) => {
+                setEmail('')
+                setUsername('')
+                setPassword('')
+                setPasswordConfirmation('')
+                setCreatedDate('')
+        msgAlert({
+          heading: 'Sign Up Failed with error: ' + error.message,
+          message: messages.signUpFailure,
+          variant: 'danger',
+        })
       })
-    )
-    .then(() => navigate('/user-page'))
-    .catch((error) => {
-              setEmail('')
-              setUsername('')
-              setPassword('')
-              setPasswordConfirmation('')
-              setCreatedDate('')
-      msgAlert({
-        heading: 'Sign Up Failed with error: ' + error.message,
-        message: messages.signUpFailure,
-        variant: 'danger',
-      })
-    })
-}
+  }
 
 
 return (
@@ -221,16 +224,13 @@ return (
           raised
           inverted
           color='yellow'
-          verticalAlign='middle'
+          
         >
  
-      <Segment   
-          inverted color='yellow' 
-          verticalAlign='middle' 
-          id="segment"
-      >
+      
         <Header size='huge'>Welcome to HoneyBadges</Header>
           <h3>Sign Up</h3>
+          <Container fluid>
           <Form  onSubmit= {onSignUp}>
               <Form.Field>
                   <Form.Input 
@@ -309,9 +309,11 @@ return (
                   />
               </Form.Field>
               <br />
-              <Form.Field>
-              < AvatarSelection />
-              </Form.Field>
+
+
+              < AvatarSelection avatar={avatar} setAvatar={setAvatar} />
+
+
               <br />
               <Form.Button 
                    secondary 
@@ -326,7 +328,8 @@ return (
                   Submit
               </Form.Button>
           </Form>
-      </Segment>
+          </Container>
+      
   
 <Divider horizontal>Or</Divider>
 

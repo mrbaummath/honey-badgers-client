@@ -12,7 +12,7 @@ export const signUp = (credentials) => {
 				password: credentials.password,
 				password_confirmation: credentials.passwordConfirmation,
 				createdDate:credentials.createdDate,
-				avatar:credentials.avatar
+				avatar: credentials.avatar
 			},
 		},
 	})
