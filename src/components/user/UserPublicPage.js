@@ -7,8 +7,6 @@ import { getTheirActivities } from '../../api/activity'
 import ActivitySegment from '../activities/ActivitySegment'
 import LoadingScreen from '../shared/LoadingPage'
 import getUserInfo  from '../../api/user'
-
-import BadgesSegment from './BadgesSegment'
 import MessageForm from '../shared/MessageForm'
 import getViewedUserInfo from '../../api/viewedUser'
 import { createMessage } from '../../api/message'
@@ -226,7 +224,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                     
                                         
 
-                                            <h1>Super Active Guy</h1> 
+                                            <h1>{email}</h1> 
 
                                             <h2>member since {createdDate}</h2>
                                             { currentUser._id !== otherUserId 
@@ -258,15 +256,15 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                     </Grid>
                                 </Grid.Column>
                                 
-                                <Grid.Column width={8}>
-                                    <Segment>
+                                <Grid.Column width={8} verticalAlign='middle'>
+                                    {/* <Segment> */}
                                         <Grid padded textAlign='center'>
-                                            <Grid.Row>
+                                            {/*<Grid.Row>
                                                 <h2 id="bestBuds">{email}'s Best Buds</h2>
                                             </Grid.Row>
 
                                             <Grid.Row >
-                                                <Grid columns={4}>
+                                                 <Grid columns={4}>
                                                     <Grid.Column textAlign='center'>
 
                                                         <Label as='a' image size='big'>
@@ -293,8 +291,8 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                                         </Label>
                                                     </Grid.Column>
                                                     
-                                                </Grid>
-                                            </Grid.Row>
+                                                </Grid> 
+                                            </Grid.Row>*/}
                                             <Grid.Row>
                                                 <div id='viewBudsButton'>
                                                     <Modal
@@ -304,15 +302,16 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                                         trigger={
                                                             <Button verticalAlign='middle' size='medium'> 
                                                                 <Icon size='large'name='user' />
-                                                                View {email}'s Buddies
+                                                                View thier Buddies
                                                             </Button>}
                                                         >
                                                         <Modal.Header>{email}'s Buddies</Modal.Header>
                                                         <Modal.Content >
                                                            <Segment>
+                                                            
                                                                 {buddsMap}
                                                                 
-                                                           <Label as='a' image size='big'>
+                                                           {/* <Label as='a' image size='big'>
                                                             <img src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
                                                             Joe
                                                         </Label>
@@ -327,7 +326,8 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                                         <Label as='a' image size='big'>
                                                             <img src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
                                                             Jenny
-                                                        </Label>
+                                                        </Label> */}
+
                                                            </Segment>
                                                         </Modal.Content>
                                                         <Modal.Actions>
@@ -340,7 +340,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                             </Grid.Row>
                                         </Grid>
                                         
-                                    </Segment>
+                                    {/* </Segment> */}
                                 </Grid.Column>
                             </Grid>
                         </Segment>

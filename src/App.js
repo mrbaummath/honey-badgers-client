@@ -17,6 +17,7 @@ import UserPublicPage from './components/user/UserPublicPage'
 import ChangePassword from './components/auth/ChangePassword'
 import FeedPage from './components/activities/FeedPage'
 import ShowActivity from './components/activities/ShowActivity'
+import IndexActivity from './components/activities/IndexActivity'
 
 
 // import CreateActivity from './components/activities/CreateActivity'
@@ -96,6 +97,12 @@ const App = () => {
 						path='/show-page/:activityId'
 						element={
 							<ShowActivity msgAlert={msgAlert} user={user} />
+					}
+					/>
+					<Route
+						path='/activities'
+						element={
+							<IndexActivity msgAlert={msgAlert} user={user} />
 					}
 					/>
 					{/* <Route

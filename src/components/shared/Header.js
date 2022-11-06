@@ -47,8 +47,7 @@ export default class Header extends Component {
 			{this.props.user ? 
 			
 			// AUTHINTICATED OPTIONS 
-			<Menu.Menu position='right'>
-				
+			<Menu.Menu position='right'>				
 				 <Modal
 					onClose={() => this.handleClose()}
 					onOpen={() => this.setState({setOpen: true})}
@@ -69,6 +68,17 @@ export default class Header extends Component {
 						<CreateActivity user={this.props.user} msgAlert={this.props.msgAlert} handleClose={this.handleClose}  />
 					</Modal.Content>
         		</Modal>
+				<Menu.Item
+					name='search'
+					active={activeItem === 'search'}
+					onClick={this.handleItemClick}
+				>
+					<Link 
+						to={`/activities`}  
+					>
+						Search
+					</Link>
+				</Menu.Item>
 				<Menu.Item
 					name='feed page'
 					active={activeItem === 'feed page'}
