@@ -56,7 +56,7 @@ const BuddiesModal = ({user, msgAlert}) => {
             const buddyId = buddy._id
             return (
                 <List.Item key={`buddy-${buddyId}`}>
-                    {/* <Image avatar src={buddy.avatar} /> */}
+                    {buddy.avatar && <Image avatar src={buddy.avatar} />}
                     <List.Content>
                         <List.Header
                             as='a'

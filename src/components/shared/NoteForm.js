@@ -26,7 +26,7 @@ const NoteForm = (props) => {
                         onChange={ handleChange }
                     />
                 </Form.Field>
-                <Button type='submit' color='yellow'>Submit</Button>
+                {/* <Button type='submit' color='yellow'>Submit</Button> */}
             </Form>
         </Container>
     )

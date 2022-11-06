@@ -76,7 +76,7 @@ const MessagesModal = ({user, msgAlert}) => {
             const sender = message.owner.username ? message.owner.username : message.owner.email
             return (
                 <List.Item key={message._id}>
-                    {/* <Image avatar src={message.owner.avatar} /> */}
+                    {message.owner.avatar && <Image avatar src={message.owner.avatar} /> }
                     <List.Content>
                         <List.Header
                             as='a'

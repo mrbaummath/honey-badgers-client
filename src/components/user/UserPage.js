@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {  Button, Divider, Segment, Grid, Feed, Icon, Image, Progress, Modal } from 'semantic-ui-react'
+import {  Button, Divider, Segment, Grid, Feed, Icon, Image, Progress, Modal, Container } from 'semantic-ui-react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import ActivitySegment from '../activities/ActivitySegment'
@@ -74,6 +74,8 @@ const UserPage = ({ user, msgAlert }) => {
                 fluid
                 
             >
+                <Container fluid>
+                <Image src={user.avatar} size='small' wrapped />
                 <MessagesModal
                     user={user}
                     msgAlert={msgAlert}
@@ -82,6 +84,7 @@ const UserPage = ({ user, msgAlert }) => {
                     user={user}
                     msgAlert={msgAlert}
                 />
+                </Container>
                 <Divider />
 
                 <Grid columns={3}>
