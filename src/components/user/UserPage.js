@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {  Button, Segment, Grid, Feed, Icon, Image, Progress, Modal } from 'semantic-ui-react'
+import {  Button, Divider, Segment, Grid, Feed, Icon, Image, Progress, Modal } from 'semantic-ui-react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import ActivitySegment from '../activities/ActivitySegment'
@@ -9,10 +9,11 @@ import LoadingScreen from '../shared/LoadingPage'
 import BadgesSegment from '../badges/BadgesSegment'
 import ActivityFeedUserPage from '../activities/ActivityFeedUserPage'
 import { getAllActivities } from '../../api/activity'
+import MessagesModal from './MessagesModal'
 
-import { getAllMessages } from '../../api/message'
 
 import MyActivities from '../activities/MyActivities'
+import BuddiesModal from './BuddiesModal'
 
 
 
@@ -25,13 +26,12 @@ const UserPage = ({ user, msgAlert }) => {
     const [completedCounts, setCompletedCounts] = useState({})
     //badges are passed down to BadgeSegment through to BadgeModal. the set function will also pass through to the ActivitySegment so that if there is a new badge it can be added. There will be a listener on BadgesSegment and NewBadgeModal to determine whether the 
     const [badges, setBadges] = useState(null)
+    //buddies array will live here. Since user obj. does not have state re-set, any reference to buddies should use this instead of user.buddies
     const [publicActivities, setPublicActivities] = useState(null)
 
-    const [open, setOpen] = React.useState(false)
-    const [allMyMessages, setMyMessages] = useState([])
-
+  
     //state for an update to badges --> will tell whether a badge was gained or lost. If there is a new badge, it's description will also be in the object. setBadgeUpdate will be passed through to activity segment. badgeUpdate will be sent to the newBadge Modal 
-    const [badgeUpdate, setBadgeUpdate] = useState({})
+    const [badgeUpdate, setBadgeUpdate] = useState(null)
 
     
     
@@ -43,17 +43,6 @@ const UserPage = ({ user, msgAlert }) => {
                 setCompletedCounts(res.data.completedCounts)
                 setBadges(res.data.userBadges.filter(badge => badge.level != 'none'))
             })
-        getAllMessages(user)
-            .then(res => {
-                setMyMessages(res.data.messages)    
-                console.log(res)
-            })
-            .catch((error) => {
-                msgAlert({
-                    heading:'Something went wrong',
-                    message: "Could not get user activities " + error,
-                    variant: 'danger'
-            })})
     },[])
 
     //set JSX for rendering the user's feed of community activities 
@@ -73,8 +62,6 @@ const UserPage = ({ user, msgAlert }) => {
     },[])
 
 
-        allMyMessages.map((message) => (<h1>{message.owner}</h1>))
-        console.log(allMyMessages, 'messages')
 
 	return (
 		<>
@@ -87,23 +74,16 @@ const UserPage = ({ user, msgAlert }) => {
                 fluid
                 
             >
+                <MessagesModal
+                    user={user}
+                    msgAlert={msgAlert}
+                />
+                <BuddiesModal
+                    user={user}
+                    msgAlert={msgAlert}
+                />
+                <Divider />
 
-            <Modal
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                open={open}
-                trigger={<Button>Show Messages</Button>}
-                >
-                <Modal.Header>Buddy Requests</Modal.Header>
-                <Modal.Content> 
-                    {allMyMessages} 
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button color='black' onClick={() => setOpen(false)}>
-                        Close
-                    </Button>
-                </Modal.Actions>
-                </Modal>
                 <Grid columns={3}>
                     <Grid.Column width={4}>
                         <BadgesSegment 
@@ -114,6 +94,7 @@ const UserPage = ({ user, msgAlert }) => {
                             setBadgeUpdate={setBadgeUpdate}
                             completedCounts={completedCounts}
                             badgeUpdate={badgeUpdate} 
+                            setBadges={setBadges}
 
                         />
                     </Grid.Column>

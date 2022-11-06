@@ -20,11 +20,10 @@ const badgeLevel = (count) => {
             level = 'expert'
             break
         default:
-            level = 'none'
-        
-        
+            level = 'none' 
         
     }
+    return level
 }
 
 export default badgeLevel
