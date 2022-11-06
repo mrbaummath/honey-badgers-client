@@ -37,7 +37,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
     const [thisUser, setThisUser] = useState({})
     const [createdDate, setCreatedDate] = useState('')
     const [badges, setBadges] = useState(null)
-    const [buddiesArr, setBuddiesArr] = useState([])
+    // const [buddiesArr, setBuddiesArr] = useState([]) ==> not going to view other's buddies for now
 
      //after initial render, make axios call to grab activity/count data and set the state variables 
      useEffect(() => {
@@ -58,7 +58,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                 setEmail(res.data.user.email)
                 setCreatedDate(res.data.user.createdDate)
                 setThisUser(res.data.user.user)
-                setBuddiesArr(res.data.user.buddies)
+                // setBuddiesArr(res.data.user.buddies)
             })
             .catch((error) => {
                 msgAlert({
@@ -75,12 +75,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
 
 
     
-    const buddsMap = buddiesArr.map((buds) => (
-    <h1><Link to={`/user-public-page/${buds}`} onClick={handleRefresh}>{buds}</Link>
-        {/* <Button onClick={nav}>{buds}</Button> */}
-    </h1>
-    ))
-    console.log('this user', thisUser)
+    
 
 
      //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
@@ -142,93 +137,6 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                             }
                                         </Grid.Column>
                                     </Grid>
-                                </Grid.Column>
-                                
-                                <Grid.Column width={8} verticalAlign='middle'>
-                                    {/* <Segment> */}
-                                        <Grid padded textAlign='center'>
-                                            {/*<Grid.Row>
-                                                <h2 id="bestBuds">{email}'s Best Buds</h2>
-                                            </Grid.Row>
-
-                                            <Grid.Row >
-                                                 <Grid columns={4}>
-                                                    <Grid.Column textAlign='center'>
-
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-                                                            Joe
-                                                        </Label>
-                                                    </Grid.Column>
-                                                    <Grid.Column textAlign='center'>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/christian.jpg' />
-                                                            Elliot
-                                                        </Label>
-                                                    </Grid.Column>
-                                                    <Grid.Column textAlign='center'>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
-                                                            Stevie
-                                                        </Label>
-                                                    </Grid.Column>
-                                                    <Grid.Column textAlign='center'>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
-                                                            Jenny
-                                                        </Label>
-                                                    </Grid.Column>
-                                                    
-                                                </Grid> 
-                                            </Grid.Row>*/}
-                                            <Grid.Row>
-                                                <div id='viewBudsButton'>
-                                                    <Modal
-                                                        onClose={() => setOpen(false)}
-                                                        onOpen={() => setOpen(true)}
-                                                        open={open}
-                                                        trigger={
-                                                            <Button verticalAlign='middle' size='medium'> 
-                                                                <Icon size='large'name='user' />
-                                                                View thier Buddies
-                                                            </Button>}
-                                                        >
-                                                        <Modal.Header>{email}'s Buddies</Modal.Header>
-                                                        <Modal.Content >
-                                                           <Segment>
-                                                            
-                                                                {buddsMap}
-                                                                
-                                                           {/* <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-                                                            Joe
-                                                        </Label>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/christian.jpg' />
-                                                            Elliot
-                                                        </Label>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
-                                                            Stevie
-                                                        </Label>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
-                                                            Jenny
-                                                        </Label> */}
-
-                                                           </Segment>
-                                                        </Modal.Content>
-                                                        <Modal.Actions>
-                                                            <Button color='black' onClick={() => setOpen(false)}>
-                                                                Close
-                                                            </Button>
-                                                        </Modal.Actions>
-                                                        </Modal>
-                                                </div>
-                                            </Grid.Row>
-                                        </Grid>
-                                        
-                                    {/* </Segment> */}
                                 </Grid.Column>
                             </Grid>
                         </Segment>
