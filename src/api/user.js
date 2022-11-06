@@ -26,3 +26,27 @@ export const createBuddy = (user, buddyId) => {
 		}
 	})
 }
+
+export const deleteBuddy = (user, buddyId) => {
+    return axios({
+		method: 'PATCH',
+        headers: {
+			Authorization: `Token token=${user.token}`
+		},
+		url: `${apiUrl}/user/removebuddy`,
+        data: {
+            buddyId:buddyId
+        }
+
+	})
+}
+
+export const getMyBuddies = (user) => {
+    return axios({
+        method: 'GET',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        url: `${apiUrl}/user/buddies`
+    })
+}

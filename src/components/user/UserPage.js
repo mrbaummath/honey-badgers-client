@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {  Button, Segment, Grid, Feed, Icon, Image, Progress, Modal } from 'semantic-ui-react'
+import {  Button, Divider, Segment, Grid, Feed, Icon, Image, Progress, Modal } from 'semantic-ui-react'
 import { signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import ActivitySegment from '../activities/ActivitySegment'
@@ -13,6 +13,7 @@ import MessagesModal from './MessagesModal'
 
 
 import MyActivities from '../activities/MyActivities'
+import BuddiesModal from './BuddiesModal'
 
 
 
@@ -25,6 +26,7 @@ const UserPage = ({ user, msgAlert }) => {
     const [completedCounts, setCompletedCounts] = useState({})
     //badges are passed down to BadgeSegment through to BadgeModal. the set function will also pass through to the ActivitySegment so that if there is a new badge it can be added. There will be a listener on BadgesSegment and NewBadgeModal to determine whether the 
     const [badges, setBadges] = useState(null)
+    //buddies array will live here. Since user obj. does not have state re-set, any reference to buddies should use this instead of user.buddies
     const [publicActivities, setPublicActivities] = useState(null)
 
   
@@ -76,6 +78,11 @@ const UserPage = ({ user, msgAlert }) => {
                     user={user}
                     msgAlert={msgAlert}
                 />
+                <BuddiesModal
+                    user={user}
+                    msgAlert={msgAlert}
+                />
+                <Divider />
 
                 <Grid columns={3}>
                     <Grid.Column width={4}>

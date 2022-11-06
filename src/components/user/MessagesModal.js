@@ -78,7 +78,11 @@ const MessagesModal = ({user, msgAlert}) => {
                 <List.Item key={message._id}>
                     {/* <Image avatar src={message.owner.avatar} /> */}
                     <List.Content>
-                        <List.Header as='a' onClick={()=>navigate(`/user-public-page/${message.owner._id}`)}>{sender}</List.Header>
+                        <List.Header
+                            as='a'
+                            onClick={()=>navigate(`/user-public-page/${message.owner._id}`)}>
+                            {sender}
+                        </List.Header>
                         <List.Description padded><p>
                             {message.content}
                             <Icon link onClick={()=> handleAddBuddy(message.owner._id, message._id)} name='user' color='green' />
