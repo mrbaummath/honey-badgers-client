@@ -10,25 +10,24 @@ const RequestModal = ({sender, recipient, msgAlert}) => {
     const sendInvite = (e, form) => {
         e.preventDefault()
         createMessage(sender, message)
-        
-    }
-
-   const handleMessageChange = (e,target) => {
-        const {value} = target
-        setMessageContent(value)
             .then((res) => {
                 setOpen(false)
                 msgAlert({
                 heading:'Sent',
                 message:'Your Request Sent Successfully',
                 variant:'success'
-
             })})
             .catch(err => msgAlert({
                 heading: 'Sorry!',
                 message:'something went wront ' + err,
                 variant: 'danger'
             }))
+        
+    }
+
+   const handleMessageChange = (e,target) => {
+        const {value} = target
+        setMessageContent(value) 
    }
 
    const message = {
