@@ -10,13 +10,8 @@ const Home = ( {user, msgAlert, setUser, ...props }) => {
 
 	return (
 		<>
-
-
-			<h2>Welcome to HoneyBadges</h2> 
-
-
 			< LoginPage setUser={setUser} msgAlert={msgAlert}/>
-			< IndexActivity setUser={setUser} user={user} msgAlert={msgAlert}/>
+			{/* < IndexActivity setUser={setUser} user={user} msgAlert={msgAlert}/> */}
 			
 			
 			
