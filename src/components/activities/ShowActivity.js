@@ -222,10 +222,12 @@ useEffect (()=> {
             >
                 <CreateNote user={user} msgAlert={msgAlert} />
             </ Segment>
+            < Segment>
                <Grid 
                   centered
                 >
-                  <Comment>
+                  {/* { noteCards } */}
+                  {/* <Comment>
                       <Comment.Avatar as='a' src='https://imgur.com/uEW4fPX.png' style={{width: '20px', height: '20px'}} />
                         <Comment.Content>
                           <Comment.Author 
@@ -238,8 +240,9 @@ useEffect (()=> {
                             How artistic!
                           </Comment.Text>
                         </Comment.Content>
-                  </Comment>
+                  </Comment> */}
                 </Grid>
+              </Segment>
             <Modal.Actions>
               <Button color='black' onClick={() => setOpen(false)}>
                 Go Back
