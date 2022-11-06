@@ -3,7 +3,7 @@ import axios from 'axios'
 
 //function to get a user's information from db.
 //returns res.data.user (has email)
-const getUserInfo = (currentUser, userId) => {
+export const getUserInfo = (currentUser, userId) => {
     return axios({
         method:'GET',
         headers: {
@@ -14,4 +14,15 @@ const getUserInfo = (currentUser, userId) => {
    })
 }
 
-export default getUserInfo
+export const createBuddy = (user, buddyId) => {
+	return axios({
+		url: `${apiUrl}/user/addbuddy`,
+		method: 'PATCH',
+		headers: {
+			Authorization: `Token token=${user.token}`,
+		},
+		data: {
+			buddyId:  buddyId
+		}
+	})
+}
