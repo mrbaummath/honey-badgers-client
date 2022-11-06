@@ -1,8 +1,13 @@
 import React, { useState, Component} from 'react'
-import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input, Message, Header, List, Image } from 'semantic-ui-react'
+import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input, Message, Header, List, Image, Progress } from 'semantic-ui-react'
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
-import { useNavigate } from 'react-router-dom'
+
+
+import AvatarSelection from '../../components/Avatars/AvatarSelection'
+
+import { useNavigate, Link } from 'react-router-dom'
+
 
 
 
@@ -14,39 +19,42 @@ const LoginPage = (props) => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [username, setUsername] = useState('')
   const [createdDate, setCreatedDate] = useState('')
+  //default avatar will be badger
+  const [avatar, setAvatar] = useState('https://i.imgur.com/uEW4fPX.png')
   const navigate = useNavigate()
 
   const onSignUp = (event) => {
-  event.preventDefault()
+    event.preventDefault()
 
-  const { msgAlert, setUser } = props
+    const { msgAlert, setUser } = props
 
-      const credentials = {email, username, password, passwordConfirmation, createdDate }
+    const credentials = {email, username, password, passwordConfirmation, createdDate, avatar }
+    console.log(credentials)
 
-  signUp(credentials)
-    .then(() => signIn(credentials))
-    .then((res) => setUser(res.data.user))
-    .then(() =>
-      msgAlert({
-        heading: 'Sign Up Success',
-        message: messages.signUpSuccess,
-        variant: 'success',
+    signUp(credentials)
+      .then(() => signIn(credentials))
+      .then((res) => setUser(res.data.user))
+      .then(() =>
+        msgAlert({
+          heading: 'Sign Up Success',
+          message: messages.signUpSuccess,
+          variant: 'success',
+        })
+      )
+      .then(() => navigate('/user-page'))
+      .catch((error) => {
+                setEmail('')
+                setUsername('')
+                setPassword('')
+                setPasswordConfirmation('')
+                setCreatedDate('')
+        msgAlert({
+          heading: 'Sign Up Failed with error: ' + error.message,
+          message: messages.signUpFailure,
+          variant: 'danger',
+        })
       })
-    )
-    .then(() => navigate('/user-page'))
-    .catch((error) => {
-              setEmail('')
-              setUsername('')
-              setPassword('')
-              setPasswordConfirmation('')
-              setCreatedDate('')
-      msgAlert({
-        heading: 'Sign Up Failed with error: ' + error.message,
-        message: messages.signUpFailure,
-        variant: 'danger',
-      })
-    })
-}
+  }
 
 
 return (
@@ -80,10 +88,10 @@ return (
   <Grid columns={2}>
 
 
-    <Grid.Column verticalAlign='middle' width={7}>
+    <Grid.Column verticalAlign='middle' width={5}>
 
       <Image 
-          src='https://i.etsystatic.com/10536084/r/il/b67424/4058937747/il_1140xN.4058937747_esbp.jpg' 
+          src='https://i.imgur.com/lrr0PdB.png' 
           size='small' 
           circular 
           centered
@@ -91,27 +99,27 @@ return (
       />
 
       </Grid.Column>
-      <Grid.Column>
-      <Header><h1>The Most Selfless</h1></Header>
+      <Grid.Column width={11}>
+      <Header><h1>Busy Work</h1></Header>
             <List size='big' >
                 <List.Item>
-                    <List.Icon name='certificate' verticalAlign='middle'/>
-                    <List.Content><p>Catch up on world news</p></List.Content>
+                    <List.Icon name='edit outline' verticalAlign='bottom'/>
+                    <List.Content><p>Resolve a problem you've been putting off</p></List.Content>
                 </List.Item>
                 <List.Item>
-                    <List.Icon name='certificate' verticalAlign='middle' />
-                    <List.Content  verticalAlign='middle'><p>Buy a new house decoration</p></List.Content>
+                    <List.Icon name='edit outline' verticalAlign='bottom' />
+                    <List.Content  verticalAlign='middle'><p>Organize your dresser</p></List.Content>
                 </List.Item>
                 <List.Item>
-                    <List.Icon name='certificate'  verticalAlign='middle'/>
+                    <List.Icon name='edit outline'  verticalAlign='bottom'/>
                     <List.Content  verticalAlign='middle'>
-                    <p>Repaint a room in your house</p>
+                    <p>Make a budget</p>
                     </List.Content>
                 </List.Item>
                 <List.Item >
-                    <List.Icon name='certificate'  verticalAlign='middle'/>
+                    <List.Icon name='edit outline'  verticalAlign='bottom'/>
                     <List.Content  verticalAlign='middle'>
-                        <p>Draw something interesting</p>
+                        <p>Match your storage containers with their lids</p>
                     </List.Content>
                 </List.Item>
             </List>
@@ -122,118 +130,107 @@ return (
   <Header textAlign='center'>
 <h2> View an Updated Feed of Recent User Activities</h2>
 </Header>
+
 </Segment>
-  <Segment >
-<Feed>
-    <Feed.Event>
-      <Feed.Label>
-        <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-      </Feed.Label>
-      <Feed.Content>
-        <Feed.Summary>
-          <Feed.User>Elliot Fu</Feed.User> added you as a buddy
-          <Feed.Date>1 Hour Ago</Feed.Date>
-        </Feed.Summary>
-        <Feed.Meta>
-          <Feed.Like>
-            <Icon name='like' />4 Likes
-          </Feed.Like>
-        </Feed.Meta>
-      </Feed.Content>
-    </Feed.Event>
-
-    <Feed.Event>
-      <Feed.Label image='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
-      <Feed.Content>
-        <Feed.Summary>
-          <a>Helen Troy</a> completed <a>2 new activities</a>
-          <Feed.Date>4 days ago</Feed.Date>
-        </Feed.Summary>
-        <Feed.Meta>
-          <Feed.Like>
-            <Icon name='like' />1 Like
-          </Feed.Like>
-        </Feed.Meta>
-      </Feed.Content>
-    </Feed.Event>
-
-    <Feed.Event>
-      <Feed.Label image='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
-      <Feed.Content>
-        <Feed.Summary
-          date='2 Days Ago'
-          user='Jenny Hess'
-          content='earned a new badge'
-        />
-
-<Image 
-          src='https://i.etsystatic.com/10536084/r/il/83f1d3/4011356412/il_1140xN.4011356412_e62z.jpg' 
-          size='tiny' 
-          circular 
-          alt='A picture of a badge'
-      />
-
-        <Feed.Meta>
-          <Feed.Like>
-            <Icon name='like' />8 Likes
-          </Feed.Like>
-        </Feed.Meta>
-      </Feed.Content>
-    </Feed.Event>
-
-    <Feed.Event>
-      <Feed.Label image='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-      <Feed.Content>
-        <Feed.Summary>
-          <a>Joe Henderson</a> added a note to his activity
-          <Feed.Date>3 days ago</Feed.Date>
-        </Feed.Summary>
-        <Feed.Extra text>
-          Does anyone want to have a paper airplane contest with me? I'm trying to earn my next level social badge.
-        </Feed.Extra>
-        <Feed.Meta>
-          <Feed.Like>
-            <Icon name='like' />5 Likes
-          </Feed.Like>
-        </Feed.Meta>
-      </Feed.Content>
-    </Feed.Event>
-
-    <Feed.Event>
-      <Feed.Label image='https://react.semantic-ui.com/images/avatar/small/justen.jpg' />
-      <Feed.Content>
-        <Feed.Summary>
-          <a>Justen Kitsune</a> added <a>2 new photos</a> "cooking seconding risotto, yum!"
-          <Feed.Date>4 days ago</Feed.Date>
-        </Feed.Summary>
-        <Feed.Meta>
-          <Feed.Like>
-            <Icon name='like' />
-            41 Likes
-          </Feed.Like>
-        </Feed.Meta>
-      </Feed.Content>
-    </Feed.Event>
-  </Feed>
+<Segment>
+  <Segment raised>
+          <Container fluid>
+            <Grid>
+                <Grid.Column width={2} verticalAlign='center' textAlign='middle'>
+                    
+                <Image 
+                    src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg'
+                    size='small'
+                    circular 
+                    centered
+                    
+                    />
+                </Grid.Column>
+                <Grid.Column width={10} textAlign='center' verticalAlign='middle'>
+                    <h3><Link to={`/`}>Arthur</Link> is currently working on the <Link to={`/`}>Research a topic you're interested in</Link> activity</h3>
+                </Grid.Column>
+                <Grid.Column width={4} verticalAlign='middle' textAlign='center'>
+                    <Progress percent='10' indicating />
+                </Grid.Column>
+            </Grid>
+          </Container>
+  </Segment>
+  <Segment raised>
+          <Container fluid>
+            <Grid>
+                <Grid.Column width={2} verticalAlign='center' textAlign='middle'>
+                    
+                <Image 
+                    src='https://react.semantic-ui.com/images/avatar/small/joe.jpg'
+                    size='small'
+                    circular 
+                    centered/>
+                </Grid.Column>
+                <Grid.Column width={10} textAlign='center' verticalAlign='middle'>
+                    <h3><Link to={`/`}>Trillian</Link> is currently working on the <Link to={`/`}>Organize your music collection</Link> activity</h3>
+                </Grid.Column>
+                <Grid.Column width={4} verticalAlign='middle' textAlign='center'>
+                    <Progress percent='50' indicating />
+                </Grid.Column>
+            </Grid>
+          </Container>
+  </Segment>
+  <Segment raised>
+          <Container fluid>
+            <Grid>
+                <Grid.Column width={2} verticalAlign='center' textAlign='middle'>
+                    
+                <Image 
+                    src='https://react.semantic-ui.com/images/avatar/small/christian.jpg'
+                    size='small'
+                    circular 
+                    centered/>
+                </Grid.Column>
+                <Grid.Column width={10} textAlign='center' verticalAlign='middle'>
+                    <h3><Link to={`/`}>Ford</Link> is currently working on the <Link to={`/`}>Learn how to french braid hair</Link> activity</h3>
+                </Grid.Column>
+                <Grid.Column width={4} verticalAlign='middle' textAlign='center'>
+                    <Progress percent='50' indicating />
+                </Grid.Column>
+            </Grid>
+          </Container>
+  </Segment>
+  <Segment raised>
+          <Container fluid>
+            <Grid>
+                <Grid.Column width={2} verticalAlign='center' textAlign='middle'>
+                    
+                <Image 
+                    src='https://react.semantic-ui.com/images/avatar/small/justen.jpg'
+                    size='small'
+                    circular 
+                    centered/>
+                </Grid.Column>
+                <Grid.Column width={10} textAlign='center' verticalAlign='middle'>
+                    <h3><Link to={`/`}>Marvin</Link> is currently working on the <Link to={`/`}>Have a paper airplane contest with some friends</Link> activity</h3>
+                </Grid.Column>
+                <Grid.Column width={4} verticalAlign='middle' textAlign='center'>
+                    <Progress percent='100' indicating />
+                </Grid.Column>
+            </Grid>
+          </Container>
+  </Segment>
 </Segment>
   
-  
-        </Segment>
+  </Segment>
       </Grid.Column>
       <Grid.Column>
         <Segment 
-    raised
-  inverted
-  color='yellow'
-  verticalAlign='middle'>
+          raised
+          inverted
+          color='yellow'
+          
+        >
  
-      <Segment   
-          inverted color='yellow' 
-          verticalAlign='middle' 
-          id="segment"
-      >
+      
         <Header size='huge'>Welcome to HoneyBadges</Header>
           <h3>Sign Up</h3>
+          <Container fluid>
           <Form  onSubmit= {onSignUp}>
               <Form.Field>
                   <Form.Input 
@@ -294,21 +291,29 @@ return (
                       
                   />
               </Form.Field>
+              <br />
               <Form.Field>
                   <Form.Input 
                       fluid
-                      icon='lock'
+                      icon='calendar alternate outline'
+                      // placeholder='current date'
                       iconPosition='left'
-                      placeholder='Enter birth date'
                       required
                       name='createdDate'
                       value={createdDate}
+                      defaultValue='today'
                       type='date'
                       onChange={e => setCreatedDate(e.target.value)}
 
    
                   />
               </Form.Field>
+              <br />
+
+
+              < AvatarSelection avatar={avatar} setAvatar={setAvatar} />
+
+
               <br />
               <Form.Button 
                    secondary 
@@ -323,7 +328,8 @@ return (
                   Submit
               </Form.Button>
           </Form>
-      </Segment>
+          </Container>
+      
   
 <Divider horizontal>Or</Divider>
 

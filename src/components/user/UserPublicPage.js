@@ -1,12 +1,21 @@
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import {  Button, Segment, Grid, Label, Icon, Image, Modal, Header, List, Form, Container } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
-import { changeBuddyStatus, signOut } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 import { getTheirActivities } from '../../api/activity'
 import ActivitySegment from '../activities/ActivitySegment'
 import LoadingScreen from '../shared/LoadingPage'
-import getUserInfo  from '../../api/user'
+
+
+
+
+import imgSrc from '../shared/ImgSrc'
+
+import { getUserInfo }  from '../../api/user'
+import RequestModal from './RequestModal'
+
+
+
 
 import MessageForm from '../shared/MessageForm'
 import getViewedUserInfo from '../../api/viewedUser'
@@ -23,13 +32,6 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
     const navigate = useNavigate()
 
 
-    const defaultMessage = {
-        recipient: ''
-    }
-
-
-    const [message, setMessage] = useState(defaultMessage)
-
     //piece of state for badges modal --> should be abstracte into it's own component
    
     //piece of state for user email
@@ -42,8 +44,9 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
     const [email, setEmail] = useState('')
     const [thisUser, setThisUser] = useState({})
     const [createdDate, setCreatedDate] = useState('')
+    const [createdAvatar, setAvatar] = useState('')
     const [badges, setBadges] = useState(null)
-    const [buddiesArr, setBuddiesArr] = useState([])
+    // const [buddiesArr, setBuddiesArr] = useState([]) ==> not going to view other's buddies for now
 
      //after initial render, make axios call to grab activity/count data and set the state variables 
      useEffect(() => {
@@ -63,8 +66,13 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
             .then(res => {
                 setEmail(res.data.user.email)
                 setCreatedDate(res.data.user.createdDate)
+
+                setAvatar(res.data.user.avatar)
+
+
                 setThisUser(res.data.user.user)
-                setBuddiesArr(res.data.user.buddies)
+                // setBuddiesArr(res.data.user.buddies)
+
             })
             .catch((error) => {
                 msgAlert({
@@ -79,112 +87,9 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
         triggerRefresh()
     }
 
-    const handleSubmit = (e) => {
-            e.preventDefault()
 
-            createMessage(currentUser, message)
-                // .then(() => handleClose())
-                .then(() => {
-                
-                    msgAlert({
-                        heading: 'Success',
-                        message: 'Created Buddy Request',
-                        variant: 'success'
-                    })
-                })
-                .then(() => triggerRefresh())
-                .catch((error) => {
-                    msgAlert({
-                        heading: 'Failure',
-                        message: 'Create Buddy Request Failure' + error,
-                        variant: 'danger'
-                    })
-                })
-        }
     
-        const handleChange = (e , target) => {
-            setMessage(prevMessage => {
-                const { name, value } = target
-                const updatedName = name
-                let updatedValue = value
-                const updatedMessage = { [updatedName]: updatedValue }
-
-                return { ...prevMessage, ...updatedMessage}
-            })
-        }
-
-    const handleChangeBuddyStatus = (e) => {
-        //set new buddy status
-        
-        if(currentUser.buddies.filter(buddy => buddy == email).length > 0){
-            
-            for(let i = 0; i < currentUser.buddies.length; i ++){
-                    if(i == email){
-                        currentUser.buddies.splice(i, 1)
-                    }
-            }
-            console.log('success')
-        } else {
-            currentUser.buddies.push(email)
-            buddiesArr.push(currentUser.email)
-        }
-        currentUser.buddies.push(email)
-        currentUser.buddies.push(otherUserId)
-        buddiesArr.push(currentUser.email)
-        buddiesArr.push(currentUser._id)
-        //make axios call
-        changeBuddyStatus(currentUser, email)
-            .then(() => {
-                // trigger
-                console.log('current', currentUser.email, currentUser.buddies)
-                console.log('this', thisUser.email, buddiesArr)
-            })
-            .catch(error => {
-                msgAlert({
-                    heading:'Something went wrong',
-                    message: "Update progress failed " + error,
-                    variant: 'danger'
-                })
-            })
-        changeBuddyStatus(currentUser, otherUserId)
-            .then(() => {
-                // trigger
-                console.log('current', currentUser.email, currentUser.buddies)
-                console.log('this', thisUser.email, buddiesArr)
-            })
-            .catch(error => {
-                msgAlert({
-                    heading:'Something went wrong',
-                    message: "Update progress failed " + error,
-                    variant: 'danger'
-                })
-            })
-        changeBuddyStatus(thisUser, currentUser.email)
-            .then(() => {
-                // trigger
-                console.log('it did it')
-
-            })
-        changeBuddyStatus(thisUser, currentUser._id)
-            .then(() => {
-                // trigger
-                console.log('it did it')
-
-            })
-            .catch(error => {
-                msgAlert({
-                    heading:'Something went wrong',
-                    message: "Update progress failed " + error,
-                    variant: 'danger'
-                })
-            })
-    }
-    const buddsMap = buddiesArr.map((buds) => (
-    <h1><Link to={`/user-public-page/${buds}`} onClick={handleRefresh}>{buds}</Link>
-        {/* <Button onClick={nav}>{buds}</Button> */}
-    </h1>
-    ))
-    console.log('this user', thisUser)
+    
 
 
      //set JSX for activities w/ MyActivity component --> will show loading screen until call to get data is completed and page re-renders 
@@ -214,7 +119,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                     <Grid columns={2}>
                                         <Grid.Column width={5} textAlign='middle'>
                                             <Image 
-                                                src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
+                                                src={createdAvatar}
                                                 size='small' 
                                                 circular 
                                                 centered
@@ -225,7 +130,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                     
                                         
 
-                                            <h1>Super Active Guy</h1> 
+                                            <h1>{email}</h1> 
 
                                             <h2>member since {createdDate}</h2>
                                             { currentUser._id !== otherUserId 
@@ -238,16 +143,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                             ?
                                             // <Button onClick={handleChangeBuddyStatus}>Add Buddy</Button>
                                             <Container className="justify-content-center">
-                                                <Form onSubmit={ handleSubmit }>
-                                                    <Form.Input
-                                                        type='text'
-                                                        name='recipient'
-                                                        id='recipient'
-                                                        defaultValue="635fcd2e20335c848dc124e4"
-                                                        onChange={handleChange}>
-                                                    </Form.Input>
-                                                    <Button type='submit' color='yellow'>Send Buddy Invite</Button>
-                                                </Form>
+                                                <RequestModal msgAlert={msgAlert} sender={currentUser} recipient={thisUser}  />
                                             </Container>
                                             
                                             :
@@ -255,91 +151,6 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
                                             }
                                         </Grid.Column>
                                     </Grid>
-                                </Grid.Column>
-                                
-                                <Grid.Column width={8}>
-                                    <Segment>
-                                        <Grid padded textAlign='center'>
-                                            <Grid.Row>
-                                                <h2 id="bestBuds">{email}'s Best Buds</h2>
-                                            </Grid.Row>
-
-                                            <Grid.Row >
-                                                <Grid columns={4}>
-                                                    <Grid.Column textAlign='center'>
-
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-                                                            Joe
-                                                        </Label>
-                                                    </Grid.Column>
-                                                    <Grid.Column textAlign='center'>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/christian.jpg' />
-                                                            Elliot
-                                                        </Label>
-                                                    </Grid.Column>
-                                                    <Grid.Column textAlign='center'>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
-                                                            Stevie
-                                                        </Label>
-                                                    </Grid.Column>
-                                                    <Grid.Column textAlign='center'>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
-                                                            Jenny
-                                                        </Label>
-                                                    </Grid.Column>
-                                                    
-                                                </Grid>
-                                            </Grid.Row>
-                                            <Grid.Row>
-                                                <div id='viewBudsButton'>
-                                                    <Modal
-                                                        onClose={() => setOpen(false)}
-                                                        onOpen={() => setOpen(true)}
-                                                        open={open}
-                                                        trigger={
-                                                            <Button verticalAlign='middle' size='medium'> 
-                                                                <Icon size='large'name='user' />
-                                                                View {email}'s Buddies
-                                                            </Button>}
-                                                        >
-                                                        <Modal.Header>{email}'s Buddies</Modal.Header>
-                                                        <Modal.Content >
-                                                           <Segment>
-                                                                {buddsMap}
-                                                                
-                                                           <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-                                                            Joe
-                                                        </Label>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/christian.jpg' />
-                                                            Elliot
-                                                        </Label>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
-                                                            Stevie
-                                                        </Label>
-                                                        <Label as='a' image size='big'>
-                                                            <img src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
-                                                            Jenny
-                                                        </Label>
-                                                           </Segment>
-                                                        </Modal.Content>
-                                                        <Modal.Actions>
-                                                            <Button color='black' onClick={() => setOpen(false)}>
-                                                                Close
-                                                            </Button>
-                                                        </Modal.Actions>
-                                                        </Modal>
-                                                </div>
-                                            </Grid.Row>
-                                        </Grid>
-                                        
-                                    </Segment>
                                 </Grid.Column>
                             </Grid>
                         </Segment>

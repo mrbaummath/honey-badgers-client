@@ -11,7 +11,8 @@ export const signUp = (credentials) => {
 				email: credentials.email,
 				password: credentials.password,
 				password_confirmation: credentials.passwordConfirmation,
-				createdDate:credentials.createdDate
+				createdDate:credentials.createdDate,
+				avatar: credentials.avatar
 			},
 		},
 	})
@@ -53,19 +54,5 @@ export const changePassword = (passwords, user) => {
 				new: passwords.newPassword,
 			},
 		},
-	})
-}
-
-export const changeBuddyStatus = (user, buddy) => {
-	return axios({
-		url: apiUrl + '/change-buddies',
-		method: 'PATCH',
-		headers: {
-			Authorization: `Token token=${user.token}`,
-		},
-		data: {
-			buddy:  buddy,
-			user: user
-		}
 	})
 }

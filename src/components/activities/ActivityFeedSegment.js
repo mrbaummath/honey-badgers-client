@@ -76,7 +76,7 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
                 <Grid.Column width={2} verticalAlign='center'>
                     
                 <Image 
-                    src='https://react.semantic-ui.com/images/avatar/small/christian.jpg'
+                    src={activity.owner.avatar || 'https://react.semantic-ui.com/images/avatar/small/christian.jpg'}
                     size='small'
                     circular 
                     centered/>
@@ -86,9 +86,9 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
                 </Grid.Column>
                 <Grid.Column width={4} verticalAlign='middle' textAlign='center'>
                     <Progress percent={percent} indicating />
-                    {/* <Button size='large' useNavigate={`/page-page/${activity.owner}`}>View Their Activity</Button> */}
+                    <Button size='large' useNavigate={`/page-page/${activity.owner}`}>View Activity</Button> 
                     
-                    {/* { mine ? 
+                     { mine ? 
                     <>
                     <Button onClick={decreaseProgress}  negative circular icon='minus'/>
                     <Button onClick={increaseProgress} positive circular icon='plus'/>
@@ -105,7 +105,7 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
                     </>
                     :
                     null
-                    }  */}
+                    } 
                 </Grid.Column>
             </Grid>
             </Container>
