@@ -8,7 +8,7 @@ import ActivityForm from "../shared/ActivityForm"
 import LoadingScreen from "../shared/LoadingPage"
 import NoteForm from "../shared/NoteForm"
 import CreateNote from "../notes/CreateNote"
-import ShowNote from "../notes/ShowNote"
+import NotesModal from "../notes/NotesModal"
 
 
 
@@ -122,21 +122,7 @@ useEffect (()=> {
     setShowSaveButton((percent != activity.progress))
 }, [percent])
 
-// let noteCards
-//     if (activity) {
-//         if (activity.notes.length > 0) {
-//             noteCards = activity.notes.map(note => (
-//                 <ShowNote
-//                     key={note._id}
-//                     note={note}
-//                     activity={activity}
-//                     user={user}
-//                     msgAlert={msgAlert}
-//                     triggerRefresh={() => setUpdated(prev => !prev)}
-//                 />
-//             ))
-//         }
-//     }
+
 
 
 // if (deleted) navigate('/activities')
@@ -256,7 +242,7 @@ useEffect (()=> {
               onOpen={() => setNoteModalShow(true)}
               open={noteModalShow}
               trigger={
-                <Button size='large' variant="warning">Notes</Button>
+                <Button size='large' variant="warning">Leave a Note</Button>
               }
             >
 					<Modal.Content>
@@ -290,81 +276,13 @@ useEffect (()=> {
                 </Grid>
               </Segment>
             <Modal.Actions>
-              <Button color='black' onClick={() => setOpen(false)}>
+              <Button color='black' onClick={() => setNoteModalShow(false)}>
                 Go Back
               </Button>
             </Modal.Actions>
 					</Modal.Content>
         		</Modal>
-              {/* <Modal
-                  onClose={() => setOpen(false)}
-                  onOpen={() => setOpen(true)}
-                  open={open}
-                  trigger={
-                    <Button size='large' variant="warning">Notes</Button>
-                  }
-              >
-                  <Modal.Header>Notes</Modal.Header>
-                  <Modal.Content>
-                    <Segment  
-                      padded='very'  
-                      inverted color='yellow' 
-                      verticalAlign='middle' 
-                      id="segment"
-                    >
-                      <Comment.Actions active 
-                        type="text"
-                        value= 'noteName'
-                        placeholder="Note name"
-                        required>
-                      </Comment.Actions>
-                      < NoteForm 
-                        note={ note }
-                        handleChange={ handleChange }
-                        heading="Create a new Note!"
-                        handleSubmit={ handleSubmit }
-                      />
-                      <Segment 
-                        textAlign = 'centered'
-                      >
-                        <Grid 
-                          centered
-                        >
-                          { noteCards }
-                          <Comment>
-                            <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-                            <Comment.Content>
-                              <Comment.Author 
-                                as='a'>Matt
-                              </Comment.Author>
-                              <Comment.Metadata>
-                                <span>Today at 5:42PM</span>
-                              </Comment.Metadata>
-                              <Comment.Text>
-                                How artistic!
-                              </Comment.Text>
-                              <Comment.Actions>
-                                <a>Reply</a>
-                              </Comment.Actions>
-                            </Comment.Content>
-                          </Comment>
-                        </Grid>
-                      </Segment>
-                    </Segment>
-                  </Modal.Content>
-                  <Modal.Actions>
-                    <Button color='black' onClick={() => setOpen(false)}>
-                      Go Back
-                    </Button>
-                    <Button
-                      content='Add Note'
-                      labelPosition='right'
-                      icon='edit'
-                      primary
-                      type="submit"
-                    />
-                  </Modal.Actions>
-              </Modal> */}
+              <NotesModal user={user} msgAlert={msgAlert} activity={activity} />
             </Grid.Column>
             <Grid.Column textAlign='middle'>
                   <UpdateActivityModal 

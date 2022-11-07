@@ -68,7 +68,7 @@ const BuddiesModal = ({user, msgAlert}) => {
                             onClick={()=>handleRemoveBuddy(buddyId)}
                             name='dont'
                             color='red'
-                        />
+                            />
                         </List.Description>
 
                     </List.Content>

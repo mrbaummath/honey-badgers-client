@@ -20,7 +20,7 @@ export const createNote = (user, activityId, newNote) => {
 
 //update a note
 //nothing returned
-export const updateActivity = (user, updatesToNote, activityId, noteId) => {
+export const updateNote = (user, updatesToNote, activityId, noteId) => {
 	return axios({
 		method: 'PATCH',
         headers: {
@@ -33,9 +33,9 @@ export const updateActivity = (user, updatesToNote, activityId, noteId) => {
 	})
 }
 
-//delete an activity
+//delete a note
 //nothing returned 
-export const deleteActivity = (user, activityId, noteId) => {
+export const deleteNote = (user, activityId, noteId) => {
 	return axios({
 		method: 'DELETE',
         headers: {
