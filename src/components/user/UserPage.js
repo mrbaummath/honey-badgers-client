@@ -18,7 +18,7 @@ import BuddiesModal from './BuddiesModal'
 
 
 
-const UserPage = ({ user, msgAlert }) => {
+const UserPage = ({ user, msgAlert, newActivity }) => {
 
     //set state variables for all activities, badges and user's count of completed activities
     const [allMyActivities, setAllMyActivities] = useState(null)
@@ -39,11 +39,11 @@ const UserPage = ({ user, msgAlert }) => {
     useEffect(() => {
         getMyActivities(user)
             .then(res => {
-                setAllMyActivities(res.data.activities)
+                setAllMyActivities(res.data.activities.reverse())
                 setCompletedCounts(res.data.completedCounts)
                 setBadges(res.data.userBadges.filter(badge => badge.level != 'none'))
             })
-    },[])
+    },[newActivity])
 
     //set JSX for rendering the user's feed of community activities 
     const activitiesJSX = publicActivities ? 

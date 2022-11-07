@@ -29,6 +29,8 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [viewedUser, setViewedUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
+  //trigger to help components update if there is a new activity created w/in the modal, which can be called from anywhere. This is purely a toggle and no meaning should be taken from whether it is true or false
+  const [newActivity, setNewActivity] = useState(false)
 
   console.log('user in app', user)
   console.log('message alerts', msgAlerts)
@@ -54,14 +56,14 @@ const App = () => {
 
 		return (
 			<Fragment>
-				<Header user={user} msgAlert={msgAlert} />
+				<Header user={user} msgAlert={msgAlert} setNewActivity={setNewActivity} />
 				<Routes>
 					<Route path='/' element={<Home user={user} msgAlert={msgAlert} setUser={setUser} />} />
 					<Route
 						path='/sign-up'
 						element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
 					/>
-					<Route path='/user-page/' element={<UserPage msgAlert={msgAlert} user={user} />} />
+					<Route path='/user-page/' element={<UserPage msgAlert={msgAlert} user={user} newActivity={newActivity} />} />
 					<Route path='/user-public-page/:otherUserId' element={<UserPublicPage msgAlert={msgAlert} currentUser={user} viewedUser={viewedUser}/>} />
 					<Route
 						path='/sign-in'

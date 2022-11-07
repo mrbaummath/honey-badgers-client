@@ -3,7 +3,7 @@ import { createActivity, randomActivity } from '../../api/activity'
 
 import ActivityForm from '../shared/ActivityForm'
 
-const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
+const CreateActivity = ({ user,  msgAlert, handleClose, setNewActivity }) => {
 
     const defaultActivity = {
         activity: '',
@@ -56,7 +56,7 @@ const CreateActivity = ({ user,  msgAlert, handleClose, triggerRefresh }) => {
                     variant: 'success'
                 })
             })
-            .then(() => triggerRefresh())
+            .then(() => setNewActivity(prev => !prev))
             .catch((error) => {
                 msgAlert({
                     heading: 'Failure',

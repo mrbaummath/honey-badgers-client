@@ -12,11 +12,13 @@ const linkStyle = {
 export default class Header extends Component {
 	state = { 
 		activeItem: 'home',
-		setOpen: false 
+		setOpen: false,
+		newActivity: false 
 	}
 
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 	handleClose = () => { this.setState({setOpen: false})}
+	
   
 	render() {
 	  const { activeItem } = this.state
@@ -64,7 +66,7 @@ export default class Header extends Component {
 						</Menu.Item>}
        			 >
 					<Modal.Content>
-						<CreateActivity user={this.props.user} msgAlert={this.props.msgAlert} handleClose={this.handleClose}  />
+						<CreateActivity user={this.props.user} setNewActivity={this.props.setNewActivity}  msgAlert={this.props.msgAlert} handleClose={this.handleClose}  />
 					</Modal.Content>
         		</Modal>
 				<Menu.Item

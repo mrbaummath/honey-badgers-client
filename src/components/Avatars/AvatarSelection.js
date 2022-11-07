@@ -18,7 +18,7 @@ const AvatarSelection = ({avatar, setAvatar}) => {
     <Form.Group inline floated='left'> 
 
       <Container fluid >        
-        <Form.Field>
+        <Form.Field >
         <b><Image size='mini' src={avatars.badger}  wrapped /></b>
           <Checkbox
             radio
@@ -27,13 +27,12 @@ const AvatarSelection = ({avatar, setAvatar}) => {
             value= {avatars.badger}
             checked={avatar === avatars.badger}
             onChange={(e, data) => setAvatar(data.value)}
-            inline='false'
             />
           </Form.Field>
       </Container>
       <Container fluid>
-        <Form.Field spaced>
-        <b><Image size='mini' src={avatars.giraffe} wrapped spaced/></b>
+        <Form.Field >
+        <b><Image size='mini' src={avatars.giraffe} wrapped /></b>
           <Checkbox
             radio
             label='Giraffe'
@@ -45,7 +44,7 @@ const AvatarSelection = ({avatar, setAvatar}) => {
           </Form.Field>
       </Container>
       <Container fluid>
-      <Form.Field spaced>
+      <Form.Field >
       <b><Image size='mini' src={avatars.bear}  wrapped /></b>
         <Checkbox
           radio
@@ -57,8 +56,8 @@ const AvatarSelection = ({avatar, setAvatar}) => {
         </Form.Field>
       </Container>
       <Container fluid>
-        <Form.Field spaced>
-        <b><Image size='mini' src={avatars.raccoon}  wrapped spaced/></b>
+        <Form.Field >
+        <b><Image size='mini' src={avatars.raccoon}  wrapped /></b>
           <Checkbox
             radio
             label='Raccoon'
