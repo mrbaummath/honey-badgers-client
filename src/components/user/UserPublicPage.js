@@ -25,11 +25,10 @@ import BadgesSegment from '../badges/BadgesSegment'
 
 
 const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => {
-    const [open, setOpen] = React.useState(false)
+
     //grab requested user's id from params
     const { otherUserId } = useParams()
-    const { viewedUserId } = useParams()
-    const navigate = useNavigate()
+
 
 
     //piece of state for badges modal --> should be abstracte into it's own component
@@ -52,7 +51,7 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
      useEffect(() => {
         getTheirActivities(currentUser, otherUserId)
             .then(res => {
-                setPublicActivities(res.data.activities)
+                setPublicActivities(res.data.activities.reverse())
                 setCompletedCounts(res.data.completedCounts)
                 setBadges(res.data.userBadges.filter(badge => badge.level != 'none'))
             })
@@ -175,7 +174,9 @@ const UserPublicPage = ({currentUser, msgAlert, viewedUser, triggerRefresh}) => 
 
                             <Segment raised textAlign='center' fluid>
                                 <h1>{email}'s Activity Timeline</h1>
-                                {activitiesJSX} 
+                                <div className='scrolling-group'>
+                                    {activitiesJSX} 
+                                </div>
                             </Segment>
      
                     </Grid.Column>

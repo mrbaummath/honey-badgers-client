@@ -1,5 +1,6 @@
 import ActivitySegment from "./ActivitySegment"
 import LoadingScreen from "../shared/LoadingPage"
+import { Container } from "semantic-ui-react"
 
 
 const MyActivities = ({allMyActivities, msgAlert, user, setCompletedCounts,completedCounts,setBadgeUpdate, addActivity}) => {
@@ -23,9 +24,9 @@ const MyActivities = ({allMyActivities, msgAlert, user, setCompletedCounts,compl
         <LoadingScreen />
 
     return(
-        <>
+        <div className='scrolling-group'>
             {myActivitiesJSX}
-        </>
+        </div>
     )
 }
 

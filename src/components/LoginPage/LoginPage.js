@@ -334,17 +334,17 @@ return (
 <Divider horizontal>Or</Divider>
 
 
-		  <Segment raised inverted color='yellow' verticalAlign='middle' id="segment">
-            <Grid columns={2} stackable textAlign='center'>
-                <Grid.Column centered>
-                    {/* <Button secondary inverted color='yellow' class="signButton" href='sign-in'>Sign in</Button> */}
-                <Message fluid attached='bottom' color='yellow' stretched size='huge'>
-      <Icon name='help' />
-      Already signed up?&nbsp;<Link to='/sign-in'>Login here</Link>&nbsp;instead.
-    </Message> 
-    </Grid.Column>
-            </Grid>
-		  </Segment>
+		  {/* <Segment raised inverted color='yellow' verticalAlign='middle' id="segment" stretched> */}
+            {/* <Grid columns={2} stackable textAlign='center'>
+                <Grid.Column centered> */}
+                  
+                <Message fluid attached='bottom' color='yellow' stretched size='massive' textAlign='center'>
+                  <Icon name='help' />
+                  Already signed up?&nbsp;<Link to='/sign-in'>Login here</Link>&nbsp;instead.
+              </Message> 
+    {/* </Grid.Column>
+            </Grid> */}
+		  {/* </Segment> */}
 
 </Segment>
       </Grid.Column>

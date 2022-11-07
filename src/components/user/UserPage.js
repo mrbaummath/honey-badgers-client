@@ -118,8 +118,9 @@ const UserPage = ({ user, msgAlert, newActivity }) => {
                     <Grid.Column width={5} >
                         <Segment raised textAlign='middle'>
                             <h1 id='commFeed'>Community Tasks</h1>
-                            {/* <Feed events={events} /> */}
+                            <div className='scrolling-group'>
                             {activitiesJSX}
+                            </div>
                         </Segment>
                     </Grid.Column>
                 </Grid>

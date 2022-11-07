@@ -101,3 +101,8 @@ code {
   align-content: center;
   text-align: center;
 }
+
+.scrolling-group {
+  max-height: 200vh;
+  overflow:scroll
+}
