@@ -56,6 +56,16 @@ const App = () => {
 
 		return (
 			<Fragment>
+				{msgAlerts.map((msgAlert) => (
+					<AutoDismissAlert
+						key={msgAlert.id}
+						heading={msgAlert.heading}
+						variant={msgAlert.variant}
+						message={msgAlert.message}
+						id={msgAlert.id}
+						deleteAlert={deleteAlert}
+					/>
+				))}
 				<Header user={user} msgAlert={msgAlert} setNewActivity={setNewActivity} />
 				<Routes>
 					<Route path='/' element={<Home user={user} msgAlert={msgAlert} setUser={setUser} />} />
@@ -116,16 +126,7 @@ const App = () => {
 					}
 					/> */}
 				</Routes>
-				{msgAlerts.map((msgAlert) => (
-					<AutoDismissAlert
-						key={msgAlert.id}
-						heading={msgAlert.heading}
-						variant={msgAlert.variant}
-						message={msgAlert.message}
-						id={msgAlert.id}
-						deleteAlert={deleteAlert}
-					/>
-				))}
+				
 			</Fragment>
 		)
 }
