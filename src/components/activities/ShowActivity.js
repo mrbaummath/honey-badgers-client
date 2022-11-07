@@ -21,6 +21,7 @@ const ShowActivity = ({ user, msgAlert }) => {
     const [showSaveButton, setShowSaveButton] = useState(false)
     const navigate = useNavigate()
     const [open, setOpen] = React.useState(false)
+    const [noteModalShow, setNoteModalShow] = useState(false)
    
 
     const { activityId } = useParams()
@@ -251,9 +252,9 @@ useEffect (()=> {
           <Grid.Row>
             <Grid.Column  textAlign='middle'>
             <Modal
-              onClose={() => setOpen(false)}
-              onOpen={() => setOpen(true)}
-              open={open}
+              onClose={() => setNoteModalShow(false)}
+              onOpen={() => setNoteModalShow(true)}
+              open={noteModalShow}
               trigger={
                 <Button size='large' variant="warning">Notes</Button>
               }
@@ -265,7 +266,7 @@ useEffect (()=> {
               verticalAlign='middle' 
               id="segment"
             >
-                <CreateNote user={user} msgAlert={msgAlert} />
+                <CreateNote user={user} msgAlert={msgAlert} activity={activity} triggerRefresh={()=>setUpdated(prev => !prev)} setNoteModalShow={setNoteModalShow} />
             </ Segment>
             < Segment>
                <Grid 

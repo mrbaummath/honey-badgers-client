@@ -17,6 +17,7 @@ const NoteForm = (props) => {
                     Label='Note'
                     placeholder='Note Content'
                     defaultValue = { note.text}
+                    onChange={handleChange}
                 />
                 <Form.Field>
                     <Checkbox 
@@ -26,7 +27,7 @@ const NoteForm = (props) => {
                         onChange={ handleChange }
                     />
                 </Form.Field>
-                {/* <Button type='submit' color='yellow'>Submit</Button> */}
+                <Button type='submit' color='yellow'>Submit</Button>
             </Form>
         </Container>
     )
