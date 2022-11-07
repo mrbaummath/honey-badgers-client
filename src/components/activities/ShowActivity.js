@@ -233,10 +233,10 @@ useEffect (()=> {
         <Grid 
           padded 
           centered
-          columns={3}
+          columns={4}
         >
           <Grid.Row>
-            <Grid.Column  textAlign='middle'>
+            <Grid.Column>
             <Modal
               onClose={() => setNoteModalShow(false)}
               onOpen={() => setNoteModalShow(true)}
@@ -254,27 +254,7 @@ useEffect (()=> {
             >
                 <CreateNote user={user} msgAlert={msgAlert} activity={activity} triggerRefresh={()=>setUpdated(prev => !prev)} setNoteModalShow={setNoteModalShow} />
             </ Segment>
-            < Segment>
-               <Grid 
-                  centered
-                >
-                  {/* { noteCards } */}
-                  {/* <Comment>
-                      <Comment.Avatar as='a' src='https://imgur.com/uEW4fPX.png' style={{width: '20px', height: '20px'}} />
-                        <Comment.Content>
-                          <Comment.Author 
-                            as='a'>Matt
-                          </Comment.Author>
-                          <Comment.Metadata>
-                            <span>Today at 5:42PM</span>
-                          </Comment.Metadata>
-                          <Comment.Text>
-                            How artistic!
-                          </Comment.Text>
-                        </Comment.Content>
-                  </Comment> */}
-                </Grid>
-              </Segment>
+            
             <Modal.Actions>
               <Button color='black' onClick={() => setNoteModalShow(false)}>
                 Go Back
@@ -282,6 +262,9 @@ useEffect (()=> {
             </Modal.Actions>
 					</Modal.Content>
         		</Modal>
+             
+            </Grid.Column>
+            <Grid.Column>
               <NotesModal user={user} msgAlert={msgAlert} activity={activity} />
             </Grid.Column>
             <Grid.Column textAlign='middle'>

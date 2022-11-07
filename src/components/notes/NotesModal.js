@@ -8,11 +8,11 @@ const NotesModal = ({activity, user, msgAlert}) => {
 
     const [open, setOpen] = useState(false)
     const [notes, setNotes] =useState(null)
+    const [anUpdate, setAnUpdate] = useState(false)
 
     //grab notes for activity
     useEffect(()=> {
         if (open) {
-        console.log(activity)
         getActivity(user, activity.id)
             .then(res => setNotes(res.data.activity.notes))
             .catch(error => {
@@ -23,7 +23,7 @@ const NotesModal = ({activity, user, msgAlert}) => {
                 })
             })
         }
-    }, [open])
+    }, [open, anUpdate])
     
     let modalContent
     if (!notes) {
@@ -34,7 +34,7 @@ const NotesModal = ({activity, user, msgAlert}) => {
         modalContent = 
         <List>
             {notes.map(note => (
-                <Note key={note._id} user={user} activity={activity} note={note} />
+                <Note key={note._id} user={user} activity={activity} note={note} triggerRefresh={()=>setAnUpdate(prev =>!prev)} msgAlert={msgAlert} />
             ))}
         </List>
     }

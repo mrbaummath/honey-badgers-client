@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom"
-import {List, Image} from "semantic-ui-react"
+import {List, Image, Icon} from "semantic-ui-react"
+import { deleteNote } from "../../api/note"
 
-const Note = ({note, user, activity}) => {
+const Note = ({note, user, activity, triggerRefresh, msgAlert}) => {
 
     const noteOwner = note.owner
     const activityOwnerId = activity.owner._id
@@ -10,7 +11,19 @@ const Note = ({note, user, activity}) => {
 
     const handle = noteOwner.username ? noteOwner.username : noteOwner.email
 
-    console.log(note)
+   const handleDelete = (e) => {
+    deleteNote(user, activity._id, note._id)
+        .then(()=>triggerRefresh())
+        .catch((error) => {
+            msgAlert({
+                heading:'Error',
+                message: 'Could note delete' + error,
+                variant: 'danger'
+            })
+        })
+   }
+
+   const showDeleteIcon = (noteOwner._id === user._id || activityOwnerId === user._id)
 
     return (
         <List.Item>
@@ -21,7 +34,13 @@ const Note = ({note, user, activity}) => {
                     onClick={() => navigate(`/user-public-page/${noteOwner._id}`)}>{handle}
                 </List.Header>
                 <List.Description padded>
-                   <p>{note.text}</p> 
+                   <p>
+                    {note.text}
+                    { showDeleteIcon && <Icon link onClick={handleDelete} name='dont' color='red'
+                        /> }
+                        
+            
+                    </p> 
                 </List.Description>
 
             </List.Content>
