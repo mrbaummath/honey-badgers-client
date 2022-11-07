@@ -18,10 +18,12 @@ const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, c
         const oldCount = oldCounts[type]
         const oldLevel = badgeLevel(oldCount)
         const newLevel = badgeLevel(newCount)
+        console.log(oldCount, newCount)
         if (oldLevel != newLevel) {
             if (newLevel == 'none') {
                 setBadgeUpdate({'type':type, 'change':'lost'})
             } else if (newCount > oldCount){
+                console.log(newLevel)
                 setBadgeUpdate({'type':type, 'change': 'up', 'level': newLevel})
             } else if (newCount < oldCount) {
                 setBadgeUpdate({'type': type, 'change': 'down', 'level': newLevel})
@@ -78,7 +80,7 @@ const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, c
         }
         //if the activity is now completed, increment completedCounts
         if (percent == 100) {
-
+            detectNewBadge(completedCounts, activity.type, completedCounts[activity.type] + 1)
             setCompletedCounts(oldCounts => {
                 const counts = oldCounts
                 counts[activity.type] += 1

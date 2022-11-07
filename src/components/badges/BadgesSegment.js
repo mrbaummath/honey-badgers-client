@@ -13,6 +13,7 @@ const BadgesSegment = ({badges, setBadges, badgeOwnerHandle, mine, activities, b
         if(!badgeUpdate) {
             setBadgeWasUpdated(false)
         } else {
+            console.log(badgeUpdate)
             //if badge is new, push a new badge to badges array
             if (badgeUpdate.change === 'up' && badgeUpdate.level === 'novice') {
                 const newBadge= {'name': badgeUpdate.type, 'level':badgeUpdate.level}
