@@ -28,7 +28,6 @@ const IndexActivity = ({ user, msgAlert }) => {
         .then(res => {
             setAllActivities(res.data.activities)
             setFilterActivities(res.data.activities)
-            console.log(res.data.activities)
         })
         .catch((error) => {
             msgAlert({

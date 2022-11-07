@@ -8,7 +8,7 @@ import ActivityFeedSegment from '../activities/ActivityFeedSegment'
 const ActivityFeed = ({ currentUser, msgAlert, publicActivities}) => {
     const activitiesJSX = publicActivities ? 
         publicActivities.slice(0).reverse().filter((activity, idx) => idx < 40).map((activity) => (
-            <ActivityFeedSegment key={activity.id} activity={activity} user={currentUser} msgAlert={msgAlert} mine={currentUser._id == activity.owner._id} />
+            <ActivityFeedSegment key={activity.id} activity={activity} user={currentUser} msgAlert={msgAlert} mine={currentUser._id === activity.owner._id} />
   ))
   :
   <LoadingScreen />

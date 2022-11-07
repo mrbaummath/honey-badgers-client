@@ -33,14 +33,19 @@ const FeedPage  = ({currentUser, msgAlert, mine}) => {
       useEffect(() => {
       getAllActivities()
           .then(res => {
-              console.log(res)
               setPublicActivities(res.data.activities.filter(activity => activity.owner))
               setCompletedCounts(res.data.completedCounts)
               //set badges when that virtual is done
           })
-          .catch(console.log('oops'))
+          .catch(error => {
+            msgAlert({
+              'heading': 'Error',
+              'message': 'Could not get activities',
+              'variant': 'danger'
+            })
+          })
   },[])
-  console.log('this', {activitiesJSX})
+ 
     return(
       <>
   <div>

@@ -1,8 +1,7 @@
 import {  List, Grid, Icon, Segment} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-//badge image linkes
-import imgSrc from '../shared/ImgSrc'
+
 import { useEffect, useState } from 'react'
 
 //component to filter out activities which are relevant to a particular badge and render them in the badge's modal

@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import {  Button, Segment, Grid, Feed, Icon, Image, Progress, List, Divider, Container } from 'semantic-ui-react'
-import { signOut } from '../../api/auth'
-import messages from '../shared/AutoDismissAlert/messages'
+import { Link } from 'react-router-dom'
+import {  Button, Segment, Grid, Image, Progress, Divider, Container } from 'semantic-ui-react'
 import { updateActivity } from '../../api/activity'
 
 const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
-    const imgSrc = 'https://i.etsystatic.com/7578666/r/il/cff814/1735209273/il_1140xN.1735209273_ecbc.jpg'
     //declare pieces of state --> grab current progress from activity object and set it as initial state. Set state variables to track when progress is being saved and whether to show the save button
     const [percent, setPercent] = useState(activity.progress)
     const [percentChangeSaving, setPercentChangeSaving] = useState(false)
     const [showSaveButton, setShowSaveButton] = useState(false)
-    console.log(percent, activity.progress)
+
 
     //function to increment progress when user clicks --> this only changes the progress bar. Nothing is changed on the backend until "save" is hit
 
@@ -66,7 +63,7 @@ const ActivityFeedSegment = ({ activity, msgAlert, user, mine}) => {
 
     //function to determine whether to show save button or not 
     useEffect (()=> {
-        setShowSaveButton((percent != activity.progress))
+        setShowSaveButton((percent !== activity.progress))
     }, [percent])
 
     return (

@@ -1,10 +1,7 @@
-import React, { useState, Component }from 'react'
-import { Button, Container, Header, Image, Modal, Radio, Segment, Form, Checkbox } from 'semantic-ui-react'
-import ActivityBadgeGroup from '../activities/ActivityBadgeGroup'
+import React from 'react'
+import {  Container, Image, Form, Checkbox } from 'semantic-ui-react'
 import imgSrc from '../shared/ImgSrc'
-import { signUp, signIn } from '../../api/auth'
-import messages from '../shared/AutoDismissAlert/messages'
-import { useNavigate } from 'react-router-dom'
+
 
 const AvatarSelection = ({avatar, setAvatar}) => {
    

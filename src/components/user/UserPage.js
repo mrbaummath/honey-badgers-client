@@ -58,7 +58,13 @@ const UserPage = ({ user, msgAlert, newActivity }) => {
             .then(res => {
                 setPublicActivities(res.data.activities.filter(activity => activity.owner))
             })
-            .catch(console.log('oops'))
+            .catch(error => {
+                msgAlert({
+                    'heading': 'Error',
+                    'message': 'Could not get activities',
+                    'variant': 'danger'
+                })
+            })
     },[])
 
 

@@ -1,5 +1,5 @@
-import React, { useState, Component} from 'react'
-import { Grid, Segment, Feed, Icon, Button, Divider, Form, Container, Input, Message, Header, List, Image, Progress } from 'semantic-ui-react'
+import React, { useState } from 'react'
+import { Grid, Segment, Icon, Divider, Form, Container, Message, Header, List, Image, Progress } from 'semantic-ui-react'
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 
@@ -29,7 +29,7 @@ const LoginPage = (props) => {
     const { msgAlert, setUser } = props
 
     const credentials = {email, username, password, passwordConfirmation, createdDate, avatar }
-    console.log(credentials)
+
 
     signUp(credentials)
       .then(() => signIn(credentials))

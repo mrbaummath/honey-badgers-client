@@ -20,7 +20,6 @@ const CreateActivity = ({ user,  msgAlert, handleClose, setNewActivity }) => {
     const [activityModalShow, setActivityModalShow] = useState(false)
 
     const handleChange = (e , target) => {
-        console.log(target)
         setActivity(prevActivity => {
             const { name, value } = target
             const updatedName = name

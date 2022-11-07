@@ -78,8 +78,7 @@ const ActivitySegment = ({ activity, msgAlert, user, mine, setCompletedCounts, c
         }
         //if the activity is now completed, increment completedCounts
         if (percent == 100) {
-            const a = detectNewBadge(completedCounts, activity.type, completedCounts[activity.type] + 1)
-            console.log(a)
+
             setCompletedCounts(oldCounts => {
                 const counts = oldCounts
                 counts[activity.type] += 1

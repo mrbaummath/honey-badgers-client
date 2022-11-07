@@ -32,10 +32,8 @@ const App = () => {
   //trigger to help components update if there is a new activity created w/in the modal, which can be called from anywhere. This is purely a toggle and no meaning should be taken from whether it is true or false
   const [newActivity, setNewActivity] = useState(false)
 
-  console.log('user in app', user)
-  console.log('message alerts', msgAlerts)
+
   const clearUser = () => {
-    console.log('clear user ran')
     setUser(null)
   }
 

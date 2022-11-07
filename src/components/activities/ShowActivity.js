@@ -27,7 +27,6 @@ const ShowActivity = ({ user, msgAlert }) => {
     // const navigate = useNavigate()
 
     useEffect(() => {
-      console.log('change to updated')
       getActivity(user, activityId)
         .then((res) => {
             setActivity(res.data.activity)

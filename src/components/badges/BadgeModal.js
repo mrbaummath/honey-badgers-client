@@ -16,7 +16,6 @@ const BadgeModal = ({badge, activities, completedCounts}) => {
         
         <Modal
             open={open}
-            centered={true}
             onClose={()=> setOpen(false)}
             onOpen={()=> setOpen(true)}
             dimmer='blurring'

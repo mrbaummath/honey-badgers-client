@@ -19,10 +19,15 @@ const FeedPage  = ({currentUser, msgAlert}) => {
       useEffect(() => {
       getAllActivities()
           .then(res => {
-              console.log(res)
               setPublicActivities(res.data.activities.filter(activity => activity.owner))
           })
-          .catch(console.log('oops'))
+          .catch((error) => {
+            msgAlert({
+                'heading': 'Error',
+                'message': 'Could not get Activities',
+                'variant': 'danger'
+            })
+          })
   },[])
   
   return(
