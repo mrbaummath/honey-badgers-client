@@ -75,7 +75,7 @@ const ActivityFeedUserPage = ({ activity, msgAlert, user, mine}) => {
                 <Grid.Column width={5} verticalAlign='center' textAlign='middle'>
                     
                 <Image 
-                    src='https://react.semantic-ui.com/images/avatar/small/christian.jpg'
+                    src={activity.owner.avatar || 'https://react.semantic-ui.com/images/avatar/small/christian.jpg'}
                     size='small'
                     circular 
                     centered/>
